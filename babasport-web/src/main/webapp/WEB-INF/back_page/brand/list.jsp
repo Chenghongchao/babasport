@@ -15,11 +15,12 @@
 	<div class="clear"></div>
 </div>
 <div class="body-box">
-<form action="v_list.shtml" method="post" style="padding-top:5px;">
-品牌名称: <input type="text" name="name"/>
-	<select >
-		<option value="1">是</option>
-		<option>不是</option>
+<form action="/brand/list.do" method="post" style="padding-top:5px;">
+品牌名称: <input type="text" name="name" value="${params.name}"/>
+	<select name="isDisplay" >
+		<option>全部</option>
+		<option value="1" <c:if test="${params.isDisplay == 1 }">selected="true"</c:if> >是</option>
+		<option value="0" <c:if test="${params.isDisplay == 0 }">selected="true"</c:if>>不是</option>
 	</select>
 	<input type="submit" class="query" value="查询"/>
 </form>
@@ -37,111 +38,20 @@
 		</tr>
 	</thead>
 	<tbody class="pn-ltbody">
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="8" name="ids"/></td>
-			<td align="center">8</td>
-			<td align="center">金乐乐</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="7" name="ids"/></td>
-			<td align="center">7</td>
-			<td align="center">喜悦瑜伽</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="6" name="ids"/></td>
-			<td align="center">6</td>
-			<td align="center">丹璐斯</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="5" name="ids"/></td>
-			<td align="center">5</td>
-			<td align="center">菩媞</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="4" name="ids"/></td>
-			<td align="center">4</td>
-			<td align="center">伊朵莲</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="3" name="ids"/></td>
-			<td align="center">3</td>
-			<td align="center">梵歌纳（vangona）</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="2" name="ids"/></td>
-			<td align="center">2</td>
-			<td align="center">凯速（KANSOON）</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
-		<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-			<td><input type="checkbox" value="1" name="ids"/></td>
-			<td align="center">1</td>
-			<td align="center">依琦莲</td>
-			<td align="center"><img width="40" height="40" src="/res/img/pic/ppp0.jpg"/></td>
-			<td align="center"></td>
-			<td align="center">99</td>
-			<td align="center">是</td>
-			<td align="center">
-			<a class="pn-opt" href="#">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}" href="#">删除</a>
-			</td>
-		</tr>
-	
+		<c:forEach items="${brands.results}" var="entry">
+			<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
+				<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
+				<td align="center">${entry.id}</td>
+				<td align="center">${entry.name}</td>
+				<td align="center"><img width="40" height="40" src="${entry.allImgUrl}"/></td>
+				<td align="center">${entry.description}</td>
+				<td align="center">${entry.sort}</td>
+				<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
+				<td align="center">
+					<a class="pn-opt" href="/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt"  href="/brand/delete.do?id=${entry.id }&name=${name}&isDisplay=${isDisplay}">删除</a>
+				</td>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
 <div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/></div>

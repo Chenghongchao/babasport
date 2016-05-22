@@ -31,12 +31,12 @@
 <div class="box-positon">
 	<div class="rpos">当前位置: 品牌管理 - 添加</div>
 	<form class="ropt">
-		<input type="submit" onclick="this.form.action='v_list.shtml';" value="返回列表" class="return-button"/>
+		<input type="submit" onclick="this.form.action='/brand/list.do';" value="返回列表" class="return-button"/>
 	</form>
 	<div class="clear"></div>
 </div>
 <div class="body-box" style="float:right">
-	<form id="jvForm" action="o_save.shtml" method="post" enctype="multipart/form-data">
+	<form id="jvForm" action="/brand/save.do" method="post" enctype="multipart/form-data">
 		<table cellspacing="1" cellpadding="2" width="100%" border="0" class="pn-ftable">
 			<tbody>
 				<tr>
@@ -65,13 +65,13 @@
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						品牌描述:</td><td width="80%" class="pn-fcontent">
-						<input type="text" class="required" name="name" maxlength="80"  size="60"/>
+						<input type="text" class="required" name="description" maxlength="80"  size="60"/>
 					</td>
 				</tr>
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						排序:</td><td width="80%" class="pn-fcontent">
-						<input type="text" class="required" name="name" maxlength="80"/>
+						<input type="text" class="required" name="sort" maxlength="80"/>
 					</td>
 				</tr>
 				<tr>
