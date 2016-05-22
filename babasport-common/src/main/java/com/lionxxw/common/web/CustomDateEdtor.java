@@ -38,5 +38,13 @@ public class CustomDateEdtor implements WebBindingInitializer{
          *     allowEmpty 是否允许为空
          */
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+
+        /**
+         * 可定义多种日期格式
+         */
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
