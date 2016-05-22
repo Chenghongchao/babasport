@@ -2,16 +2,12 @@ package com.lionxxw.babasport.controller.back;
 
 import com.lionxxw.babasport.core.dto.BrandDto;
 import com.lionxxw.babasport.core.service.BrandService;
-import com.lionxxw.babasport.core.service.ProductService;
-import com.lionxxw.common.base.BaseService;
-import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -46,7 +42,7 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/add.do")
 	public String add(BrandDto brand) throws Exception{
 		brandService.save(brand);
-		return "redirect:/brand/list.do";
+		return "redirect:/back/brand/list.do";
 	}
 
 	@RequestMapping(value = "/brand/toEdit.do")
@@ -61,6 +57,15 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/edit.do")
 	public String edit(BrandDto brand) throws Exception{
 		brandService.update(brand);
-		return "redirect:/brand/list.do";
+		return "redirect:/back/brand/list.do";
+	}
+
+	@RequestMapping(value = "/brand/delByIds.do")
+	public String delByIds(Integer[] ids,BrandDto params, ModelMap model) throws Exception {
+		for (Integer id : ids){
+			brandService.delById(id);
+		}
+		model.addAttribute("params",params);
+		return "redirect:/back/brand/list.do";
 	}
 }

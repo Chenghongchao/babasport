@@ -36,7 +36,7 @@
 	<div class="clear"></div>
 </div>
 <div class="body-box" style="float:right">
-	<form id="jvForm" action="/back/brand/save.do" method="post" enctype="multipart/form-data">
+	<form id="jvForm" action="/back/brand/add.do" method="post" enctype="multipart/form-data">
 		<table cellspacing="1" cellpadding="2" width="100%" border="0" class="pn-ftable">
 			<tbody>
 				<tr>

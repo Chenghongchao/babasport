@@ -5,6 +5,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>babasport-list</title>
+<script type="text/javascript">
+	function checkBox(name, checked){
+		// 全选开始
+		$("input[name='"+name+"']").attr("checked",checked);
+	}
+
+	function optDelete(name, isDisplay){
+		// 请选择一个
+		var size = $("input[name='ids']:checked").size();
+		if (size <= 0){
+			alert("请至少选择一个");
+			return;
+		}
+		if (!confirm("你确定删除吗?")){
+			return;
+		}
+		// 删除
+		$("#jvForm").attr("action","/back/brand/delByIds.do?name="+name+"isDisplay="+isDisplay);
+		$("#jvForm").attr("method","post").submit();
+	}
+</script>
 </head>
 <body>
 <div class="box-positon">
@@ -24,36 +45,38 @@
 	</select>
 	<input type="submit" class="query" value="查询"/>
 </form>
-<table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
-	<thead class="pn-lthead">
-		<tr>
-			<th width="20"><input type="checkbox" onclick="checkBox('ids',this.checked)"/></th>
-			<th>品牌ID</th>
-			<th>品牌名称</th>
-			<th>品牌图片</th>
-			<th>品牌描述</th>
-			<th>排序</th>
-			<th>是否可用</th>
-			<th>操作选项</th>
-		</tr>
-	</thead>
-	<tbody class="pn-ltbody">
-		<c:forEach items="${brands.results}" var="entry">
-			<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
-				<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
-				<td align="center">${entry.id}</td>
-				<td align="center">${entry.name}</td>
-				<td align="center"><img width="40" height="40" src="${entry.allImgUrl}"/></td>
-				<td align="center">${entry.description}</td>
-				<td align="center">${entry.sort}</td>
-				<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
-				<td align="center">
-					<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt"  href="/back/brand/delete.do?id=${entry.id }&name=${name}&isDisplay=${isDisplay}">删除</a>
-				</td>
+<form id="jvForm">
+	<table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
+			<thead class="pn-lthead">
+			<tr>
+				<th width="20"><input type="checkbox" onclick="checkBox('ids',this.checked)"/></th>
+				<th>品牌ID</th>
+				<th>品牌名称</th>
+				<th>品牌图片</th>
+				<th>品牌描述</th>
+				<th>排序</th>
+				<th>是否可用</th>
+				<th>操作选项</th>
 			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+			</thead>
+			<tbody class="pn-ltbody">
+			<c:forEach items="${brands.results}" var="entry">
+				<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
+					<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
+					<td align="center">${entry.id}</td>
+					<td align="center">${entry.name}</td>
+					<td align="center"><img width="40" height="40" src="${entry.allImgUrl}"/></td>
+					<td align="center">${entry.description}</td>
+					<td align="center">${entry.sort}</td>
+					<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
+					<td align="center">
+						<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}"  href="/back/brand/delByIds.do?ids=${entry.id }&name=${params.name}&isDisplay=${params.isDisplay}">删除</a>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+</form>
 <div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/></div>
 </div>
 </body>

@@ -1,23 +1,22 @@
 package com.lionxxw.babasport.controller.back;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
-
-import javax.servlet.http.HttpServletResponse;
-
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.utils.ResponseUtils;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * <p>Description: 上传控制层 </p>

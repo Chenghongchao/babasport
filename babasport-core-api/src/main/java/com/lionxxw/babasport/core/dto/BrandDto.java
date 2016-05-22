@@ -1,7 +1,6 @@
 package com.lionxxw.babasport.core.dto;
 
 import com.lionxxw.common.constants.DataStatus;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
