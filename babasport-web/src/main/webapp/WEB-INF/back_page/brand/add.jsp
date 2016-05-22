@@ -31,12 +31,12 @@
 <div class="box-positon">
 	<div class="rpos">当前位置: 品牌管理 - 添加</div>
 	<form class="ropt">
-		<input type="submit" onclick="this.form.action='/brand/list.do';" value="返回列表" class="return-button"/>
+		<input type="submit" onclick="this.form.action='/back/brand/list.do';" value="返回列表" class="return-button"/>
 	</form>
 	<div class="clear"></div>
 </div>
 <div class="body-box" style="float:right">
-	<form id="jvForm" action="/brand/save.do" method="post" enctype="multipart/form-data">
+	<form id="jvForm" action="/back/brand/save.do" method="post" enctype="multipart/form-data">
 		<table cellspacing="1" cellpadding="2" width="100%" border="0" class="pn-ftable">
 			<tbody>
 				<tr>

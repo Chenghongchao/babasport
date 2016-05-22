@@ -9,29 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(value = "back/frame")
-public class FrameController {
+public class FrameController extends BaseBackController {
 
 	//商品身体
-	@RequestMapping(value = "/product_main.do")
+	@RequestMapping(value = "/frame/product_main.do")
 	public String productMain(){
 		
 		return "frame/product_main";
 	}
 	//商品左身体
-	@RequestMapping(value = "/product_left.do")
+	@RequestMapping(value = "/frame/product_left.do")
 	public String productLeft(){
 		
 		return "frame/product_left";
 	}
 	//订单的身体
-	@RequestMapping(value = "/order_main.do")
+	@RequestMapping(value = "/frame/order_main.do")
 	public String orderMain(){
 		
 		return "frame/order_main";
 	}
 	//订单的左
-	@RequestMapping(value = "/order_left.do")
+	@RequestMapping(value = "/frame/order_left.do")
 	public String orderLeft(){
 		
 		return "frame/order_left";

@@ -19,8 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping(value = "product")
-public class ProductController {
+public class ProductController extends BaseBackController{
 	
 	@Autowired
 	private BrandService brandService;
@@ -28,7 +27,7 @@ public class ProductController {
 	private ProductService productService;
 
 	//商品列表
-	@RequestMapping(value = "/list.do")
+	@RequestMapping(value = "/product/list.do")
 	public ModelAndView list(BrandDto params, PageQuery query){
 		ModelAndView mv = new ModelAndView();
 
@@ -37,7 +36,7 @@ public class ProductController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/add.do")
+	@RequestMapping(value = "/product/add.do")
 	public ModelAndView add(BrandDto params, PageQuery query){
 		ModelAndView mv = new ModelAndView();
 

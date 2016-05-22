@@ -20,14 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping(value = "brand")
-public class BrandController {
+public class BrandController extends BaseBackController{
 	
 	@Autowired
 	private BrandService brandService;
 
 	//品牌列表
-	@RequestMapping(value = "/list.do")
+	@RequestMapping(value = "/brand/list.do")
 	public ModelAndView list(BrandDto params, PageQuery query)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		PageResult<BrandDto> brands = brandService.queryByPage(params, query);
@@ -37,20 +36,20 @@ public class BrandController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/toAdd.do")
+	@RequestMapping(value = "/brand/toAdd.do")
 	public ModelAndView toAdd(){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("brand/add");
 		return mv;
 	}
 
-	@RequestMapping(value = "/add.do")
+	@RequestMapping(value = "/brand/add.do")
 	public String add(BrandDto brand) throws Exception{
 		brandService.save(brand);
 		return "redirect:/brand/list.do";
 	}
 
-	@RequestMapping(value = "/toEdit.do")
+	@RequestMapping(value = "/brand/toEdit.do")
 	public ModelAndView toEdit(Integer id) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		BrandDto brand = brandService.getById(id);
@@ -59,7 +58,7 @@ public class BrandController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/edit.do")
+	@RequestMapping(value = "/brand/edit.do")
 	public String edit(BrandDto brand) throws Exception{
 		brandService.update(brand);
 		return "redirect:/brand/list.do";

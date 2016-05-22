@@ -10,12 +10,12 @@
 <div class="box-positon">
 	<div class="rpos">当前位置: 品牌管理 - 列表</div>
 	<form class="ropt">
-		<input class="add" type="button" value="添加" onclick="javascript:window.location.href='add.do'"/>
+		<input class="add" type="button" value="添加" onclick="javascript:window.location.href='/back/brand/toAdd.do'"/>
 	</form>
 	<div class="clear"></div>
 </div>
 <div class="body-box">
-<form action="/brand/list.do" method="post" style="padding-top:5px;">
+<form action="/back/brand/list.do" method="post" style="padding-top:5px;">
 品牌名称: <input type="text" name="name" value="${params.name}"/>
 	<select name="isDisplay" >
 		<option>全部</option>
@@ -48,7 +48,7 @@
 				<td align="center">${entry.sort}</td>
 				<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
 				<td align="center">
-					<a class="pn-opt" href="/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt"  href="/brand/delete.do?id=${entry.id }&name=${name}&isDisplay=${isDisplay}">删除</a>
+					<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt"  href="/back/brand/delete.do?id=${entry.id }&name=${name}&isDisplay=${isDisplay}">删除</a>
 				</td>
 			</tr>
 		</c:forEach>

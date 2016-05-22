@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(value = "back")
-public class BackController {
+public class BackController extends BaseBackController{
 	
 	//每一个Springmvc
 	@RequestMapping(value = "/test/springmvc.do")
