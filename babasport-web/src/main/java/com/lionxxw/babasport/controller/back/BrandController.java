@@ -4,12 +4,15 @@ import com.lionxxw.babasport.core.dto.BrandDto;
 import com.lionxxw.babasport.core.service.BrandService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
+import com.lionxxw.common.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * 后台品牌管理
@@ -25,6 +28,9 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/list.do")
 	public ModelAndView list(BrandDto params, PageQuery query)throws Exception{
 		ModelAndView mv = new ModelAndView();
+		if (StringUtil.notTrimEmpty(params.getName())){
+			params.setName(URLDecoder.decode(params.getName(), "UTF-8"));
+		}
 		PageResult<BrandDto> brands = brandService.queryByPage(params, query);
 		mv.addObject("brands", brands);
 		mv.addObject("params", params);
@@ -63,9 +69,14 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/delByIds.do")
 	public String delByIds(Integer[] ids,BrandDto params, ModelMap model) throws Exception {
 		for (Integer id : ids){
-			brandService.delById(id);
+			//brandService.delById(id);
 		}
-		model.addAttribute("params",params);
+		if (StringUtil.notTrimEmpty(params.getName())){
+			model.addAttribute("name", URLEncoder.encode(params.getName(), "UTF-8"));
+		}
+		if (null != params.getIsDisplay()){
+			model.addAttribute("isDisplay",params.getIsDisplay());
+		}
 		return "redirect:/back/brand/list.do";
 	}
 }

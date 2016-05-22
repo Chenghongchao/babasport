@@ -11,7 +11,7 @@
 		$("input[name='"+name+"']").attr("checked",checked);
 	}
 
-	function optDelete(name, isDisplay){
+	function optDelete(){
 		// 请选择一个
 		var size = $("input[name='ids']:checked").size();
 		if (size <= 0){
@@ -22,7 +22,13 @@
 			return;
 		}
 		// 删除
-		$("#jvForm").attr("action","/back/brand/delByIds.do?name="+name+"isDisplay="+isDisplay);
+		$("#jvForm").attr("action","/back/brand/delByIds.do?");
+		$("#jvForm").attr("method","post").submit();
+	}
+
+	function optDelById(id){
+		// 删除
+		$("#jvForm").attr("action","/back/brand/delByIds.do?ids="+id);
 		$("#jvForm").attr("method","post").submit();
 	}
 </script>
@@ -39,13 +45,15 @@
 <form action="/back/brand/list.do" method="post" style="padding-top:5px;">
 品牌名称: <input type="text" name="name" value="${params.name}"/>
 	<select name="isDisplay" >
-		<option>全部</option>
+		<option value="">全部</option>
 		<option value="1" <c:if test="${params.isDisplay == 1 }">selected="true"</c:if> >是</option>
 		<option value="0" <c:if test="${params.isDisplay == 0 }">selected="true"</c:if>>不是</option>
 	</select>
 	<input type="submit" class="query" value="查询"/>
 </form>
 <form id="jvForm">
+	<input type="hidden" name="name" value="${params.name}"/>
+	<input type="hidden" name="isDisplay" value="${params.isDisplay}"/>
 	<table cellspacing="1" cellpadding="0" border="0" width="100%" class="pn-ltable">
 			<thead class="pn-lthead">
 			<tr>
@@ -70,7 +78,7 @@
 					<td align="center">${entry.sort}</td>
 					<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
 					<td align="center">
-						<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}"  href="/back/brand/delByIds.do?ids=${entry.id }&name=${params.name}&isDisplay=${params.isDisplay}">删除</a>
+						<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}"  href="javascript:optDelById(${entry.id })">删除</a>
 					</td>
 				</tr>
 			</c:forEach>
