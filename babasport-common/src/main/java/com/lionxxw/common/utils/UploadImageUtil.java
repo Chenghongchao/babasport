@@ -34,17 +34,7 @@ public class UploadImageUtil {
         //扩展名
         String ext = FilenameUtils.getExtension(pic.getOriginalFilename());
 
-        //图片名称生成策略
-        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        //图片名称一部分
-        String format = df.format(new Date());
-
-        //随机三位数
-        Random r = new Random();
-        // n 1000   0-999   99
-        for(int i=0 ; i<3 ;i++){
-            format += r.nextInt(10);
-        }
+        String format = getCreateFormat();
 
         //实例化一个Jersey
         Client client = new Client();
@@ -64,5 +54,29 @@ public class UploadImageUtil {
         }
 
         return path;
+    }
+
+    /**		
+     * <p>Description: 图片名称生成策略 </p>
+     * 
+     * @return f
+     * @author wangxiang	
+     * @date 16/5/25 上午10:15
+     * @version 1.0
+     */
+    private static String getCreateFormat(){
+        //图片名称生成策略
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        //图片名称一部分
+        StringBuilder format = new StringBuilder(df.format(new Date()));
+
+        //随机三位数
+        Random r = new Random();
+        // n 1000   0-999   99
+        for(int i=0 ; i<3 ;i++){
+            format.append(r.nextInt(10));
+        }
+
+        return format.toString();
     }
 }
