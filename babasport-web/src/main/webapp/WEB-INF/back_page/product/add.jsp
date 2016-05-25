@@ -46,6 +46,7 @@ $(function(){
 				var fck = new FCKeditor("productdesc");
 				fck.BasePath = "/res/fckeditor/";
 				fck.Height = 400 ;
+				fck.Config["ImageUploadURL"] = "/upload/uploadFck.do"; // 配置fck上传url
 				fck.ReplaceTextarea();
 			}
 		});
