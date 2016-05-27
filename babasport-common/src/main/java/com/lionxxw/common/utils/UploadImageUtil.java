@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * <p>Description: 上传工具类 </p>
+ * <p>Description: 基于jersey图片服务器框架上传工具类 </p>
  *
  * @author wangxiang
  * @version 1.0
