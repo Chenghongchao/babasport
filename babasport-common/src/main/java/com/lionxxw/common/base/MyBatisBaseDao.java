@@ -24,8 +24,8 @@ public abstract class MyBatisBaseDao<T> {
 	}
 	
 	public int insert(T obj) throws Exception{
-		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});
-		DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
+//		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});
+//		DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
 		return (Integer) DynamicMethod.invokeMethod(getMapper(), "insert", new Object[]{obj});
 	}
 	
@@ -34,8 +34,8 @@ public abstract class MyBatisBaseDao<T> {
 	}
 	
 	public int insertSelective(T obj){
-		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});
-		DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
+//		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});
+//		DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
 		return (Integer) DynamicMethod.invokeMethod(getMapper(), "insertSelective", new Object[]{obj});
 	}
 	
@@ -49,7 +49,7 @@ public abstract class MyBatisBaseDao<T> {
 	 */
 	public int insertSelective(T obj, boolean flag){
 		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});
-		if (flag) DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
+//		if (flag) DynamicMethod.invokeMethod(obj, "setState", new Object[]{DataStatus.ENABLED});
 		return (Integer) DynamicMethod.invokeMethod(getMapper(), "insertSelective", new Object[]{obj});
 	}
 	

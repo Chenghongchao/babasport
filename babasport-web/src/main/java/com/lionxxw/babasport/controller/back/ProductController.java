@@ -1,6 +1,7 @@
 package com.lionxxw.babasport.controller.back;
 
 import com.lionxxw.babasport.core.dto.BrandDto;
+import com.lionxxw.babasport.core.dto.ProductDto;
 import com.lionxxw.babasport.core.service.BrandService;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.common.model.PageQuery;
@@ -28,7 +29,7 @@ public class ProductController extends BaseBackController{
 
 	//商品列表
 	@RequestMapping(value = "/product/list.do")
-	public ModelAndView list(BrandDto params, PageQuery query){
+	public ModelAndView list(ProductDto params, PageQuery query){
 		ModelAndView mv = new ModelAndView();
 
 

@@ -73,10 +73,10 @@
 					<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
 					<td align="center">${entry.id}</td>
 					<td align="center">${entry.name}</td>
-					<td align="center"><img width="40" height="40" src="${entry.allImgUrl}"/></td>
+					<td align="center"><c:if test="${entry.allImgUrl == null}">未上传</c:if><c:if test="${entry.allImgUrl != null}"><img width="40" height="40" src="${entry.allImgUrl}"/></c:if></td>
 					<td align="center">${entry.description}</td>
 					<td align="center">${entry.sort}</td>
-					<td align="center"><c:if test="${entry.isDisplay == 1 }">是</c:if><c:if test="${entry.isDisplay == 0 }">不是</c:if></td>
+					<td align="center"><c:if test="${entry.isDisplay}">是</c:if><c:if test="${!entry.isDisplay}">不是</c:if></td>
 					<td align="center">
 						<a class="pn-opt" href="/back/brand/toEdit.do?id=${entry.id}">修改</a> | <a class="pn-opt" onclick="if(!confirm('您确定删除吗？')) {return false;}"  href="javascript:optDelById(${entry.id })">删除</a>
 					</td>

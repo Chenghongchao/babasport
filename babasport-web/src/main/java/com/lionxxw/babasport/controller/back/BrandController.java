@@ -31,6 +31,7 @@ public class BrandController extends BaseBackController{
 		if (StringUtil.notTrimEmpty(params.getName())){
 			params.setName(URLDecoder.decode(params.getName(), "UTF-8"));
 		}
+		query.setPageSize(100);
 		PageResult<BrandDto> brands = brandService.queryByPage(params, query);
 		mv.addObject("brands", brands);
 		mv.addObject("params", params);
@@ -69,7 +70,7 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/delByIds.do")
 	public String delByIds(Integer[] ids,BrandDto params, ModelMap model) throws Exception {
 		for (Integer id : ids){
-			//brandService.delById(id);
+			brandService.delById(id);
 		}
 		if (StringUtil.notTrimEmpty(params.getName())){
 			model.addAttribute("name", URLEncoder.encode(params.getName(), "UTF-8"));
