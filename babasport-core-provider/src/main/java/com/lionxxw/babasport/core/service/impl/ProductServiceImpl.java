@@ -1,9 +1,14 @@
 package com.lionxxw.babasport.core.service.impl;
 
 import com.lionxxw.babasport.core.dao.ProductDao;
+import com.lionxxw.babasport.core.dao.ProductImageDao;
+import com.lionxxw.babasport.core.dao.SkuDao;
 import com.lionxxw.babasport.core.dto.ProductDto;
+import com.lionxxw.babasport.core.dto.ProductImageDto;
 import com.lionxxw.babasport.core.entity.Product;
+import com.lionxxw.babasport.core.entity.ProductImage;
 import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
+import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
@@ -12,6 +17,7 @@ import com.lionxxw.common.utils.ExceptionUtil;
 import com.lionxxw.common.utils.UploadImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +34,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private ProductImageDao imageDao;
+    @Autowired
+    private SkuDao skuDao;
 
+    @Transactional
     public ProductDto save(ProductDto obj) throws Exception {
         ExceptionUtil.checkObjIsNull(obj);
         obj.setNo(UploadImageUtil.getCreateFormat());
@@ -36,7 +47,34 @@ public class ProductServiceImpl implements ProductService {
         obj.setCreateTime(new Date());
         ProductWithBLOBs product = BeanUtil.createBeanByTarget(obj, ProductWithBLOBs.class);
         productDao.insertSelective(product);
+        ProductImage image = new ProductImage();
         obj.setId(product.getId());
+        image.setProductId(product.getId());
+        if (null != obj.getImage()){
+            image.setUrl(obj.getImage().getUrl());
+        }
+        imageDao.insertSelective(image);
+
+        Sku sku = new Sku();
+        sku.setProductId(product.getId());
+        sku.setSkuPrice(0.00);
+        sku.setStockInventory(0);
+        sku.setStockUpperLimit(1);
+        sku.setLocation("");
+        sku.setMarketPrice(0.00);
+        sku.setCreateTime(new Date());
+        sku.setLastStatus(1);
+        sku.setSkuType(1);
+        sku.setSales(0);
+        sku.setCreateUserId("后台管理员");
+        for(String colorId : product.getColor().split(",")){
+            sku.setColorId(Integer.parseInt(colorId));
+            for(String size : product.getSize().split(",")){
+                sku.setSizeId(Integer.parseInt(size));
+                skuDao.insertSelective(sku);
+            }
+        }
+
         return obj;
     }
 
