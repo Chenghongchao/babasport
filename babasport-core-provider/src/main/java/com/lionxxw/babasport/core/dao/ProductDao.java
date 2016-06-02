@@ -3,6 +3,7 @@ package com.lionxxw.babasport.core.dao;
 import com.lionxxw.babasport.core.dto.ProductDto;
 import com.lionxxw.babasport.core.entity.Product;
 import com.lionxxw.babasport.core.entity.ProductExample;
+import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
 import com.lionxxw.babasport.core.mapper.ProductMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
@@ -22,7 +23,7 @@ import java.util.List;
  * @time 16/5/21 下午11:45
  */
 @Repository
-public class ProductDao extends MyBatisBaseDao<Product> {
+public class ProductDao extends MyBatisBaseDao<ProductWithBLOBs> {
 
     @Autowired
     @Getter

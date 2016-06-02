@@ -28,6 +28,38 @@ a {
 }
 </style>
 <script type="text/javascript">
+	//上传图片
+	function uploadPic() {
+		//定义参数
+		var options = {
+			url: "/upload/uploadPic.do",
+			dataType: "json",
+			type: "post",
+			beforeSubmit: function (formData, jqForm, options) {
+				//判断是否为图片
+				var f = jqForm[0];//将jqForm转成DOM对象
+				var v = f.pic.value;//获取DOM对象中name为pic的值
+				//获取扩展名,并转成小写
+				var ext = v.substring(v.length - 3).toLowerCase();
+				//比对扩展名 jpg gif bmp png
+				if (ext != "jpg" && ext != "gif" && ext != "bmp" && ext != "png") {
+					alert("只允许上传图片!");
+					return false;
+				}
+				//校验提交的表单
+				return true;
+			},
+			success: function (data) {
+				//回调 二个路径
+				//url
+				//path
+				$("#product_url").attr("src", data.url);
+				$("#product_path").val(data.path);
+			}
+		};
+		//jquery.form使用方式
+		$("#jvForm").ajaxSubmit(options);
+	}
 $(function(){
 	var tObj;
 	$("#tabs a").each(function(){
@@ -153,7 +185,7 @@ $(function(){
 					<td width="20%" class="pn-flabel pn-flabel-h"></td>
 						<td width="80%" class="pn-fcontent">
 						<img width="100" height="100" id="product_url"/>
-						<input type="hidden" name="picPath" id="product_path"/>
+						<input type="hidden" name="url" id="product_path"/>
 						<input type="file" onchange="uploadPic()" name="pic"/>
 					</td>
 				</tr>

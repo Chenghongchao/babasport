@@ -64,7 +64,7 @@ public class UploadImageUtil {
      * @date 16/5/25 上午10:15
      * @version 1.0
      */
-    private static String getCreateFormat(){
+    public static String getCreateFormat(){
         //图片名称生成策略
         DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         //图片名称一部分

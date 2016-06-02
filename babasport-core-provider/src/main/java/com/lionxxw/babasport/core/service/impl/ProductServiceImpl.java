@@ -3,14 +3,17 @@ package com.lionxxw.babasport.core.service.impl;
 import com.lionxxw.babasport.core.dao.ProductDao;
 import com.lionxxw.babasport.core.dto.ProductDto;
 import com.lionxxw.babasport.core.entity.Product;
+import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
 import com.lionxxw.common.utils.BeanUtil;
 import com.lionxxw.common.utils.ExceptionUtil;
+import com.lionxxw.common.utils.UploadImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +31,10 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDto save(ProductDto obj) throws Exception {
         ExceptionUtil.checkObjIsNull(obj);
-        Product product = BeanUtil.createBeanByTarget(obj, Product.class);
+        obj.setNo(UploadImageUtil.getCreateFormat());
+        obj.setCreateUserId("后台管理员");
+        obj.setCreateTime(new Date());
+        ProductWithBLOBs product = BeanUtil.createBeanByTarget(obj, ProductWithBLOBs.class);
         productDao.insertSelective(product);
         obj.setId(product.getId());
         return obj;
@@ -46,13 +52,13 @@ public class ProductServiceImpl implements ProductService {
     public void update(ProductDto obj) throws Exception {
         ExceptionUtil.checkObjIsNull(obj);
         ExceptionUtil.checkIdIsNull(obj.getId(), Product.class, "update");
-        Product product = BeanUtil.createBeanByTarget(obj, Product.class);
+        ProductWithBLOBs product = BeanUtil.createBeanByTarget(obj, ProductWithBLOBs.class);
         productDao.updateByPrimaryKeySelective(product);
     }
 
     public ProductDto getById(Integer id) throws Exception {
         ExceptionUtil.checkIdIsNull(id, Product.class, "getById");
-        Product product = productDao.selectByPrimaryKey(id);
+        ProductWithBLOBs product = productDao.selectByPrimaryKey(id);
         ProductDto dto = BeanUtil.createBeanByTarget(product, ProductDto.class);
         return dto;
     }

@@ -5,11 +5,16 @@ import com.lionxxw.babasport.core.entity.ProductType;
 import com.lionxxw.babasport.core.service.*;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
+import com.lionxxw.common.utils.UUIDGenerator;
+import com.lionxxw.common.utils.UploadImageUtil;
+import org.json.JSONObject;
+import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,7 +66,8 @@ public class ProductController extends BaseBackController{
 
 	// 商品新增
 	@RequestMapping(value = "/product/add.do")
-	public String add(ProductDto product) throws Exception{
+	public String add(ProductDto product, ProductImageDto image) throws Exception{
+		product.setImage(image);
 		productService.save(product);
 		return "redirect:/back/product/list.do";
 	}
