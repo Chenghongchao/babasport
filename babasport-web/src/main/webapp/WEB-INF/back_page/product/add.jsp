@@ -77,8 +77,9 @@ $(function(){
 						商品类型:</td><td width="80%" class="pn-fcontent">
 								<select name="typeId">
 									<option value="">请选择</option>
-									<option value="2">瑜珈服</option>
-									<option value="3">瑜伽辅助</option>
+									<c:forEach items="${types}" var="type">
+										<option value="${type.id}">${type.name}</option>
+									</c:forEach>
 								</select>
 					</td>
 				</tr>
@@ -94,9 +95,9 @@ $(function(){
 						商品品牌:</td><td width="80%" class="pn-fcontent">
 						<select name="brandId">
 							<option value="">请选择品牌</option>
-							<option value="1">依琦莲</option>
-							<option value="2">凯速（KANSOON）</option>
-							<option value="3">梵歌纳（vangona）</option>
+							<c:forEach items="${brands}" var="brand">
+								<option value="${brand.id}">${brand.name}</option>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
@@ -109,36 +110,27 @@ $(function(){
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						材质:</td><td width="80%" class="pn-fcontent">
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
-							<input type="checkbox" value="1" name="feature"/>环保人棉
+							<c:forEach items="${materials}" var="material">
+								<input type="checkbox" value="${material.id}" name="feature"/>${material.name}
+							</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						颜色:</td><td width="80%" class="pn-fcontent">
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
-							<input type="checkbox" value="9" name="color"/>西瓜红
+							<c:forEach items="${colors}" var="color">
+								<input type="checkbox" value="${color.id}" name="color"/>${color.name}
+							</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						尺码:</td><td width="80%" class="pn-fcontent">
-						<input type="checkbox" name="size" value="S"/>S
-						<input type="checkbox" name="size" value="M"/>M
-						<input type="checkbox" name="size" value="L"/>L
-						<input type="checkbox" name="size" value="XL"/>XL
-						<input type="checkbox" name="size" value="XXL"/>XXL
+						<c:forEach items="${sizes}" var="size">
+							<input type="checkbox" value="${size.id}" name="size"/>${size.name}
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>

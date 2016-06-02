@@ -1,9 +1,8 @@
 package com.lionxxw.babasport.controller.back;
 
-import com.lionxxw.babasport.core.dto.BrandDto;
-import com.lionxxw.babasport.core.dto.ProductDto;
-import com.lionxxw.babasport.core.service.BrandService;
-import com.lionxxw.babasport.core.service.ProductService;
+import com.lionxxw.babasport.core.dto.*;
+import com.lionxxw.babasport.core.entity.ProductType;
+import com.lionxxw.babasport.core.service.*;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,14 @@ public class ProductController extends BaseBackController{
 	private BrandService brandService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private ColorService colorService;
+	@Autowired
+	private SizeService sizeService;
+	@Autowired
+	private ProductTypeService typeService;
+	@Autowired
+	private MaterialService materialService;
 
 	// 商品列表
 	@RequestMapping(value = "/product/list.do")
@@ -47,9 +54,7 @@ public class ProductController extends BaseBackController{
 	@RequestMapping(value = "/product/toAdd.do")
 	public ModelAndView toAdd() throws Exception{
 		ModelAndView mv = new ModelAndView();
-
-		List<BrandDto> brands = brandService.queryByParam(null);
-		mv.addObject("brands", brands);
+		productParamsInit(mv);
 		mv.setViewName("product/add");
 		return mv;
 	}
@@ -59,5 +64,26 @@ public class ProductController extends BaseBackController{
 	public String add(ProductDto product) throws Exception{
 		productService.save(product);
 		return "redirect:/back/product/list.do";
+	}
+
+	/**		
+	 * <p>Description: 新增商品时,需要加载的配置 </p>
+	 * 
+	 * @param mv
+	 * @author wangxiang
+	 * @date 16/6/2 上午10:56
+	 * @version 1.0
+	 */
+	private void productParamsInit(ModelAndView mv) throws Exception{
+		List<BrandDto> brands = brandService.queryByParam(null);
+		mv.addObject("brands", brands);
+		List<ColorDto> colors = colorService.queryByParam(null);
+		mv.addObject("colors", colors);
+		List<SizeDto> sizes = sizeService.queryByParam(null);
+		mv.addObject("sizes", sizes);
+		List<ProductTypeDto> types = typeService.queryByParam(null);
+		mv.addObject("types", types);
+		List<MaterialDto> materials = materialService.queryByParam(null);
+		mv.addObject("materials", materials);
 	}
 }
