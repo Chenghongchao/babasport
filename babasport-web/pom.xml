@@ -12,6 +12,23 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+        <!--responsebody 配置包 开始-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+        <!--responsebody 配置包 结束-->
         <!-- with junit4.8.2 -->
         <dependency>
             <groupId>junit</groupId>
@@ -87,6 +104,16 @@
             <artifactId>jackson-core-asl</artifactId>
             <version>${jackson-core-asl-version}</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-lgpl</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-lgpl</artifactId>
+            <version>1.9.0</version>
+        </dependency>-->
         <!--freemarker-->
         <dependency>
             <groupId>freemarker</groupId>

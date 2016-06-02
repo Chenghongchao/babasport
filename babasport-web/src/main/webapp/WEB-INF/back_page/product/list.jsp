@@ -79,15 +79,67 @@ function changePageNo(){
 				<td align="center"><c:if test="${product.isCommend}">是</c:if><c:if test="${!product.isCommend}">否</c:if></td>
 				<td align="center"><c:if test="${product.isShow}">上架</c:if><c:if test="${!product.isShow}">下架</c:if></td>
 				<td align="center">
-					<a href="#" class="pn-opt">查看</a> | <a href="#" class="pn-opt">修改</a> | <a href="#" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a> | <a href="../sku/list.jsp" class="pn-opt">库存</a>
+					<a href="#" class="pn-opt">查看</a> | <a href="#" class="pn-opt">修改</a> | <a href="#" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a> | <a href="/back/sku/list.do?productId=${product.id}&no=${product.no}" class="pn-opt">库存</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 	<%@ include file="../common/page.jsp" %>
-<div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/><input class="add" type="button" value="上架" onclick="optDelete();"/><input class="del-button" type="button" value="下架" onclick="optDelete();"/></div>
+<div style="margin-top:15px;">
+	<input class="del-button" type="button" value="删除" onclick="optDelete();"/><input class="add" type="button" value="上架" onclick="optDelete();"/><input class="del-button" type="button" value="下架" onclick="optDelete();"/>
+	接口<input id="service_value" type="text" value=""/>方法<input id="method_value" type="text" value=""/>参数<input id="arg_value" type="text" value=""/><input class="del-button" type="button" value="测试aop" onclick="testAop();"/>
+</div>
 </form>
 </div>
+<script type="text/javascript">
+	function testAop(){
+		var service = $("#service_value").val();
+		if (service == ""){
+			alert("service无效的值");
+			return;
+		}
+		var method = $("#method_value").val();
+		if (method == ""){
+			alert("method无效的值");
+			return;
+		}
+		var arg = $("#arg_value").val();
+		if (method == "del"){
+			if (arg == ""){
+				alert("arg无效的值");
+				return;
+			}
+		}
+		$.ajax({
+			type : "POST",
+			url : "/back/test/aop.do",
+			data : {service:service,methodName:method,id:arg},
+			datatype : "json",// "xml", "html", "script", "json", "jsonp", "text".
+			beforeSend : function() {
+			},
+			success : function(data) {// 成功返回之后调用的函数
+				console.log(data);
+				var jsondata = null;//eval('(' + data + ')');
+				if (data instanceof Object){
+					jsondata = data;
+				}else{
+					jsondata = eval('(' + data + ')');
+				}
+				if(jsondata.status == 200){
+					alert("成功");
+				}else{
+					alert("失败");
+				}
+				//console.log(data.success);
+			},
+			complete : function(XMLHttpRequest, textStatus) {// 调用执行后调用的函数
+
+			},
+			error : function() {// 调用出错执行的函数
+			}
+		});
+	}
+</script>
 </body>
 </html>

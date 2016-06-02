@@ -9,8 +9,6 @@ import java.io.Serializable;
 
 public class Response<T> implements Serializable {
 
-	private static final long serialVersionUID = 7782981616682775073L;
-
 	public Response(){
 		
 	}
@@ -20,22 +18,44 @@ public class Response<T> implements Serializable {
 		this.message = message;
 		this.data = data;
 	}
-	
-	@Getter
-	@Setter
+
 	public int status = DataStatus.HTTP_SUCCESS;
 	
-	@Getter
-	@Setter
 	public String message;
 	
-	@Getter
-	@Setter
 	public T data;
-	
-	
-	@Getter
-	@Setter
+
 	public T parentData;
-	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
+	}
+
+	public T getParentData() {
+		return parentData;
+	}
+
+	public void setParentData(T parentData) {
+		this.parentData = parentData;
+	}
 }

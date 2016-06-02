@@ -14,7 +14,11 @@ public class SkuDto implements Serializable {
 
     private Integer colorId;
 
+    private String colorName;
+
     private Integer sizeId;
+
+    private String sizeName;
 
     private Double deliveFee;
 
