@@ -16,11 +16,11 @@ public class ProductDto implements Serializable {
 
     private Double weight;
 
-    private Integer isNew;
+    private Boolean isNew;
 
-    private Integer isHot;
+    private Boolean isHot;
 
-    private Integer isCommend;
+    private Boolean isCommend;
 
     private Date createTime;
 
@@ -30,9 +30,9 @@ public class ProductDto implements Serializable {
 
     private String checkUserId;
 
-    private Integer isShow;
+    private Boolean isShow;
 
-    private Integer isDel;
+    private Boolean isDel;
 
     private Integer typeId;
 
@@ -42,13 +42,13 @@ public class ProductDto implements Serializable {
 
     private Integer sales;
 
-    private String description;
-
-    private String packageList;
-
     private String feature;
 
     private String color;
 
     private String size;
+
+    private String description;
+
+    private String packageList;
 }

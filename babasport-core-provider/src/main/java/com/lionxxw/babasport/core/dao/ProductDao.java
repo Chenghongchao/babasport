@@ -68,6 +68,9 @@ public class ProductDao extends MyBatisBaseDao<Product> {
             if (null != params.getIsHot()){
                 criteria.andIsHotEqualTo(params.getIsHot());
             }
+            if (null != params.getIsShow()){
+                criteria.andIsShowEqualTo(params.getIsShow());
+            }
         }
     }
 }

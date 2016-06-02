@@ -13,10 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
- * 后台品牌管理
+ * <p>Description: 后台品牌管理 </p>
  *
+ * @author wangxiang
+ * @date 16/5/31 下午4:36
+ * @version 1.0
  */
 @Controller
 public class BrandController extends BaseBackController{
@@ -26,13 +30,12 @@ public class BrandController extends BaseBackController{
 
 	//品牌列表
 	@RequestMapping(value = "/brand/list.do")
-	public ModelAndView list(BrandDto params, PageQuery query)throws Exception{
+	public ModelAndView list(BrandDto params)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		if (StringUtil.notTrimEmpty(params.getName())){
 			params.setName(URLDecoder.decode(params.getName(), "UTF-8"));
 		}
-		query.setPageSize(100);
-		PageResult<BrandDto> brands = brandService.queryByPage(params, query);
+		List<BrandDto> brands = brandService.queryByParam(params);
 		mv.addObject("brands", brands);
 		mv.addObject("params", params);
 		mv.setViewName("brand/list");

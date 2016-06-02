@@ -68,7 +68,7 @@
 			</tr>
 			</thead>
 			<tbody class="pn-ltbody">
-			<c:forEach items="${brands.results}" var="entry">
+			<c:forEach items="${brands}" var="entry">
 				<tr bgcolor="#ffffff" onmouseout="this.bgColor='#ffffff'" onmouseover="this.bgColor='#eeeeee'">
 					<td><input type="checkbox" value="${entry.id}" name="ids"/></td>
 					<td align="center">${entry.id}</td>
