@@ -11,7 +11,7 @@ import java.util.Map;
  * @date 16/5/6 上午9:47
  * @version 1.0
  */
-public abstract class ObjectUtil {
+public abstract class ObjectUtils {
     public static final Object NULL = null;
 
     public static boolean isNull(Object o) {

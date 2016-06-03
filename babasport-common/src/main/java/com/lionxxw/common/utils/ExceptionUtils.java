@@ -7,7 +7,7 @@ package com.lionxxw.common.utils;
  * @version 1.0
  * @time 16/5/6 上午10:04
  */
-public class ExceptionUtil {
+public class ExceptionUtils {
 
     /**		
      * <p>Description: 校验对象是否为空 </p>
@@ -48,13 +48,13 @@ public class ExceptionUtil {
      * @version 1.0
      */
     public static void checkIdIsNull(Long id, Class clz, String method){
-        if (ObjectUtil.isNull(id)){
+        if (ObjectUtils.isNull(id)){
             throw new RuntimeException(clz.getSimpleName()+"中"+method+"方法主键id为空!");
         }
     }
 
     public static void checkIdIsNull(Integer id, Class clz, String method){
-        if (ObjectUtil.isNull(id)){
+        if (ObjectUtils.isNull(id)){
             throw new RuntimeException(clz.getSimpleName()+"中"+method+"方法主键id为空!");
         }
     }

@@ -13,15 +13,15 @@ import java.security.MessageDigest;
  */
 public abstract class StringUtil {
     public static boolean isNull(String s) {
-        return ObjectUtil.isNull(s);
+        return ObjectUtils.isNull(s);
     }
 
     public static boolean notNull(String s) {
-        return ObjectUtil.notNull(s);
+        return ObjectUtils.notNull(s);
     }
 
     public static String nullSafe(String s) {
-        return (String) ObjectUtil.nullSafe(s, "");
+        return (String) ObjectUtils.nullSafe(s, "");
     }
 
     public static boolean isEmpty(String s) {

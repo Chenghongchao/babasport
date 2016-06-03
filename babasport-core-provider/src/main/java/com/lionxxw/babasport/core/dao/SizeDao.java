@@ -6,7 +6,7 @@ import com.lionxxw.babasport.core.entity.SizeExample;
 import com.lionxxw.babasport.core.mapper.SizeMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtil;
+import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.StringUtil;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class SizeDao extends MyBatisBaseDao<Size> {
 
     private void assemblyParams(SizeDto params, SizeExample.Criteria criteria) {
         if (null != params) {
-            if (ObjectUtil.notNull(params.getId())){
+            if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
             if (StringUtil.notTrimEmpty(params.getName())){

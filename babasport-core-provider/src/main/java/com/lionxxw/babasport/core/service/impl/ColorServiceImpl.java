@@ -3,13 +3,11 @@ package com.lionxxw.babasport.core.service.impl;
 import com.lionxxw.babasport.core.dao.ColorDao;
 import com.lionxxw.babasport.core.dto.ColorDto;
 import com.lionxxw.babasport.core.entity.Color;
-import com.lionxxw.babasport.core.entity.Color;
-import com.lionxxw.babasport.core.service.ColorService;
 import com.lionxxw.babasport.core.service.ColorService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtil;
-import com.lionxxw.common.utils.ExceptionUtil;
+import com.lionxxw.common.utils.BeanUtils;
+import com.lionxxw.common.utils.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,15 +27,15 @@ public class ColorServiceImpl implements ColorService {
     private ColorDao colorDao;
 
     public ColorDto save(ColorDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        Color color = BeanUtil.createBeanByTarget(obj, Color.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        Color color = BeanUtils.createBeanByTarget(obj, Color.class);
         colorDao.insertSelective(color);
         obj.setId(color.getId());
         return obj;
     }
 
     public boolean delById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Color.class, "delById");
+        ExceptionUtils.checkIdIsNull(id, Color.class, "delById");
         int i = colorDao.deleteByPrimaryKey(id);
         if (i > 0){
             return true;
@@ -46,23 +44,23 @@ public class ColorServiceImpl implements ColorService {
     }
 
     public void update(ColorDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        ExceptionUtil.checkIdIsNull(obj.getId(), Color.class, "update");
-        Color color = BeanUtil.createBeanByTarget(obj, Color.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        ExceptionUtils.checkIdIsNull(obj.getId(), Color.class, "update");
+        Color color = BeanUtils.createBeanByTarget(obj, Color.class);
         colorDao.updateByPrimaryKeySelective(color);
     }
 
     public ColorDto getById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Color.class, "getById");
+        ExceptionUtils.checkIdIsNull(id, Color.class, "getById");
         Color color = colorDao.selectByPrimaryKey(id);
-        ColorDto dto = BeanUtil.createBeanByTarget(color, ColorDto.class);
+        ColorDto dto = BeanUtils.createBeanByTarget(color, ColorDto.class);
         return dto;
     }
 
     public List<ColorDto> queryByParam(ColorDto obj) throws Exception {
         List<Color> colors = colorDao.queryByParam(obj, null);
         if (null != colors && colors.size() > 0){
-            List<ColorDto> list = BeanUtil.createBeanListByTarget(colors, ColorDto.class);
+            List<ColorDto> list = BeanUtils.createBeanListByTarget(colors, ColorDto.class);
             return list;
         }
         return null;
@@ -73,7 +71,7 @@ public class ColorServiceImpl implements ColorService {
         if (total > 0){
             query.setTotal(total);
             List<Color> colors = colorDao.queryByParam(obj, query);
-            List<ColorDto> list = BeanUtil.createBeanListByTarget(colors, ColorDto.class);
+            List<ColorDto> list = BeanUtils.createBeanListByTarget(colors, ColorDto.class);
             return new PageResult<ColorDto>(query, list);
         }
         return null;

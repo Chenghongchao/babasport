@@ -6,8 +6,8 @@ import com.lionxxw.babasport.core.entity.Brand;
 import com.lionxxw.babasport.core.service.BrandService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtil;
-import com.lionxxw.common.utils.ExceptionUtil;
+import com.lionxxw.common.utils.BeanUtils;
+import com.lionxxw.common.utils.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +27,15 @@ public class BrandServiceImpl implements BrandService {
     private BrandDao brandDao;
 
     public BrandDto save(BrandDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        Brand brand = BeanUtil.createBeanByTarget(obj, Brand.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        Brand brand = BeanUtils.createBeanByTarget(obj, Brand.class);
         brandDao.insertSelective(brand);
         obj.setId(brand.getId());
         return obj;
     }
 
     public boolean delById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Brand.class, "delById");
+        ExceptionUtils.checkIdIsNull(id, Brand.class, "delById");
         int i = brandDao.deleteByPrimaryKey(id);
         if (i > 0){
             return true;
@@ -44,23 +44,23 @@ public class BrandServiceImpl implements BrandService {
     }
 
     public void update(BrandDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        ExceptionUtil.checkIdIsNull(obj.getId(), Brand.class, "update");
-        Brand brand = BeanUtil.createBeanByTarget(obj, Brand.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        ExceptionUtils.checkIdIsNull(obj.getId(), Brand.class, "update");
+        Brand brand = BeanUtils.createBeanByTarget(obj, Brand.class);
         brandDao.updateByPrimaryKeySelective(brand);
     }
 
     public BrandDto getById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Brand.class, "getById");
+        ExceptionUtils.checkIdIsNull(id, Brand.class, "getById");
         Brand brand = brandDao.selectByPrimaryKey(id);
-        BrandDto dto = BeanUtil.createBeanByTarget(brand, BrandDto.class);
+        BrandDto dto = BeanUtils.createBeanByTarget(brand, BrandDto.class);
         return dto;
     }
 
     public List<BrandDto> queryByParam(BrandDto obj) throws Exception {
         List<Brand> brands = brandDao.queryByParam(obj, null);
         if (null != brands && brands.size() > 0){
-            List<BrandDto> list = BeanUtil.createBeanListByTarget(brands, BrandDto.class);
+            List<BrandDto> list = BeanUtils.createBeanListByTarget(brands, BrandDto.class);
             return list;
         }
         return null;
@@ -71,7 +71,7 @@ public class BrandServiceImpl implements BrandService {
         if (total > 0){
             query.setTotal(total);
             List<Brand> brands = brandDao.queryByParam(obj, query);
-            List<BrandDto> list = BeanUtil.createBeanListByTarget(brands, BrandDto.class);
+            List<BrandDto> list = BeanUtils.createBeanListByTarget(brands, BrandDto.class);
             return new PageResult<BrandDto>(query, list);
         }
         return null;

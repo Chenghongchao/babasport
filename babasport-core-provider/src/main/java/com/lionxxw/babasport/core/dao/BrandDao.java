@@ -5,9 +5,8 @@ import com.lionxxw.babasport.core.entity.Brand;
 import com.lionxxw.babasport.core.entity.BrandExample;
 import com.lionxxw.babasport.core.mapper.BrandMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
-import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtil;
+import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.StringUtil;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class BrandDao extends MyBatisBaseDao<Brand> {
 
     private void assemblyParams(BrandDto params, BrandExample.Criteria criteria) {
         if (null != params) {
-            if (ObjectUtil.notNull(params.getId())){
+            if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
             if (StringUtil.notTrimEmpty(params.getName())){

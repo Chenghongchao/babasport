@@ -6,7 +6,7 @@ import com.lionxxw.babasport.core.entity.ProductTypeExample;
 import com.lionxxw.babasport.core.mapper.ProductTypeMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtil;
+import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.StringUtil;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +50,10 @@ public class ProductTypeDao extends MyBatisBaseDao<ProductType> {
 
     private void assemblyParams(ProductTypeDto params, ProductTypeExample.Criteria criteria) {
         if (null != params) {
-            if (ObjectUtil.notNull(params.getId())){
+            if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
-            if (ObjectUtil.notNull(params.getParentId())){
+            if (ObjectUtils.notNull(params.getParentId())){
                 criteria.andParentIdEqualTo(params.getParentId());
             }
             if (StringUtil.notTrimEmpty(params.getName())){

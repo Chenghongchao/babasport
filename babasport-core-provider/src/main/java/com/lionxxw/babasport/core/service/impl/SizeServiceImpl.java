@@ -4,11 +4,10 @@ import com.lionxxw.babasport.core.dao.SizeDao;
 import com.lionxxw.babasport.core.dto.SizeDto;
 import com.lionxxw.babasport.core.entity.Size;
 import com.lionxxw.babasport.core.service.SizeService;
-import com.lionxxw.babasport.core.service.SizeService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtil;
-import com.lionxxw.common.utils.ExceptionUtil;
+import com.lionxxw.common.utils.BeanUtils;
+import com.lionxxw.common.utils.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +27,15 @@ public class SizeServiceImpl implements SizeService {
     private SizeDao sizeDao;
 
     public SizeDto save(SizeDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        Size size = BeanUtil.createBeanByTarget(obj, Size.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        Size size = BeanUtils.createBeanByTarget(obj, Size.class);
         sizeDao.insertSelective(size);
         obj.setId(size.getId());
         return obj;
     }
 
     public boolean delById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Size.class, "delById");
+        ExceptionUtils.checkIdIsNull(id, Size.class, "delById");
         int i = sizeDao.deleteByPrimaryKey(id);
         if (i > 0){
             return true;
@@ -45,23 +44,23 @@ public class SizeServiceImpl implements SizeService {
     }
 
     public void update(SizeDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        ExceptionUtil.checkIdIsNull(obj.getId(), Size.class, "update");
-        Size size = BeanUtil.createBeanByTarget(obj, Size.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        ExceptionUtils.checkIdIsNull(obj.getId(), Size.class, "update");
+        Size size = BeanUtils.createBeanByTarget(obj, Size.class);
         sizeDao.updateByPrimaryKeySelective(size);
     }
 
     public SizeDto getById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Size.class, "getById");
+        ExceptionUtils.checkIdIsNull(id, Size.class, "getById");
         Size size = sizeDao.selectByPrimaryKey(id);
-        SizeDto dto = BeanUtil.createBeanByTarget(size, SizeDto.class);
+        SizeDto dto = BeanUtils.createBeanByTarget(size, SizeDto.class);
         return dto;
     }
 
     public List<SizeDto> queryByParam(SizeDto obj) throws Exception {
         List<Size> Sizes = sizeDao.queryByParam(obj, null);
         if (null != Sizes && Sizes.size() > 0){
-            List<SizeDto> list = BeanUtil.createBeanListByTarget(Sizes, SizeDto.class);
+            List<SizeDto> list = BeanUtils.createBeanListByTarget(Sizes, SizeDto.class);
             return list;
         }
         return null;
@@ -72,7 +71,7 @@ public class SizeServiceImpl implements SizeService {
         if (total > 0){
             query.setTotal(total);
             List<Size> sizes = sizeDao.queryByParam(obj, query);
-            List<SizeDto> list = BeanUtil.createBeanListByTarget(sizes, SizeDto.class);
+            List<SizeDto> list = BeanUtils.createBeanListByTarget(sizes, SizeDto.class);
             return new PageResult<SizeDto>(query, list);
         }
         return null;

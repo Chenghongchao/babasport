@@ -4,7 +4,6 @@ import com.lionxxw.babasport.core.dao.ProductDao;
 import com.lionxxw.babasport.core.dao.ProductImageDao;
 import com.lionxxw.babasport.core.dao.SkuDao;
 import com.lionxxw.babasport.core.dto.ProductDto;
-import com.lionxxw.babasport.core.dto.ProductImageDto;
 import com.lionxxw.babasport.core.entity.Product;
 import com.lionxxw.babasport.core.entity.ProductImage;
 import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
@@ -12,9 +11,9 @@ import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtil;
-import com.lionxxw.common.utils.ExceptionUtil;
-import com.lionxxw.common.utils.UploadImageUtil;
+import com.lionxxw.common.utils.BeanUtils;
+import com.lionxxw.common.utils.ExceptionUtils;
+import com.lionxxw.common.utils.UploadImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,11 +40,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     public ProductDto save(ProductDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        obj.setNo(UploadImageUtil.getCreateFormat());
+        ExceptionUtils.checkObjIsNull(obj);
+        obj.setNo(UploadImageUtils.getCreateFormat());
         obj.setCreateUserId("后台管理员");
         obj.setCreateTime(new Date());
-        ProductWithBLOBs product = BeanUtil.createBeanByTarget(obj, ProductWithBLOBs.class);
+        ProductWithBLOBs product = BeanUtils.createBeanByTarget(obj, ProductWithBLOBs.class);
         productDao.insertSelective(product);
         ProductImage image = new ProductImage();
         obj.setId(product.getId());
@@ -79,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public boolean delById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Product.class, "delById");
+        ExceptionUtils.checkIdIsNull(id, Product.class, "delById");
         int i = productDao.deleteByPrimaryKey(id);
         if (i > 0){
             return true;
@@ -88,23 +87,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public void update(ProductDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        ExceptionUtil.checkIdIsNull(obj.getId(), Product.class, "update");
-        ProductWithBLOBs product = BeanUtil.createBeanByTarget(obj, ProductWithBLOBs.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        ExceptionUtils.checkIdIsNull(obj.getId(), Product.class, "update");
+        ProductWithBLOBs product = BeanUtils.createBeanByTarget(obj, ProductWithBLOBs.class);
         productDao.updateByPrimaryKeySelective(product);
     }
 
     public ProductDto getById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Product.class, "getById");
+        ExceptionUtils.checkIdIsNull(id, Product.class, "getById");
         ProductWithBLOBs product = productDao.selectByPrimaryKey(id);
-        ProductDto dto = BeanUtil.createBeanByTarget(product, ProductDto.class);
+        ProductDto dto = BeanUtils.createBeanByTarget(product, ProductDto.class);
         return dto;
     }
 
     public List<ProductDto> queryByParam(ProductDto obj) throws Exception {
         List<Product> products = productDao.queryByParam(obj, null);
         if (null != products && products.size() > 0){
-            List<ProductDto> list = BeanUtil.createBeanListByTarget(products, ProductDto.class);
+            List<ProductDto> list = BeanUtils.createBeanListByTarget(products, ProductDto.class);
             return list;
         }
         return null;
@@ -115,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
         if (total > 0){
             query.setTotal(total);
             List<Product> products = productDao.queryByParam(obj, query);
-            List<ProductDto> list = BeanUtil.createBeanListByTarget(products, ProductDto.class);
+            List<ProductDto> list = BeanUtils.createBeanListByTarget(products, ProductDto.class);
             return new PageResult<ProductDto>(query, list);
         }
         return null;

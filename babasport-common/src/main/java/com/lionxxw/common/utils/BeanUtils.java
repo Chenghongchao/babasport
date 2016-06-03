@@ -6,7 +6,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BeanUtil extends org.springframework.beans.BeanUtils {
+public class BeanUtils extends org.springframework.beans.BeanUtils {
 	
 	public static <T> T createBeanByTarget (Object obj, Class cls){
 		Object target = null;

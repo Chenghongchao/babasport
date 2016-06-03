@@ -6,8 +6,7 @@ import com.lionxxw.babasport.core.entity.SkuExample;
 import com.lionxxw.babasport.core.mapper.SkuMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtil;
-import com.lionxxw.common.utils.StringUtil;
+import com.lionxxw.common.utils.ObjectUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,10 +49,10 @@ public class SkuDao extends MyBatisBaseDao<Sku> {
 
     private void assemblyParams(SkuDto params, SkuExample.Criteria criteria) {
         if (null != params) {
-            if (ObjectUtil.notNull(params.getId())){
+            if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
-            if (ObjectUtil.notNull(params.getProductId())){
+            if (ObjectUtils.notNull(params.getProductId())){
                 criteria.andProductIdEqualTo(params.getProductId());
             }
             if (null != params.getLastStatus()){

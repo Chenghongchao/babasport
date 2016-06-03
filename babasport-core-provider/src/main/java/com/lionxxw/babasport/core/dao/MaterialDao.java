@@ -6,7 +6,7 @@ import com.lionxxw.babasport.core.entity.MaterialExample;
 import com.lionxxw.babasport.core.mapper.MaterialMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtil;
+import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.StringUtil;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +50,10 @@ public class MaterialDao extends MyBatisBaseDao<Material> {
 
     private void assemblyParams(MaterialDto params, MaterialExample.Criteria criteria) {
         if (null != params) {
-            if (ObjectUtil.notNull(params.getId())){
+            if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
-            if (ObjectUtil.notNull(params.getParentId())){
+            if (ObjectUtils.notNull(params.getParentId())){
                 criteria.andParentIdEqualTo(params.getParentId());
             }
             if (StringUtil.notTrimEmpty(params.getName())){

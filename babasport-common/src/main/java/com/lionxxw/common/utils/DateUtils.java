@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 16/5/6 上午9:46
  * @version 1.0
  */
-public abstract class DateUtil {
+public abstract class DateUtils {
     public static final String DATE_FROMAT1 = "yyyy-MM-dd";
     public static final String DATE_FROMAT2 = "yyyy-MM-dd HH:mm:ss";
 

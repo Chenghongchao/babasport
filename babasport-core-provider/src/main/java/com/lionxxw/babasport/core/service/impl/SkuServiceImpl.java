@@ -4,11 +4,10 @@ import com.lionxxw.babasport.core.dao.SkuDao;
 import com.lionxxw.babasport.core.dto.SkuDto;
 import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.service.SkuService;
-import com.lionxxw.babasport.core.service.SkuService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtil;
-import com.lionxxw.common.utils.ExceptionUtil;
+import com.lionxxw.common.utils.BeanUtils;
+import com.lionxxw.common.utils.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,15 +27,15 @@ public class SkuServiceImpl implements SkuService {
     private SkuDao skuDao;
 
     public SkuDto save(SkuDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        Sku sku = BeanUtil.createBeanByTarget(obj, Sku.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        Sku sku = BeanUtils.createBeanByTarget(obj, Sku.class);
         skuDao.insertSelective(sku);
         obj.setId(sku.getId());
         return obj;
     }
 
     public boolean delById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Sku.class, "delById");
+        ExceptionUtils.checkIdIsNull(id, Sku.class, "delById");
         int i = skuDao.deleteByPrimaryKey(id);
         if (i > 0){
             return true;
@@ -45,23 +44,23 @@ public class SkuServiceImpl implements SkuService {
     }
 
     public void update(SkuDto obj) throws Exception {
-        ExceptionUtil.checkObjIsNull(obj);
-        ExceptionUtil.checkIdIsNull(obj.getId(), Sku.class, "update");
-        Sku sku = BeanUtil.createBeanByTarget(obj, Sku.class);
+        ExceptionUtils.checkObjIsNull(obj);
+        ExceptionUtils.checkIdIsNull(obj.getId(), Sku.class, "update");
+        Sku sku = BeanUtils.createBeanByTarget(obj, Sku.class);
         skuDao.updateByPrimaryKeySelective(sku);
     }
 
     public SkuDto getById(Integer id) throws Exception {
-        ExceptionUtil.checkIdIsNull(id, Sku.class, "getById");
+        ExceptionUtils.checkIdIsNull(id, Sku.class, "getById");
         Sku sku = skuDao.selectByPrimaryKey(id);
-        SkuDto dto = BeanUtil.createBeanByTarget(sku, SkuDto.class);
+        SkuDto dto = BeanUtils.createBeanByTarget(sku, SkuDto.class);
         return dto;
     }
 
     public List<SkuDto> queryByParam(SkuDto obj) throws Exception {
         List<Sku> skus = skuDao.queryByParam(obj, null);
         if (null != skus && skus.size() > 0){
-            List<SkuDto> list = BeanUtil.createBeanListByTarget(skus, SkuDto.class);
+            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
             return list;
         }
         return null;
@@ -72,7 +71,7 @@ public class SkuServiceImpl implements SkuService {
         if (total > 0){
             query.setTotal(total);
             List<Sku> skus = skuDao.queryByParam(obj, query);
-            List<SkuDto> list = BeanUtil.createBeanListByTarget(skus, SkuDto.class);
+            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
             return new PageResult<SkuDto>(query, list);
         }
         return null;

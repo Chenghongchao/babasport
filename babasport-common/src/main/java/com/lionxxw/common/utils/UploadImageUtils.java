@@ -18,7 +18,7 @@ import java.util.Random;
  * @version 1.0
  * @time 16/5/25 上午9:32
  */
-public class UploadImageUtil {
+public class UploadImageUtils {
 
     /**
      * <p>Description: 图片上传 </p>

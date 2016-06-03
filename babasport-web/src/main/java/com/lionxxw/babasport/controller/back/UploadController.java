@@ -2,7 +2,7 @@ package com.lionxxw.babasport.controller.back;
 
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.utils.ResponseUtils;
-import com.lionxxw.common.utils.UploadImageUtil;
+import com.lionxxw.common.utils.UploadImageUtils;
 import net.fckeditor.response.UploadResponse;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class UploadController {
 	//上传图片
 	@RequestMapping(value = "uploadPic.do")
 	public void uploadPic(@RequestParam(required = false) MultipartFile pic,HttpServletResponse response){
-		String path = UploadImageUtil.uploadImage(pic, DataStatus.IMAGE_URL);
+		String path = UploadImageUtils.uploadImage(pic, DataStatus.IMAGE_URL);
 
 		//返回二个路径
 		JSONObject jo = new JSONObject();
@@ -51,7 +51,7 @@ public class UploadController {
 		Set<Map.Entry<String, MultipartFile>> entries = fileMap.entrySet();
 		for (Map.Entry<String, MultipartFile> entry : entries){
 			MultipartFile pic = entry.getValue();
-			String path = UploadImageUtil.uploadImage(pic, DataStatus.IMAGE_URL);
+			String path = UploadImageUtils.uploadImage(pic, DataStatus.IMAGE_URL);
 			String url = DataStatus.IMAGE_URL + path;
 			// 返回Url给Fck  fck-core.jar  ckeditor
 			UploadResponse ok = UploadResponse.getOK(url);
