@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface GeneratePropertiesService {
 
-    public static final String suffix = ".properties"; // 统一后缀
+    String suffix = ".properties"; // 统一后缀
 
     /**
      * <p>Description: 生成方法(生成路径相对于webapp目录) </p>
