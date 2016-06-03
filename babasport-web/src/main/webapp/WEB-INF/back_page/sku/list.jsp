@@ -33,8 +33,8 @@
 			<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
 				<td><input type="checkbox" name="ids" value="${sku.id}"/></td>
 				<td>${productNo}</td>
-				<td align="center">${sku.colorId}</td>
-				<td align="center">${sku.sizeId}</td>
+				<td align="center">${sku.colorName}</td>
+				<td align="center">${sku.sizeName}</td>
 				<td align="center"><input type="text" value="${sku.marketPrice}" disabled="disabled" size="10"/></td>
 				<td align="center"><input type="text" value="${sku.skuPrice}" disabled="disabled" size="10"/></td>
 				<td align="center"><input type="text" value="${sku.stockInventory}" disabled="disabled" size="10"/></td>

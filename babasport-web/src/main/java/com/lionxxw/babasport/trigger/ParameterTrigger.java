@@ -45,7 +45,7 @@ public class ParameterTrigger {
     public static final String _SIZE = "size";
     public static final String _MATERIAL = "material";
     public static final String _TYPE = "type";
-    public static final String _PATH = "/properties/";
+    public static final String _PATH = "properties";
 
     /**
      * 初始化配置文件
@@ -61,22 +61,22 @@ public class ParameterTrigger {
 
     public void generateColor() throws Exception{
         logger.info("常用参数配置生成器 generateColor start....");
-        generatePropertiesService.generate(queryColor(), _PATH + _COLOR, "商品颜色配置");
+        generatePropertiesService.generateToResource(queryColor(), _PATH, _COLOR, "商品颜色配置");
         logger.info("常用参数配置生成器 generateColor end....");
     }
     public void generateSize() throws Exception{
         logger.info("常用参数配置生成器 generateSize start....");
-        generatePropertiesService.generate(querySize(), _PATH + _SIZE, "商品尺码配置");
+        generatePropertiesService.generateToResource(querySize(), _PATH, _SIZE, "商品尺码配置");
         logger.info("常用参数配置生成器 generateSize end....");
     }
     public void generateMaterial() throws Exception{
         logger.info("常用参数配置生成器 generateMaterial start....");
-        generatePropertiesService.generate(queryMaterial(), _PATH + _MATERIAL, "商品材质配置");
+        generatePropertiesService.generateToResource(queryMaterial(), _PATH, _MATERIAL, "商品材质配置");
         logger.info("常用参数配置生成器 generateMaterial end....");
     }
     public void generateType() throws Exception{
         logger.info("常用参数配置生成器 generateType start....");
-        generatePropertiesService.generate(queryType(), _PATH + _TYPE, "商品类型配置");
+        generatePropertiesService.generateToResource(queryType(), _PATH, _TYPE, "商品类型配置");
         logger.info("常用参数配置生成器 generateType end....");
     }
 

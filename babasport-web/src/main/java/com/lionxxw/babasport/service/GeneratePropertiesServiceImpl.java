@@ -6,6 +6,7 @@ import org.springframework.web.context.ServletContextAware;
 import javax.servlet.ServletContext;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,36 +21,58 @@ import java.util.Properties;
 public class GeneratePropertiesServiceImpl implements GeneratePropertiesService,ServletContextAware {
     
     private ServletContext servletContext;
-    private static final String  suffix = ".properties"; // 统一后缀
 
-    public void generate(List<PropertiesData> datas, String path, String comment){
+    public void generateToWebapp(List<PropertiesData> datas, String path, String comment){
         if (null != datas && datas.size() > 0){
             String allPath = getPath(path+suffix);
-            Properties prop = new Properties();
-            for (PropertiesData data : datas){
-                prop.put(data.getKey(), data.getValue());
-            }
-            FileOutputStream out = null;
-            try {
-                out = new FileOutputStream(allPath);
-                //为properties添加注释
-                prop.store(out, comment);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                if (null != out){
-                    try {
-                        out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            generate(datas, comment, allPath);
+        }
+    }
+
+    public void generateToResource(List<PropertiesData> datas, String path, String file, String comment){
+        if (null != datas && datas.size() > 0){
+            StringBuilder allPath = new StringBuilder(getResourcePath(path));
+            allPath.append(file + suffix);
+            generate(datas, comment, allPath.toString());
+        }
+    }
+
+    /**
+     * <p>Description: properties生成方法 </p>
+     *
+     * @param datas 数据
+     * @param comment 注释
+     * @param allPath 生成位置全路径
+     * @return
+     * @author wangxiang
+     * @date 16/6/3 上午10:24
+     * @version 1.0
+     */
+    private void generate(List<PropertiesData> datas, String comment, String allPath) {
+        Properties prop = new Properties();
+        for (PropertiesData data : datas){
+            prop.put(data.getKey(), data.getValue());
+        }
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(allPath.toString());
+            //为properties添加注释
+            prop.store(out, comment);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (null != out){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
     }
 
     /**
-     * <p>Description: 获取全路径 </p>
+     * <p>Description: 获取全路径(相对于webapp目录) </p>
      * 
      * @param name 文件名
      * @return path 全路径
@@ -58,7 +81,21 @@ public class GeneratePropertiesServiceImpl implements GeneratePropertiesService,
      * @version 1.0
      */
     public String getPath(String name){
-        return servletContext.getRealPath(name);
+        return servletContext.getRealPath("/"+name);
+    }
+
+    /**
+     * <p>Description: 获取resource目录全路径  </p>
+     *
+     * @param name 路径 相对于resource 如:(/properties)
+     * @return
+     * @author wangxiang
+     * @date 16/6/3 上午10:21
+     * @version 1.0
+     */
+    public String getResourcePath(String name){
+        URL resource = GeneratePropertiesServiceImpl.class.getResource("/"+name);
+        return resource.getPath();
     }
 
     public void setServletContext(ServletContext servletContext) {

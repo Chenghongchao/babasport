@@ -18,6 +18,13 @@
     </properties>
 
     <dependencies>
+        <!--sftp上传工具类 start-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.53</version>
+        </dependency>
+        <!--sftp上传工具类 end-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

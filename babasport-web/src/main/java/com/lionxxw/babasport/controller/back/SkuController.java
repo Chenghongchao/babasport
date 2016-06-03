@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Properties;
 
 /**
  * <p>Description: 商品库存管理 </p>
@@ -28,9 +29,21 @@ public class SkuController extends BaseBackController {
         SkuDto params = new SkuDto();
         params.setProductId(productId);
         List<SkuDto> skus = skuService.queryByParam(params);
+        assembly(skus);
         mv.addObject("skus", skus);
         mv.addObject("productNo", no);
         mv.setViewName("sku/list");
         return mv;
+    }
+
+    private void assembly(List<SkuDto> skus) {
+        if (null != skus && skus.size() > 0){
+            Properties cp = colorProperties();
+            Properties sp = sizeProperties();
+            for (SkuDto sku : skus){
+                sku.setColorName(cp.getProperty(sku.getColorId()+""));
+                sku.setSizeName(sp.getProperty(sku.getSizeId()+""));
+            }
+        }
     }
 }

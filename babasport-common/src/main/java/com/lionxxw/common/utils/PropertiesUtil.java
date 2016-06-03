@@ -8,7 +8,13 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
-
+/**		
+ * <p>Description: 只加载application.properties配置文件信息 </p>
+ * 
+ * @author wangxiang	
+ * @date 16/6/3 上午10:37
+ * @version 1.0
+ */
 public class PropertiesUtil {
 	
 	protected static final Log logger = LogFactory.getLog(PropertiesUtil.class);
