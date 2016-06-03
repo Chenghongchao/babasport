@@ -35,13 +35,13 @@
 				<td>${productNo}</td>
 				<td align="center">${sku.colorName}</td>
 				<td align="center">${sku.sizeName}</td>
-				<td align="center"><input type="text" name="marketPrice" value="${sku.marketPrice}" disabled="disabled" size="10"/></td>
-				<td align="center"><input type="text" name="skuPrice" value="${sku.skuPrice}" disabled="disabled" size="10"/></td>
-				<td align="center"><input type="text" name="stockInventory" value="${sku.stockInventory}" disabled="disabled" size="10"/></td>
-				<td align="center"><input type="text" name="stockUpperLimit" value="${sku.stockUpperLimit}" disabled="disabled" size="10"/></td>
-				<td align="center"><input type="text" name="deliveFee" value="${sku.deliveFee}" disabled="disabled" size="10"/></td>
+				<td align="center"><input type="text" name="marketPrice" value="${sku.marketPrice}" disabled="true" size="10"/></td>
+				<td align="center"><input type="text" name="skuPrice" value="${sku.skuPrice}" disabled="true" size="10"/></td>
+				<td align="center"><input type="text" name="stockInventory" value="${sku.stockInventory}" disabled="true" size="10"/></td>
+				<td align="center"><input type="text" name="stockUpperLimit" value="${sku.stockUpperLimit}" disabled="true" size="10"/></td>
+				<td align="center"><input type="text" name="deliveFee" value="${sku.deliveFee}" disabled="true" size="10"/></td>
 				<td align="center"><c:if test="${sku.skuType == 1}" >不是</c:if><c:if test="${sku.skuType == 0}" >是</c:if></td>
-				<td id="tr_sku" align="center"><a class="pn-opt" id="edit_sku">修改</a> | <a data_id="${sku.id}" class="pn-opt" id="save_sku">保存</a></td>
+				<td id="tr_sku" align="center"><a data_id="${sku.id}" class="pn-opt" id="to_sku" sku_type="edit" >修改</a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -52,28 +52,32 @@
 	var price_reg=/^[-\+]?\d+(\.\d+)?$/; // 金额正则
 	var num_reg=/^\d*$/; // 整数正则
 	$(function() {
-		$("#tr_sku #edit_sku").click(function(){
+		$("#tr_sku #to_sku").click(function(){
 			var _tr = $(this).parent().parent();
-			_tr.find("input").each(function(){
-				if ($(this).attr("disabled")){
-					$(this).attr("disabled",false);
+			var sku_type = $(this).attr("sku_type");
+			if (sku_type == "edit"){
+				_tr.find("input").each(function(){
+					if ($(this).attr("disabled")){
+						$(this).attr("disabled",false);
+					}
+				});
+				$(this).attr("sku_type","save");
+				$(this).html("保存");
+			}else if (sku_type == "save"){
+				if (!checkSaveSku(_tr)){
+					return;
 				}
-			});
-		});
+				var id = $(this).attr("data_id");
+				_tr.find("input").each(function(){
+					if (!$(this).attr("disabled")){
+						$(this).attr("disabled",true);
+					}
+				});
 
-		$("#tr_sku #save_sku").click(function(){
-			var _tr = $(this).parent().parent();
-			if (!checkSaveSku(_tr)){
-				return;
+				saveSku(id, _tr);
+				$(this).attr("sku_type","edit");
+				$(this).html("修改");
 			}
-			var id = $(this).attr("data_id");
-			_tr.find("input").each(function(){
-				if (!$(this).attr("disabled")){
-					$(this).attr("disabled",true);
-				}
-			});
-
-			saveSku(id, _tr);
 		});
 	});
 
