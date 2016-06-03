@@ -1,6 +1,5 @@
 package com.lionxxw.babasport.core.dto;
 
-import com.lionxxw.babasport.core.service.ProductTypeService;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -58,6 +58,13 @@ public class SkuDao extends MyBatisBaseDao<Sku> {
             if (null != params.getLastStatus()){
                 criteria.andLastStatusEqualTo(params.getLastStatus());
             }
+            if (null != params.getStockInventory()){
+                if (0 == params.getStockInventory().intValue()){
+                    criteria.andStockInventoryGreaterThan(params.getStockInventory());
+                }else{
+                    criteria.andStockInventoryEqualTo(params.getStockInventory());
+                }
+            }
         }
     }
 }

@@ -76,4 +76,16 @@ public class SkuServiceImpl implements SkuService {
         }
         return null;
     }
+
+    public List<SkuDto> queryInventory(Integer productId) throws Exception{
+        SkuDto params = new SkuDto();
+        params.setProductId(productId);
+        params.setStockInventory(0);
+        List<Sku> skus = skuDao.queryByParam(params, null);
+        if (null != skus && skus.size() > 0){
+            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, Sku.class);
+            return list;
+        }
+        return null;
+    }
 }
