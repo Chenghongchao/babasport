@@ -28,6 +28,11 @@ public abstract class ObjectUtil {
                 return true;
             }
         }
+        else if (o instanceof String){
+            if ("".equals(((String) o).trim())){
+                return true;
+            }
+        }
         return false;
     }
 
