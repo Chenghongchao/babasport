@@ -35,7 +35,6 @@ public class BaseBackController {
 
     public Properties getProperties(String name){
         Properties properties = PropertiesUtils.returnProperties(ParameterTrigger._PATH+"/"+name+ GeneratePropertiesService.suffix);
-        System.out.println(properties);
         return properties;
     }
 }
