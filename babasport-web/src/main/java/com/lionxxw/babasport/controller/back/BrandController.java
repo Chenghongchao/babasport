@@ -2,9 +2,7 @@ package com.lionxxw.babasport.controller.back;
 
 import com.lionxxw.babasport.core.dto.BrandDto;
 import com.lionxxw.babasport.core.service.BrandService;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.StringUtil;
+import com.lionxxw.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +30,7 @@ public class BrandController extends BaseBackController{
 	@RequestMapping(value = "/brand/list.do")
 	public ModelAndView list(BrandDto params)throws Exception{
 		ModelAndView mv = new ModelAndView();
-		if (StringUtil.notTrimEmpty(params.getName())){
+		if (StringUtils.notTrimEmpty(params.getName())){
 			params.setName(URLDecoder.decode(params.getName(), "UTF-8"));
 		}
 		List<BrandDto> brands = brandService.queryByParam(params);
@@ -75,7 +73,7 @@ public class BrandController extends BaseBackController{
 		for (Integer id : ids){
 			brandService.delById(id);
 		}
-		if (StringUtil.notTrimEmpty(params.getName())){
+		if (StringUtils.notTrimEmpty(params.getName())){
 			model.addAttribute("name", URLEncoder.encode(params.getName(), "UTF-8"));
 		}
 		if (null != params.getIsDisplay()){

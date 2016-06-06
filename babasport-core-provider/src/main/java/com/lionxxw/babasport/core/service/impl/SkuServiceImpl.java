@@ -83,7 +83,7 @@ public class SkuServiceImpl implements SkuService {
         params.setStockInventory(0);
         List<Sku> skus = skuDao.queryByParam(params, null);
         if (null != skus && skus.size() > 0){
-            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, Sku.class);
+            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
             return list;
         }
         return null;

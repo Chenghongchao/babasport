@@ -42,7 +42,7 @@ public class FrontProductController extends BaseController{
         //业务数据
         //1商品图片加载
         ProductDto product = productService.getById(id);
-        mv.addObject("images",getProductImageDtos(id));
+        mv.addObject("images",getProductImageDtos(product));
         //2:加载sku
         //3:此商品  库存大于0的
         List<SkuDto> skus = skuService.queryInventory(id);
@@ -58,10 +58,14 @@ public class FrontProductController extends BaseController{
         return mv;
     }
 
-    private List<ProductImageDto> getProductImageDtos(Integer id) throws Exception {
+    private List<ProductImageDto> getProductImageDtos(ProductDto product) throws Exception {
         ProductImageDto params = new ProductImageDto();
-        params.setProductId(id);
-        return imageService.queryByParam(params);
+        params.setProductId(product.getId());
+        List<ProductImageDto> productImageDtos = imageService.queryByParam(params);
+        if (null != productImageDtos && productImageDtos.size() > 0){
+            product.setImage(productImageDtos.get(0));
+        }
+        return productImageDtos;
     }
 
     private List<ColorDto> getColors(List<SkuDto> skus) {

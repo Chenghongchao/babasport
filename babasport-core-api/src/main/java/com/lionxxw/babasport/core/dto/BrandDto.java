@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.core.dto;
 
 import com.lionxxw.common.constants.DataStatus;
-import com.lionxxw.common.utils.StringUtil;
+import com.lionxxw.common.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +25,7 @@ public class BrandDto implements Serializable {
     private String imgUrl;
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-        if (StringUtil.notTrimEmpty(imgUrl)){
+        if (StringUtils.notTrimEmpty(imgUrl)){
             setAllImgUrl(DataStatus.IMAGE_URL+imgUrl);
         }
     }

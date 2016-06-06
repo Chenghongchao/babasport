@@ -7,7 +7,7 @@ import com.lionxxw.babasport.core.mapper.ProductTypeMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.utils.ObjectUtils;
-import com.lionxxw.common.utils.StringUtil;
+import com.lionxxw.common.utils.StringUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,7 +56,7 @@ public class ProductTypeDao extends MyBatisBaseDao<ProductType> {
             if (ObjectUtils.notNull(params.getParentId())){
                 criteria.andParentIdEqualTo(params.getParentId());
             }
-            if (StringUtil.notTrimEmpty(params.getName())){
+            if (StringUtils.notTrimEmpty(params.getName())){
                 criteria.andNameEqualTo(params.getName().trim());
             }
             if (null != params.getIsDisplay()){

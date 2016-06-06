@@ -142,29 +142,31 @@ function buy(){
 <div class="w ofc mt">
 	<div class="l">
 		<div class="showPro">
-			<div class="big"><a id="showImg" class="cloud-zoom" href="/res/img/pic/ppp0.jpg" rel="adjustX:10,adjustY:-1"><img alt="" src="/res/img/pic/ppp0.jpg"></a></div>
+			<div class="big">
+				<a id="showImg" class="cloud-zoom" href="${product.image.allUrl}" rel="adjustX:10,adjustY:-1">
+					<img alt="" src="${product.image.allUrl}">
+				</a>
+			</div>
 		</div>
 	</div>
 	<div class="r" style="width: 640px">
 		<ul class="uls form">
-			<li><h2>依琦莲2014瑜伽服套装新款 瑜珈健身服三件套 广场舞蹈服装 性价比最高的瑜伽服 三件套 送胸垫 支持货到付款</h2></li>
-			<li><label>巴  巴 价：</label><span class="word"><b class="f14 red mr">￥128.00</b>(市场价:<del>￥150.00</del>)</span></li>
+			<li><h2>${product.name}</h2></li>
+			<li><label>巴  巴 价：</label><span class="word"><b class="f14 red mr" id="sku_price">￥128.00</b>(市场价:<del id="market_price">￥150.00</del>)</span></li>
 			<li><label>商品评价：</label><span class="word"><span class="val_no val3d4" title="4分">4分</span><var class="blue">(已有888人评价)</var></span></li>
-			<li><label>运　　费：</label><span class="word">10元</span></li>
+			<li><label>运　　费：</label><span class="word" id="delive_fee">10元</span></li>
 			<li><label>库　　存：</label><span class="word" id="stockInventory">100</span><span class="word" >件</span></li>
 			<li><label>选择颜色：</label>
 				<div id="colors" class="pre spec">
-					<a onclick="colorToRed(this,9)" href="javascript:void(0)" title="西瓜红" class="changToRed"><img width="25" height="25" data-img="1" src="/res/img/pic/ppp00.jpg" alt="西瓜红 "><i>西瓜红</i></a>
-					<a onclick="colorToRed(this,11)" href="javascript:void(0)" title="墨绿" class="changToWhite"><img width="25" height="25" data-img="1" src="/res/img/pic/ppp00.jpg" alt="墨绿 "><i>墨绿</i></a>
-					<a onclick="colorToRed(this,18)" href="javascript:void(0)" title="浅粉" class="changToWhite"><img width="25" height="25" data-img="1" src="/res/img/pic/ppp00.jpg" alt="浅粉 "><i>浅粉</i></a>
+					<c:forEach items="${colors}" var="color">
+						<a onclick="colorToRed(this,${color.id})" href="javascript:void(0)" title="${color.name}" class="changToWhite"><img width="25" height="25" data-img="1" src="/res/img/pic/ppp00.jpg" alt="${color.name} "><i>${color.name}</i></a>
+					</c:forEach>
 				</div>
 			</li>
 			<li id="sizes"><label>尺　　码：</label>
-						<a href="javascript:void(0)" class="not-allow"  id="S">S</a>
-						<a href="javascript:void(0)" class="not-allow"  id="M">M</a>
-						<a href="javascript:void(0)" class="not-allow"  id="L">L</a>
-						<a href="javascript:void(0)" class="not-allow"  id="XL">XL</a>
-						<a href="javascript:void(0)" class="not-allow"  id="XXL">XXL</a>
+				<c:forEach items="${sizes}" var="size">
+					<a onclick="sizeToRed(this,${size.id})" href="javascript:void(0)" class="not-allow"  id="size_${size.id}">${size.name}</a>
+				</c:forEach>
 			</li>
 			<li><label>我 要 买：</label>
 				<a id="sub" class="inb arr" style="border: 1px solid #919191;width: 10px;height: 10px;line-height: 10px;text-align: center;" title="减" href="javascript:void(0);" >-</a>
@@ -304,7 +306,7 @@ function buy(){
 			<a href="javascript:void(0);" title="包装清单" rel="#detailTab3">包装清单</a></em><cite></cite></h2>
 		<div class="box bg_white ofc">
 			<div id="detailTab1" class="detail">
-				<img src="/res/img/pic/p800b.jpg" /><img src="/res/img/pic/p800a.jpg" /><img src="/res/img/pic/p800c.jpg" /><img src="/res/img/pic/p800d.jpg" />
+				${product.description}
 			</div>
 			
 			<div id="detailTab2" style="display:none">
@@ -320,7 +322,7 @@ function buy(){
 			<div id="detailTab3" class="detail" style="display:none">
 
 	<pre class="f14">
-		上衣*1 裤子*1 抹胸*1 包装*1 
+		${product.packageList}
 	</pre>
 
 			</div>
@@ -384,5 +386,151 @@ function buy(){
 		</li>
 	</ul>
 </div>
+<script type="text/javascript">
+$(function(){
+	//页面加载时  就给 sub add  - + 给二个按钮 注册 click事件
+	$("#sub").click(function(){
+		var num = $("#num").val();
+		num--;
+		if (num <= 0){
+			alert("不支持0件商品购买");
+			return;
+		}
+		$("#num").val(num);
+	});
+
+	$("#add").click(function(){
+		var num = $("#num").val();
+		num++;
+		if (num > buyLimit){
+			alert("对不起,该商品最多支持购买"+buyLimit+"件");
+			return;
+		}
+		$("#num").val(num);
+	});
+
+	$("#colors a:first").trigger("click"); // 默认选中第一个
+});
+//限购
+var buyLimit;
+//市场价  售价  运费  库存  skuId 限购
+//颜色ID
+var colorId;
+//最小销售单元 skuId
+var skuId;
+
+//点击颜色
+function colorToRed(target,id){
+	initNum();
+	initColors();
+	initSizes();
+	// 添加选中样式
+	$(target).attr("class","changToRed");
+	//赋值给颜色Id
+	colorId = id;
+	//设置标记
+	var flag = 0;
+	<c:forEach items="${skus}" var="sku">
+		if (id == ${sku.colorId}){
+			//利用标记 =0 来判断 第一次进来
+			if(flag == 0) {
+				//将第一个尺码标红
+				$("#size_" + '${sku.sizeId}').attr("class","changToRed");
+				flag = 1;
+				//修改市场价
+				$("#market_price").html('￥${sku.marketPrice}');
+				//售价
+				$("#sku_price").html('￥${sku.skuPrice}');
+				//运费
+				$("#delive_fee").html('${sku.deliveFee}');
+				//库存
+				$("#stockInventory").html('${sku.stockInventory}');
+				//赋值限购
+				buyLimit = '${sku.stockUpperLimit}';
+				//赋值skuId
+				skuId = '${sku.id}';
+			}else{
+				//剩余尺码标白
+				$("#size_" + '${sku.sizeId}').attr("class","changToWhite");
+			}
+		}
+	</c:forEach>
+}
+
+//点击尺码
+function sizeToRed(target,id){
+	if ($(target).attr("class") == "not-allow"){
+		return;
+	}
+	//重置购买数量
+	initNum();
+	initEnableSizes();
+	$(target).attr("class","changToRed");
+	//点击尺码 变价格等属性
+	<c:forEach items="${skus}" var="sku">
+	if(colorId == '${sku.colorId}' && id == '${sku.sizeId}'){
+		//修改市场价
+		$("#market_price").html('￥${sku.marketPrice}');
+		//售价
+		$("#sku_price").html('￥${sku.skuPrice}');
+		//运费
+		$("#delive_fee").html('${sku.deliveFee}');
+		//库存
+		$("#stockInventory").html('${sku.stockInventory}');
+		//赋值限购
+		buyLimit = '${sku.stockUpperLimit}';
+		//赋值skuId
+		skuId = '${sku.id}';
+	}
+	</c:forEach>
+}
+
+//加入购物车  //传入商品ID
+function addCart(id){
+	//采用异步的方式 将商品ID  购买数量  限购   skuId  传递到后台
+	//更改购物车中的数据  更改Cookie中的数量
+	var url = "/shopping/addCart.shtml";
+	var params = {"skuId" : skuId,"buyLimit" : buyLimit,"amount" : $("#num").val()};
+	$.post(url,params,function(data){
+		alert("加入购物车成功!");
+	},"json");
+}
+
+//立即购买
+function buy(id){
+	window.location.href = "/shopping/buyCart.shtml?skuId=" + skuId + "&amount=" + $("#num").val() + "&buyLimit=" + buyLimit + "&productId=" + id;
+}
+
+
+// 重置colors样式
+function initColors(){
+	$("#colors a").each(function(){
+		$(this).attr("class","changToWhite");
+	});
+}
+
+// 重置sizes样式
+function initSizes(){
+	$("#sizes a").each(function(){
+		$(this).attr("class","not-allow");
+	});
+}
+
+// 重置可选的sizes样式
+function initEnableSizes(){
+	$("#sizes a").each(function(){
+		var v = $(this).attr("class");
+		if(v != "not-allow"){
+			$(this).attr("class","changToWhite");
+		}
+	});
+}
+
+//重置购买数量
+function initNum(){
+	$("#num").val(1);
+
+}
+</script>
 </body>
 </html>

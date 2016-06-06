@@ -11,7 +11,7 @@ import java.security.MessageDigest;
  * @date 16/5/6 上午9:47
  * @version 1.0
  */
-public abstract class StringUtil {
+public abstract class StringUtils {
     public static boolean isNull(String s) {
         return ObjectUtils.isNull(s);
     }

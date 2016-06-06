@@ -79,7 +79,7 @@ function changePageNo(){
 				<td align="center"><c:if test="${product.isCommend}">是</c:if><c:if test="${!product.isCommend}">否</c:if></td>
 				<td align="center"><c:if test="${product.isShow}">上架</c:if><c:if test="${!product.isShow}">下架</c:if></td>
 				<td align="center">
-					<a href="#" class="pn-opt">查看</a> | <a href="#" class="pn-opt">修改</a> | <a href="#" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a> | <a href="/back/sku/list.do?productId=${product.id}&no=${product.no}" class="pn-opt">库存</a>
+					<a href="/product/detail.shtml?id=${product.id }" target="_black" class="pn-opt">查看</a> | <a href="#" class="pn-opt">修改</a> | <a href="#" onclick="if(!confirm('您确定删除吗？')) {return false;}" class="pn-opt">删除</a> | <a href="/back/sku/list.do?productId=${product.id}&no=${product.no}" class="pn-opt">库存</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -88,7 +88,7 @@ function changePageNo(){
 	<%@ include file="../common/page.jsp" %>
 <div style="margin-top:15px;">
 	<input class="del-button" type="button" value="删除" onclick="optDelete();"/><input class="add" type="button" value="上架" onclick="optDelete();"/><input class="del-button" type="button" value="下架" onclick="optDelete();"/>
-	接口<input id="service_value" type="text" value=""/>方法<input id="method_value" type="text" value=""/>参数<input id="arg_value" type="text" value=""/><input class="del-button" type="button" value="测试aop" onclick="testAop();"/>
+	<%--接口<input id="service_value" type="text" value=""/>方法<input id="method_value" type="text" value=""/>参数<input id="arg_value" type="text" value=""/><input class="del-button" type="button" value="测试aop" onclick="testAop();"/>--%>
 </div>
 </form>
 </div>

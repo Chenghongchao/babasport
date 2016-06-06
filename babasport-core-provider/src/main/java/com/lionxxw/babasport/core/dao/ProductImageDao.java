@@ -57,11 +57,7 @@ public class ProductImageDao extends MyBatisBaseDao<ProductImage> {
             }
             if (null != params.getIsDef()){
                 criteria.andIsDefEqualTo(params.getIsDef());
-            }else{
-                criteria.andIsDefEqualTo(true);
             }
-        }else{
-            criteria.andIsDefEqualTo(true);
         }
 
     }

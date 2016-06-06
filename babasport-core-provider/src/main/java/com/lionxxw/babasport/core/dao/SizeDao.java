@@ -7,7 +7,7 @@ import com.lionxxw.babasport.core.mapper.SizeMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.utils.ObjectUtils;
-import com.lionxxw.common.utils.StringUtil;
+import com.lionxxw.common.utils.StringUtils;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,7 +53,7 @@ public class SizeDao extends MyBatisBaseDao<Size> {
             if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
             }
-            if (StringUtil.notTrimEmpty(params.getName())){
+            if (StringUtils.notTrimEmpty(params.getName())){
                 criteria.andNameEqualTo(params.getName().trim());
             }
             if (null != params.getIsDisplay()){
