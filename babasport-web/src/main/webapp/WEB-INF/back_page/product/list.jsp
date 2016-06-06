@@ -21,6 +21,37 @@ function optDelete() {
 	f.action="o_delete.do";
 	f.submit();
 }
+// 上架操作
+function isShow() {
+	if(Pn.checkedCount('ids')<=0) {
+		alert("请至少选择一个!");
+		return;
+	}
+	if(!confirm("确定上架吗?")) {
+		return;
+	}
+	var ajaxParams = $("#tableForm").serialize();
+	$.ajax({
+		type: "POST",
+		url: "/back/product/isShow.do",
+		data: ajaxParams,
+		dataType: "json",
+		success: function(data){
+			var jsondata = null;//eval('(' + data + ')');
+			if (data instanceof Object){
+				jsondata = data;
+			}else{
+				jsondata = eval('(' + data + ')');
+			}
+			if(jsondata.status == 200){
+				alert(jsondata.message);
+			}else{
+				alert(jsondata.message);
+			}
+		}
+	});
+}
+
 function changePageNo(){
 	$("input[name='currPage']").val(1);
 }
@@ -70,7 +101,7 @@ function changePageNo(){
 	<tbody class="pn-ltbody">
 		<c:forEach items="${products.results}" var="product">
 			<tr bgcolor="#ffffff" onmouseover="this.bgColor='#eeeeee'" onmouseout="this.bgColor='#ffffff'">
-				<td><input type="checkbox" name="ids" value="73"/></td>
+				<td><input type="checkbox" name="ids" value="${product.id}"/></td>
 				<td>${product.no}</td>
 				<td align="center">${product.name}</td>
 				<td align="center"><img width="50" height="50" src="/res/img/pic/ppp0.jpg"/></td>
@@ -87,7 +118,7 @@ function changePageNo(){
 </table>
 	<%@ include file="../common/page.jsp" %>
 <div style="margin-top:15px;">
-	<input class="del-button" type="button" value="删除" onclick="optDelete();"/><input class="add" type="button" value="上架" onclick="optDelete();"/><input class="del-button" type="button" value="下架" onclick="optDelete();"/>
+	<input class="del-button" type="button" value="删除" onclick="optDelete();"/><input class="add" type="button" value="上架" onclick="isShow();"/><input class="del-button" type="button" value="下架" onclick="optDelete();"/>
 	<%--接口<input id="service_value" type="text" value=""/>方法<input id="method_value" type="text" value=""/>参数<input id="arg_value" type="text" value=""/><input class="del-button" type="button" value="测试aop" onclick="testAop();"/>--%>
 </div>
 </form>
