@@ -8,6 +8,8 @@ import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.service.ProductImageService;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.babasport.core.service.SkuService;
+import com.lionxxw.common.model.PageQuery;
+import com.lionxxw.common.model.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,18 @@ public class FrontProductController extends BaseController{
     private ProductImageService imageService;
     @Autowired
     private SkuService skuService;
+
+    //商品列表页面
+    // 1.使用oscache页面缓存技术
+    // 待实现优化技术.solr
+    @RequestMapping(value = "display/list.shtml")
+    public ModelAndView list(ProductDto params, PageQuery query) throws Exception{
+        ModelAndView mv = new ModelAndView();
+        PageResult<ProductDto> pageResult = productService.queryByPage(params, query);
+        mv.addObject("products", pageResult);
+        mv.setViewName("product/product");
+        return mv;
+    }
 
     //商品详情页面
     @RequestMapping(value = "detail.shtml")
