@@ -464,7 +464,7 @@ function sizeToRed(target,id){
 	}
 	//重置购买数量
 	initNum();
-	initEnableSizes();
+	initSizes2();
 	$(target).attr("class","changToRed");
 	//点击尺码 变价格等属性
 	<c:forEach items="${skus}" var="sku">
@@ -516,8 +516,8 @@ function initSizes(){
 	});
 }
 
-// 重置可选的sizes样式
-function initEnableSizes(){
+// 切换尺码时重置的sizes样式
+function initSizes2(){
 	$("#sizes a").each(function(){
 		var v = $(this).attr("class");
 		if(v != "not-allow"){
