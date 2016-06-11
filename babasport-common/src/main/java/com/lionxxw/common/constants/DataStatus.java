@@ -24,6 +24,7 @@ public interface DataStatus {
     final static String DECODECHARSET = "utf-8";    // 默认字符编码
 
     static final String SESSION_EMP = "session_emp"; // 后台员工session key
+    static final String SESSION_USER = "session_user"; // 前台用户session key
 
     /**
      * 图片服务器

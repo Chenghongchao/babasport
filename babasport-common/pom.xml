@@ -66,11 +66,16 @@
             <artifactId>jersey-client</artifactId>
             <version>1.18.1</version>
         </dependency>
-        <!--jcaptcha -->
+        <!--jcaptcha 验证码-->
         <dependency>
             <groupId>com.octo.captcha</groupId>
             <artifactId>jcaptcha</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec-version}</version>
         </dependency>
     </dependencies>
 

@@ -12,4 +12,6 @@
 
 	<!--session实例化-->
 	<bean id="sessionProvider" class="com.lionxxw.common.web.HttpSessionProvider"/>
+	<!--自定义规则MD5加密-->
+	<bean id="encodeMd5" class="com.lionxxw.common.encode.EncodeMd5Impl"/>
 </beans>
