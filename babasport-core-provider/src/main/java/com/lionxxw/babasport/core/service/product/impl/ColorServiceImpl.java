@@ -1,78 +1,86 @@
 package com.lionxxw.babasport.core.service.product.impl;
 
-import com.lionxxw.babasport.core.dao.product.ColorDao;
-import com.lionxxw.babasport.core.dto.product.ColorDto;
-import com.lionxxw.babasport.core.entity.Color;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtils;
-import com.lionxxw.common.utils.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import com.lionxxw.babasport.core.dao.product.ColorDao;
+import com.lionxxw.babasport.core.dto.product.Color;
+import com.lionxxw.babasport.core.query.product.ColorQuery;
+import com.lionxxw.babasport.core.service.product.ColorService;
+import com.lionxxw.common.model.PageResult;
+import javafx.scene.control.Pagination;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
- * <p>Description: 颜色接口实现 </p>
- *
- * @author wangxiang
- * @version 1.0
- * @time 16/5/22 上午12:03
+ * 颜色
+ * @author lixu
+ * @Date [2014-3-27 下午03:31:57]
  */
 @Service
+@Transactional
 public class ColorServiceImpl implements ColorService {
 
-    @Autowired
-    private ColorDao colorDao;
+	@Resource
+	ColorDao colorDao;
 
-    public ColorDto save(ColorDto obj) throws Exception {
-        ExceptionUtils.checkObjIsNull(obj);
-        Color color = BeanUtils.createBeanByTarget(obj, Color.class);
-        colorDao.insertSelective(color);
-        obj.setId(color.getId());
-        return obj;
-    }
+	/**
+	 * 插入数据库
+	 * 
+	 * @return
+	 */
+	public Integer addColor(Color color) {
+		return colorDao.addColor(color);
+	}
 
-    public boolean delById(Integer id) throws Exception {
-        ExceptionUtils.checkIdIsNull(id, Color.class, "delById");
-        int i = colorDao.deleteByPrimaryKey(id);
-        if (i > 0){
-            return true;
-        }
-        return false;
-    }
+	/**
+	 * 根据主键查找
+	 */
+	@Transactional(readOnly = true)
+	public Color getColorByKey(Integer id) {
+		return colorDao.getColorByKey(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Color> getColorsByKeys(List<Integer> idList) {
+		return colorDao.getColorsByKeys(idList);
+	}
 
-    public void update(ColorDto obj) throws Exception {
-        ExceptionUtils.checkObjIsNull(obj);
-        ExceptionUtils.checkIdIsNull(obj.getId(), Color.class, "update");
-        Color color = BeanUtils.createBeanByTarget(obj, Color.class);
-        colorDao.updateByPrimaryKeySelective(color);
-    }
+	/**
+	 * 根据主键删除
+	 * 
+	 * @return
+	 */
+	public Integer deleteByKey(Integer id) {
+		return colorDao.deleteByKey(id);
+	}
 
-    public ColorDto getById(Integer id) throws Exception {
-        ExceptionUtils.checkIdIsNull(id, Color.class, "getById");
-        Color color = colorDao.selectByPrimaryKey(id);
-        ColorDto dto = BeanUtils.createBeanByTarget(color, ColorDto.class);
-        return dto;
-    }
+	public Integer deleteByKeys(List<Integer> idList) {
+		return colorDao.deleteByKeys(idList);
+	}
 
-    public List<ColorDto> queryByParam(ColorDto obj) throws Exception {
-        List<Color> colors = colorDao.queryByParam(obj, null);
-        if (null != colors && colors.size() > 0){
-            List<ColorDto> list = BeanUtils.createBeanListByTarget(colors, ColorDto.class);
-            return list;
-        }
-        return null;
-    }
-
-    public PageResult<ColorDto> queryByPage(ColorDto obj, PageQuery query) throws Exception {
-        int total = colorDao.countByParam(obj);
-        if (total > 0){
-            query.setTotal(total);
-            List<Color> colors = colorDao.queryByParam(obj, query);
-            List<ColorDto> list = BeanUtils.createBeanListByTarget(colors, ColorDto.class);
-            return new PageResult<ColorDto>(query, list);
-        }
-        return null;
-    }
+	/**
+	 * 根据主键更新
+	 * 
+	 * @return
+	 */
+	public Integer updateColorByKey(Color color) {
+		return colorDao.updateColorByKey(color);
+	}
+	
+	@Transactional(readOnly = true)
+	public PageResult<Color> getColorListWithPage(ColorQuery colorQuery) {
+		int total = colorDao.getColorListCount(colorQuery);
+		if (total > 0){
+			List<Color> list = colorDao.getColorListWithPage(colorQuery);
+			return new PageResult<Color>(total, colorQuery.getPageSize(), list);
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Color> getColorList(ColorQuery colorQuery) {
+		return colorDao.getColorList(colorQuery);
+	}
 }

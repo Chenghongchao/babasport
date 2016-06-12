@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.controller.back;
 
-import com.lionxxw.babasport.core.dto.product.*;
+import com.lionxxw.babasport.core.service.product.*;
 import com.lionxxw.babasport.core.service.product.impl.*;
 import com.lionxxw.babasport.staticpage.StaticPageService;
 import com.lionxxw.common.constants.DataStatus;

@@ -1,77 +1,59 @@
 package com.lionxxw.babasport.core.dao.product;
 
-import com.lionxxw.babasport.core.dto.product.ProductDto;
-import com.lionxxw.babasport.core.entity.Product;
-import com.lionxxw.babasport.core.entity.ProductExample;
-import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
-import com.lionxxw.babasport.core.mapper.ProductMapper;
-import com.lionxxw.common.base.MyBatisBaseDao;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtils;
-import com.lionxxw.common.utils.StringUtils;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.lionxxw.babasport.core.dto.product.Product;
+import com.lionxxw.babasport.core.query.product.ProductQuery;
 
 import java.util.List;
 
-/**
- * <p>Description: 产品dao层实现 </p>
- *
- * @author wangxiang
- * @version 1.0
- * @time 16/5/21 下午11:45
- */
-@Repository
-public class ProductDao extends MyBatisBaseDao<ProductWithBLOBs> {
 
-    @Autowired
-    @Getter
-    private ProductMapper mapper;
+public interface ProductDao {
 
-    public List<Product> queryByParam(ProductDto obj, PageQuery query) throws Exception{
-        ProductExample example = new ProductExample();
-        ProductExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        if(null != query){
-            example.setOrderByClause("create_time desc limit "+query.getStartNum() +"," + query.getPageSize());
-        }else{
-            example.setOrderByClause("create_time desc");
-        }
-        List<Product> results = mapper.selectByExample(example);
-        return results;
-    }
+	/**
+	 * 添加
+	 * @param product
+	 */
+	public Integer addProduct(Product product);
 
-    public int countByParam(ProductDto obj) throws Exception{
-        ProductExample example = new ProductExample();
-        ProductExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        return mapper.countByExample(example);
-    }
+	/**
+	 * 根据主键查找
+	 */
+	public Product getProductByKey(Integer id);
 
-    private void assemblyParams(ProductDto params, ProductExample.Criteria criteria) {
-        if (null != params) {
-            if (ObjectUtils.notNull(params.getId())){
-                criteria.andIdEqualTo(params.getId());
-            }
-            if (StringUtils.notTrimEmpty(params.getName())){
-                criteria.andNameEqualTo(params.getName().trim());
-            }
-            if (StringUtils.notTrimEmpty(params.getCreateUserId())){
-                criteria.andCreateUserIdEqualTo(params.getCreateUserId().trim());
-            }
-            if (null != params.getIsCommend()){
-                criteria.andIsCommendEqualTo(params.getIsCommend());
-            }
-            if (null != params.getBrandId()){
-                criteria.andBrandIdEqualTo(params.getBrandId());
-            }
-            if (null != params.getIsHot()){
-                criteria.andIsHotEqualTo(params.getIsHot());
-            }
-            if (null != params.getIsShow()){
-                criteria.andIsShowEqualTo(params.getIsShow());
-            }
-        }
-    }
+	/**
+	 * 根据主键批量查找
+	 */
+	public List<Product> getProductsByKeys(List<Integer> idList);
+
+	/**
+	 * 根据主键删除
+	 */
+	public Integer deleteByKey(Integer id);
+
+	/**
+	 * 根据主键批量删除
+	 */
+	public Integer deleteByKeys(List<Integer> idList);
+
+	/**
+	 * 根据主键更新
+	 */
+	public Integer updateProductByKey(Product product);
+
+	/**
+	 * 分页查询
+	 * @param productQuery
+	 */
+	public List<Product> getProductListWithPage(ProductQuery productQuery);
+
+	/**
+	 * 集合查询
+	 * @param productQuery
+	 */
+	public List<Product> getProductList(ProductQuery productQuery);
+	
+	/**
+	 * 总条数
+	 * @param productQuery
+	 */
+	public int getProductListCount(ProductQuery productQuery);
 }

@@ -1,64 +1,35 @@
 package com.lionxxw.babasport.core.dao.product;
 
-import com.lionxxw.babasport.core.dto.product.BrandDto;
-import com.lionxxw.babasport.core.entity.Brand;
-import com.lionxxw.babasport.core.entity.BrandExample;
-import com.lionxxw.babasport.core.mapper.BrandMapper;
-import com.lionxxw.common.base.MyBatisBaseDao;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtils;
-import com.lionxxw.common.utils.StringUtils;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
+import com.lionxxw.babasport.core.dto.product.Brand;
+import com.lionxxw.babasport.core.query.product.BrandQuery;
 import java.util.List;
 
 /**
- * <p>Description: 品牌dao层实现 </p>
+ * 品牌
+ * @author lx
  *
- * @author wangxiang
- * @version 1.0
- * @time 16/5/21 下午11:35
  */
-@Repository
-public class BrandDao extends MyBatisBaseDao<Brand> {
-
-    @Autowired
-    @Getter
-    private BrandMapper mapper;
-
-    public List<Brand> queryByParam(BrandDto obj, PageQuery query) throws Exception{
-        BrandExample example = new BrandExample();
-        BrandExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        if(null != query){
-            example.setOrderByClause("sort desc limit "+query.getStartNum() +"," + query.getPageSize());
-        }else{
-            example.setOrderByClause("sort desc");
-        }
-        List<Brand> results = mapper.selectByExample(example);
-        return results;
-    }
-
-    public int countByParam(BrandDto obj) throws Exception{
-        BrandExample example = new BrandExample();
-        BrandExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        return mapper.countByExample(example);
-    }
-
-    private void assemblyParams(BrandDto params, BrandExample.Criteria criteria) {
-        if (null != params) {
-            if (ObjectUtils.notNull(params.getId())){
-                criteria.andIdEqualTo(params.getId());
-            }
-            if (StringUtils.notTrimEmpty(params.getName())){
-                criteria.andNameEqualTo(params.getName().trim());
-            }
-            if (null != params.getIsDisplay()){
-                criteria.andIsDisplayEqualTo(params.getIsDisplay());
-            }
-        }
-    }
+public interface BrandDao {
+	
+	//List集合 Limit 0,5
+	public List<Brand> getBrandListWithPage(Brand brand);
+	
+	
+	//查询集合
+	public List<Brand> getBrandList(BrandQuery brandQuery);
+	
+	//查询总记录数
+	public int getBrandCount(Brand brand);
+	//添加品牌
+	public void addBrand(Brand brand);
+	
+	//删除
+	public void deleteBrandByKey(Integer id);
+	//删除 批量
+	public void deleteBrandByKeys(Integer[] ids);//List<Integer>  ids
+	//修改
+	public void updateBrandByKey(Brand brand);
+	
+	//
+	public Brand getBrandByKey(Integer id);
 }

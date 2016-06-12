@@ -1,6 +1,7 @@
 package com.lionxxw.babasport.core.dto.cart;
 
-import com.lionxxw.babasport.core.dto.product.SkuDto;
+
+import com.lionxxw.babasport.core.dto.product.Sku;
 
 /**
  * <p>Description: 购物项 </p>
@@ -12,13 +13,13 @@ import com.lionxxw.babasport.core.dto.product.SkuDto;
 public class BuyItem {
 
 	//Sku
-	private SkuDto sku;
+	private Sku sku;
 	//数量
 	private int amount =1;
-	public SkuDto getSku() {
+	public Sku getSku() {
 		return sku;
 	}
-	public void setSku(SkuDto sku) {
+	public void setSku(Sku sku) {
 		this.sku = sku;
 	}
 	public int getAmount() {

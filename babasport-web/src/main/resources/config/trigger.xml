@@ -17,11 +17,11 @@
      <aop:config>
           <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.impl.ColorServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.ColorServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.ColorServiceImpl.update*(..))"
                         id="colorPerform"/>
-          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.impl.SizeServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.SizeServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.SizeServiceImpl.update*(..))"
+          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.SizeServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.SizeServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.SizeServiceImpl.update*(..))"
                         id="sizePerform"/>
-          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.impl.MaterialServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.MaterialServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.MaterialServiceImpl.update*(..))"
+          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.MaterialServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.MaterialServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.MaterialServiceImpl.update*(..))"
                         id="materialPerform"/>
-          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.impl.ProductTypeServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.ProductTypeServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.impl.ProductTypeServiceImpl.update*(..))"
+          <aop:pointcut expression="execution(* com.lionxxw.babasport.core.service.product.ProductTypeServiceImpl.save*(..)) or execution(* com.lionxxw.babasport.core.service.product.ProductTypeServiceImpl.del*(..)) or execution(* com.lionxxw.babasport.core.service.product.ProductTypeServiceImpl.update*(..))"
                         id="typePerform"/>
           <aop:aspect ref="parameterTrigger">
                <aop:after method="generateColor" pointcut-ref="colorPerform"/>

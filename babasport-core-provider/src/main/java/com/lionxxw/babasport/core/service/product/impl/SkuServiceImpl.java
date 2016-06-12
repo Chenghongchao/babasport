@@ -1,90 +1,116 @@
 package com.lionxxw.babasport.core.service.product.impl;
 
-import com.lionxxw.babasport.core.dao.product.SkuDao;
-import com.lionxxw.babasport.core.dto.product.SkuDto;
-import com.lionxxw.babasport.core.entity.Sku;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.model.PageResult;
-import com.lionxxw.common.utils.BeanUtils;
-import com.lionxxw.common.utils.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import com.javafx.tools.doclets.internal.toolkit.taglets.TagletOutput;
+import com.lionxxw.babasport.core.dao.product.SkuDao;
+import com.lionxxw.babasport.core.dto.product.Product;
+import com.lionxxw.babasport.core.dto.product.Sku;
+import com.lionxxw.babasport.core.query.product.SkuQuery;
+import com.lionxxw.babasport.core.service.product.ColorService;
+import com.lionxxw.babasport.core.service.product.ProductService;
+import com.lionxxw.babasport.core.service.product.SkuService;
+import com.lionxxw.common.model.PageResult;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
- * <p>Description: 商品库存接口实现 </p>
- *
- * @author wangxiang
- * @version 1.0
- * @time 16/5/22 上午12:03
+ * 最小销售单元事务层
+ * @author lixu
+ * @Date [2014-3-27 下午03:31:57]
  */
 @Service
+@Transactional
 public class SkuServiceImpl implements SkuService {
 
-    @Autowired
-    private SkuDao skuDao;
+	@Resource
+	SkuDao skuDao;
+	@Resource
+	ColorService colorService;
+	@Resource
+	ProductService productService;
 
-    public SkuDto save(SkuDto obj) throws Exception {
-        ExceptionUtils.checkObjIsNull(obj);
-        Sku sku = BeanUtils.createBeanByTarget(obj, Sku.class);
-        skuDao.insertSelective(sku);
-        obj.setId(sku.getId());
-        return obj;
-    }
+	/**
+	 * 插入数据库
+	 * 
+	 * @return
+	 */
+	public Integer addSku(Sku sku) {
+		return skuDao.addSku(sku);
+	}
 
-    public boolean delById(Integer id) throws Exception {
-        ExceptionUtils.checkIdIsNull(id, Sku.class, "delById");
-        int i = skuDao.deleteByPrimaryKey(id);
-        if (i > 0){
-            return true;
-        }
-        return false;
-    }
+	/**
+	 * 根据主键查找
+	 */
+	@Transactional(readOnly = true)
+	public Sku getSkuByKey(Integer id) {
+		Sku sku = skuDao.getSkuByKey(id);
+		//通过商品ID
+		Product product = productService.getProductByKey(sku.getProductId());
+		
+		sku.setProduct(product);
+		//颜色加载
+		sku.setColor(colorService.getColorByKey(sku.getColorId()));
+		
+		return sku;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Sku> getSkusByKeys(List<Integer> idList) {
+		return skuDao.getSkusByKeys(idList);
+	}
 
-    public void update(SkuDto obj) throws Exception {
-        ExceptionUtils.checkObjIsNull(obj);
-        ExceptionUtils.checkIdIsNull(obj.getId(), Sku.class, "update");
-        Sku sku = BeanUtils.createBeanByTarget(obj, Sku.class);
-        skuDao.updateByPrimaryKeySelective(sku);
-    }
+	/**
+	 * 根据主键删除
+	 * 
+	 * @return
+	 */
+	public Integer deleteByKey(Integer id) {
+		return skuDao.deleteByKey(id);
+	}
 
-    public SkuDto getById(Integer id) throws Exception {
-        ExceptionUtils.checkIdIsNull(id, Sku.class, "getById");
-        Sku sku = skuDao.selectByPrimaryKey(id);
-        SkuDto dto = BeanUtils.createBeanByTarget(sku, SkuDto.class);
-        return dto;
-    }
+	public Integer deleteByKeys(List<Integer> idList) {
+		return skuDao.deleteByKeys(idList);
+	}
 
-    public List<SkuDto> queryByParam(SkuDto obj) throws Exception {
-        List<Sku> skus = skuDao.queryByParam(obj, null);
-        if (null != skus && skus.size() > 0){
-            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
-            return list;
-        }
-        return null;
-    }
+	/**
+	 * 根据主键更新
+	 * 
+	 * @return
+	 */
+	public Integer updateSkuByKey(Sku sku) {
+		return skuDao.updateSkuByKey(sku);
+	}
+	
+	@Transactional(readOnly = true)
+	public PageResult<Sku> getSkuListWithPage(SkuQuery skuQuery) {
+		int total = skuDao.getSkuListCount(skuQuery);
+		if (total > 0){
+			List<Sku> list = skuDao.getSkuListWithPage(skuQuery);
+			return new PageResult<Sku>(total, skuQuery.getPageSize(), list);
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Sku> getSkuList(SkuQuery skuQuery) {
+		List<Sku> skus = skuDao.getSkuList(skuQuery);
+		//颜色加载完结
+		for(Sku sku : skus){
+			sku.setColor(colorService.getColorByKey(sku.getColorId()));
+		}
+		return skus;
+	}
 
-    public PageResult<SkuDto> queryByPage(SkuDto obj, PageQuery query) throws Exception {
-        int total = skuDao.countByParam(obj);
-        if (total > 0){
-            query.setTotal(total);
-            List<Sku> skus = skuDao.queryByParam(obj, query);
-            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
-            return new PageResult<SkuDto>(query, list);
-        }
-        return null;
-    }
-
-    public List<SkuDto> queryInventory(Integer productId) throws Exception{
-        SkuDto params = new SkuDto();
-        params.setProductId(productId);
-        params.setStockInventory(0);
-        List<Sku> skus = skuDao.queryByParam(params, null);
-        if (null != skus && skus.size() > 0){
-            List<SkuDto> list = BeanUtils.createBeanListByTarget(skus, SkuDto.class);
-            return list;
-        }
-        return null;
-    }
+	public List<Sku> getStock(Integer productId) {
+		// TODO Auto-generated method stub
+		List<Sku> skus = skuDao.getStock(productId);
+		//颜色加载完结
+		for(Sku sku : skus){
+			sku.setColor(colorService.getColorByKey(sku.getColorId()));
+		}
+		return skus;
+	}
 }

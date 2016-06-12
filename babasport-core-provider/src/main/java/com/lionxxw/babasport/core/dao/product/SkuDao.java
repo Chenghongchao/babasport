@@ -1,70 +1,64 @@
 package com.lionxxw.babasport.core.dao.product;
 
-import com.lionxxw.babasport.core.dto.product.SkuDto;
-import com.lionxxw.babasport.core.entity.Sku;
-import com.lionxxw.babasport.core.entity.SkuExample;
-import com.lionxxw.babasport.core.mapper.SkuMapper;
-import com.lionxxw.common.base.MyBatisBaseDao;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.utils.ObjectUtils;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.lionxxw.babasport.core.dto.product.Sku;
+import com.lionxxw.babasport.core.query.product.SkuQuery;
 
 import java.util.List;
 
-/**
- * <p>Description: 商品库存dao层实现 </p>
- *
- * @author wangxiang
- * @version 1.0
- * @time 16/5/21 下午11:35
- */
-@Repository
-public class SkuDao extends MyBatisBaseDao<Sku> {
 
-    @Autowired
-    @Getter
-    private SkuMapper mapper;
+public interface SkuDao {
 
-    public List<Sku> queryByParam(SkuDto obj, PageQuery query) throws Exception{
-        SkuExample example = new SkuExample();
-        SkuExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        if(null != query){
-            example.setOrderByClause("create_time desc limit "+query.getStartNum() +"," + query.getPageSize());
-        }else{
-            example.setOrderByClause("create_time desc");
-        }
-        List<Sku> results = mapper.selectByExample(example);
-        return results;
-    }
+	/**
+	 * 添加
+	 * @param sku
+	 */
+	public Integer addSku(Sku sku);
 
-    public int countByParam(SkuDto obj) throws Exception{
-        SkuExample example = new SkuExample();
-        SkuExample.Criteria criteria = example.createCriteria();
-        assemblyParams(obj, criteria);
-        return mapper.countByExample(example);
-    }
+	/**
+	 * 根据主键查找
+	 */
+	public Sku getSkuByKey(Integer id);
 
-    private void assemblyParams(SkuDto params, SkuExample.Criteria criteria) {
-        if (null != params) {
-            if (ObjectUtils.notNull(params.getId())){
-                criteria.andIdEqualTo(params.getId());
-            }
-            if (ObjectUtils.notNull(params.getProductId())){
-                criteria.andProductIdEqualTo(params.getProductId());
-            }
-            if (null != params.getLastStatus()){
-                criteria.andLastStatusEqualTo(params.getLastStatus());
-            }
-            if (null != params.getStockInventory()){
-                if (0 == params.getStockInventory().intValue()){
-                    criteria.andStockInventoryGreaterThan(params.getStockInventory());
-                }else{
-                    criteria.andStockInventoryEqualTo(params.getStockInventory());
-                }
-            }
-        }
-    }
+	/**
+	 * 根据主键批量查找
+	 */
+	public List<Sku> getSkusByKeys(List<Integer> idList);
+
+	/**
+	 * 根据主键删除
+	 */
+	public Integer deleteByKey(Integer id);
+
+	/**
+	 * 根据主键批量删除
+	 */
+	public Integer deleteByKeys(List<Integer> idList);
+
+	/**
+	 * 根据主键更新
+	 */
+	public Integer updateSkuByKey(Sku sku);
+
+	/**
+	 * 分页查询
+	 * @param skuQuery
+	 */
+	public List<Sku> getSkuListWithPage(SkuQuery skuQuery);
+
+	/**
+	 * 集合查询
+	 * @param skuQuery
+	 */
+	public List<Sku> getSkuList(SkuQuery skuQuery);
+	
+	/**
+	 * 总条数
+	 * @param skuQuery
+	 */
+	public int getSkuListCount(SkuQuery skuQuery);
+	/**
+	 * 库存大于>0
+	 */
+	public List<Sku> getStock(Integer productId);
+
 }
