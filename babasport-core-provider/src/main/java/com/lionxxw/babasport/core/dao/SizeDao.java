@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.SizeDto;
+import com.lionxxw.babasport.core.dto.product.SizeDto;
 import com.lionxxw.babasport.core.entity.Size;
 import com.lionxxw.babasport.core.entity.SizeExample;
 import com.lionxxw.babasport.core.mapper.SizeMapper;

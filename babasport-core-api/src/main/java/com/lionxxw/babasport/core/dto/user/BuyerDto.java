@@ -1,4 +1,4 @@
-package com.lionxxw.babasport.core.dto;
+package com.lionxxw.babasport.core.dto.user;
 
 import lombok.Data;
 

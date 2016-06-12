@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.ColorDto;
+import com.lionxxw.babasport.core.dto.product.ColorDto;
 import com.lionxxw.babasport.core.entity.Color;
 import com.lionxxw.babasport.core.entity.ColorExample;
 import com.lionxxw.babasport.core.mapper.ColorMapper;

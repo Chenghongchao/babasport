@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.controller.back;
 
-import com.lionxxw.babasport.core.dto.BrandDto;
+import com.lionxxw.babasport.core.dto.product.BrandDto;
 import com.lionxxw.babasport.core.service.BrandService;
 import com.lionxxw.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

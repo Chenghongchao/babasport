@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.core.service.impl;
 
 import com.lionxxw.babasport.core.dao.ColorDao;
-import com.lionxxw.babasport.core.dto.ColorDto;
+import com.lionxxw.babasport.core.dto.product.ColorDto;
 import com.lionxxw.babasport.core.entity.Color;
 import com.lionxxw.babasport.core.service.ColorService;
 import com.lionxxw.common.model.PageQuery;

@@ -1,8 +1,11 @@
 package com.lionxxw.common.web;
 
+import com.lionxxw.common.constants.DataStatus;
 import javafx.scene.shape.VLineTo;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
@@ -28,12 +31,16 @@ public class HttpSessionProvider implements SessionProvider {
         return null;
     }
 
-    public void logout(HttpServletRequest request) {
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         if (null != session){
             session.invalidate();
         }
         // 清除cookie jsessionId
+        Cookie c  = new Cookie(DataStatus.SESSION_USER,null);
+        c.setMaxAge(0);
+        response.addCookie(c);
+
     }
 
     public String getSessionId(HttpServletRequest request) {

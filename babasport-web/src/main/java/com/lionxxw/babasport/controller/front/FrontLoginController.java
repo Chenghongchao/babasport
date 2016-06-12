@@ -1,15 +1,9 @@
 package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
-import com.lionxxw.babasport.core.dto.*;
-import com.lionxxw.babasport.core.service.BuyerService;
-import com.lionxxw.babasport.core.service.ProductImageService;
-import com.lionxxw.babasport.core.service.ProductService;
-import com.lionxxw.babasport.core.service.SkuService;
+import com.lionxxw.babasport.core.dto.user.BuyerDto;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.encode.EncodeMd5;
-import com.lionxxw.common.model.PageQuery;
-import com.lionxxw.common.model.PageResult;
 import com.lionxxw.common.utils.StringUtils;
 import com.lionxxw.common.web.SessionProvider;
 import com.octo.captcha.service.image.ImageCaptchaService;
@@ -20,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>Description: 前台登录管理 </p>
@@ -71,6 +63,7 @@ public class FrontLoginController extends BaseController{
     @RequestMapping(value = "login.shtml", method = RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request, String returnUrl, String username, String password, String captcha) throws Exception{
         ModelAndView mv = new ModelAndView();
+        mv.setViewName("/buyer/login");
         if (StringUtils.isTrimEmpty(captcha)){
             mv.addObject("error","请填写验证码");
         }else{
@@ -110,5 +103,12 @@ public class FrontLoginController extends BaseController{
         }
 
         return mv;
+    }
+
+    // 登出
+    @RequestMapping(value = "logout.shtml", method = RequestMethod.GET)
+    public String logout(String returnUrl ,HttpServletRequest request,HttpServletResponse response) throws Exception{
+        sessionProvider.logout(request, response);
+        return "redirect:" + returnUrl;
     }
 }

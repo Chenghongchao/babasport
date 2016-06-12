@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.service;
 
-import com.lionxxw.babasport.core.dto.SkuDto;
+import com.lionxxw.babasport.core.dto.product.SkuDto;
 import com.lionxxw.common.base.BaseService;
 
 import java.util.List;

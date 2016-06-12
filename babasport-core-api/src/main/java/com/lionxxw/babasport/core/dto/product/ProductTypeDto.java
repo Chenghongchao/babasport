@@ -1,20 +1,19 @@
-package com.lionxxw.babasport.core.dto;
+package com.lionxxw.babasport.core.dto.product;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
-public class ColorDto implements Serializable{
+public class ProductTypeDto implements Serializable{
 
     private Integer id;
 
-
     private String name;
-
 
     private Integer parentId;
 
+    private String note;
 
     private Boolean isDisplay;
 }

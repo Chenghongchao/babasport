@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.BrandDto;
+import com.lionxxw.babasport.core.dto.product.BrandDto;
 import com.lionxxw.babasport.core.entity.Brand;
 import com.lionxxw.babasport.core.entity.BrandExample;
 import com.lionxxw.babasport.core.mapper.BrandMapper;

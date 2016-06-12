@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.SkuDto;
+import com.lionxxw.babasport.core.dto.product.SkuDto;
 import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.entity.SkuExample;
 import com.lionxxw.babasport.core.mapper.SkuMapper;

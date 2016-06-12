@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.ProductDto;
+import com.lionxxw.babasport.core.dto.product.ProductDto;
 import com.lionxxw.babasport.core.entity.Product;
 import com.lionxxw.babasport.core.entity.ProductExample;
 import com.lionxxw.babasport.core.entity.ProductWithBLOBs;

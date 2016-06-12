@@ -21,5 +21,16 @@
 		<property name="prefix" value="/WEB-INF/front_page/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
-	
+
+	<!-- 处理器映射器 -->
+	<bean  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<ref bean="frontInterceptor"/>
+		</property>
+	</bean>
+	<!-- 处理器适配器 -->
+	<bean  class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+	<!-- 创建一个拦截器类 -->
+	<bean id="frontInterceptor" class="com.lionxxw.babasport.interceptor.FrontInterceptor"/>
+
 </beans>

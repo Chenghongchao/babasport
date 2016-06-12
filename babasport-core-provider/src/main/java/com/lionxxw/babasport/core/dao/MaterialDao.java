@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.dao;
 
-import com.lionxxw.babasport.core.dto.MaterialDto;
+import com.lionxxw.babasport.core.dto.product.MaterialDto;
 import com.lionxxw.babasport.core.entity.Material;
 import com.lionxxw.babasport.core.entity.MaterialExample;
 import com.lionxxw.babasport.core.mapper.MaterialMapper;

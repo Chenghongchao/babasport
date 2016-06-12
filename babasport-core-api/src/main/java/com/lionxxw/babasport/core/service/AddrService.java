@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.service;
 
-import com.lionxxw.babasport.core.dto.AddrDto;
+import com.lionxxw.babasport.core.dto.user.AddrDto;
 import com.lionxxw.common.base.BaseService;
 
 /**

@@ -1,6 +1,7 @@
 package com.lionxxw.common.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
@@ -40,11 +41,12 @@ public interface SessionProvider {
      * <p>Description: 退出登录 </p>
      * 
      * @param request
+     * @param response
      * @author wangxiang
      * @date 16/6/11 下午3:33
      * @version 1.0
      */
-    void logout(HttpServletRequest request);
+    void logout(HttpServletRequest request, HttpServletResponse response);
     
     /**		
      * <p>Description: 获取sessionId </p>

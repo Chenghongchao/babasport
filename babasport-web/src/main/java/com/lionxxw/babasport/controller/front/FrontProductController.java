@@ -1,10 +1,7 @@
 package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
-import com.lionxxw.babasport.core.dto.*;
-import com.lionxxw.babasport.core.entity.Product;
-import com.lionxxw.babasport.core.entity.ProductImage;
-import com.lionxxw.babasport.core.entity.Sku;
+import com.lionxxw.babasport.core.dto.product.*;
 import com.lionxxw.babasport.core.service.ProductImageService;
 import com.lionxxw.babasport.core.service.ProductService;
 import com.lionxxw.babasport.core.service.SkuService;

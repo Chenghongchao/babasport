@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.core.service.impl;
 
 import com.lionxxw.babasport.core.dao.SizeDao;
-import com.lionxxw.babasport.core.dto.SizeDto;
+import com.lionxxw.babasport.core.dto.product.SizeDto;
 import com.lionxxw.babasport.core.entity.Size;
 import com.lionxxw.babasport.core.service.SizeService;
 import com.lionxxw.common.model.PageQuery;

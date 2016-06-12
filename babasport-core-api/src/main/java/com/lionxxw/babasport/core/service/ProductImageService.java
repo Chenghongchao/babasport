@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.service;
 
-import com.lionxxw.babasport.core.dto.ProductImageDto;
+import com.lionxxw.babasport.core.dto.product.ProductImageDto;
 import com.lionxxw.common.base.BaseService;
 
 /**

@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.controller.back;
 
-import com.lionxxw.babasport.core.dto.SkuDto;
+import com.lionxxw.babasport.core.dto.product.SkuDto;
 import com.lionxxw.babasport.core.service.SkuService;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.model.Response;

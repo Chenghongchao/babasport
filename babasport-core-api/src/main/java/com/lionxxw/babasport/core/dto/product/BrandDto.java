@@ -1,4 +1,4 @@
-package com.lionxxw.babasport.core.dto;
+package com.lionxxw.babasport.core.dto.product;
 
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.utils.StringUtils;

@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.core.service.impl;
 
 import com.lionxxw.babasport.core.dao.MaterialDao;
-import com.lionxxw.babasport.core.dto.MaterialDto;
+import com.lionxxw.babasport.core.dto.product.MaterialDto;
 import com.lionxxw.babasport.core.entity.Material;
 import com.lionxxw.babasport.core.service.MaterialService;
 import com.lionxxw.common.model.PageQuery;

@@ -1,9 +1,9 @@
 package com.lionxxw.babasport.trigger;
 
-import com.lionxxw.babasport.core.dto.ColorDto;
-import com.lionxxw.babasport.core.dto.MaterialDto;
-import com.lionxxw.babasport.core.dto.ProductTypeDto;
-import com.lionxxw.babasport.core.dto.SizeDto;
+import com.lionxxw.babasport.core.dto.product.ColorDto;
+import com.lionxxw.babasport.core.dto.product.MaterialDto;
+import com.lionxxw.babasport.core.dto.product.ProductTypeDto;
+import com.lionxxw.babasport.core.dto.product.SizeDto;
 import com.lionxxw.babasport.core.service.ColorService;
 import com.lionxxw.babasport.core.service.MaterialService;
 import com.lionxxw.babasport.core.service.ProductTypeService;
@@ -14,9 +14,7 @@ import com.lionxxw.common.utils.reflect.DynamicMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 

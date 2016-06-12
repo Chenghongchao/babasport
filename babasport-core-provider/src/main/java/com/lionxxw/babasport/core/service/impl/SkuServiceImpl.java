@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.core.service.impl;
 
 import com.lionxxw.babasport.core.dao.SkuDao;
-import com.lionxxw.babasport.core.dto.SkuDto;
+import com.lionxxw.babasport.core.dto.product.SkuDto;
 import com.lionxxw.babasport.core.entity.Sku;
 import com.lionxxw.babasport.core.service.SkuService;
 import com.lionxxw.common.model.PageQuery;

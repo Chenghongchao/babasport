@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.core.service;
 
-import com.lionxxw.babasport.core.dto.BuyerDto;
+import com.lionxxw.babasport.core.dto.user.BuyerDto;
 import com.lionxxw.common.base.BaseService;
 
 /**

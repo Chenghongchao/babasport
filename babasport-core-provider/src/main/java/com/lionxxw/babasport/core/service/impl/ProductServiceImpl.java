@@ -3,7 +3,7 @@ package com.lionxxw.babasport.core.service.impl;
 import com.lionxxw.babasport.core.dao.ProductDao;
 import com.lionxxw.babasport.core.dao.ProductImageDao;
 import com.lionxxw.babasport.core.dao.SkuDao;
-import com.lionxxw.babasport.core.dto.ProductDto;
+import com.lionxxw.babasport.core.dto.product.ProductDto;
 import com.lionxxw.babasport.core.entity.Product;
 import com.lionxxw.babasport.core.entity.ProductImage;
 import com.lionxxw.babasport.core.entity.ProductWithBLOBs;
