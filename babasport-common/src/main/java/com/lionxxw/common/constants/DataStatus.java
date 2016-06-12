@@ -9,25 +9,31 @@ package com.lionxxw.common.constants;
  */
 public interface DataStatus {
 
-    final static int ENABLED = 1;   // 数据有效
+    int ENABLED = 1;   // 数据有效
 
-    final static int DISABLED = 0;  // 数据无效
+    int DISABLED = 0;  // 数据无效
 
-    final static int SEX_MAN = 0;   // 性别-男
+    int SEX_MAN = 0;   // 性别-男
 
-    final static int SEX_WOMAN = 1; // 性别-女
+    int SEX_WOMAN = 1; // 性别-女
 
-    final static int HTTP_SUCCESS = 200; // http请求成功
+    int HTTP_SUCCESS = 200; // http请求成功
 
-    final static int HTTP_FAILE = 500; // http请求失败
+    int HTTP_FAILE = 500; // http请求失败
 
-    final static String DECODECHARSET = "utf-8";    // 默认字符编码
+    String DECODECHARSET = "utf-8";    // 默认字符编码
 
-    static final String SESSION_EMP = "session_emp"; // 后台员工session key
-    static final String SESSION_USER = "session_user"; // 前台用户session key
+    String SESSION_EMP = "session_emp"; // 后台员工session key
+
+    String SESSION_USER = "session_user"; // 前台用户session key
+    
+    /**
+     * 购物车Cookie
+     */
+    String BUYCART_COOKIE = "buyCart_cookie";
 
     /**
      * 图片服务器
      */
-    static final String IMAGE_URL = "http://localhost:8088/image-web/";
+    String IMAGE_URL = "http://localhost:8088/image-web/";
 }

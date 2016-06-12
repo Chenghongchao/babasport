@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.interceptor;
 
-import com.lionxxw.babasport.core.dto.user.BuyerDto;
+import com.lionxxw.babasport.core.dto.user.Buyer;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.web.SessionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class FrontInterceptor implements HandlerInterceptor {
     public static final String RETURNURL = "returnUrl";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
+        Buyer buyer = (Buyer) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
         if(null != buyer){
             request.setAttribute("isLogin", true);
         }else{
