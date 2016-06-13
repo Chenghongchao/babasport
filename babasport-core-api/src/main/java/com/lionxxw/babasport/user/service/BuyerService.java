@@ -11,4 +11,8 @@ import com.lionxxw.common.base.BaseService;
  * @version 1.0
  */
 public interface BuyerService extends BaseService<BuyerDto>{
+
+    BuyerDto getByUserName(String userName) throws Exception;
+
+    BuyerDto getById(String userName) throws Exception;
 }

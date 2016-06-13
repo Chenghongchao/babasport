@@ -22,6 +22,10 @@ public abstract class MyBatisBaseDao<T> {
 	public T selectByPrimaryKey(Integer id) throws Exception{
 		return (T) DynamicMethod.invokeMethod(getMapper(), "selectByPrimaryKey", new Object[]{id});
 	}
+
+	public T selectByPrimaryKey(String id) throws Exception{
+		return (T) DynamicMethod.invokeMethod(getMapper(), "selectByPrimaryKey", new Object[]{id});
+	}
 	
 	public int insert(T obj) throws Exception{
 //		DynamicMethod.invokeMethod(obj, "setCreateTime", new Object[]{new Date()});

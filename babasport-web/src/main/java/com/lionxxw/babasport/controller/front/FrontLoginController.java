@@ -2,6 +2,7 @@ package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
 import com.lionxxw.babasport.user.dto.BuyerDto;
+import com.lionxxw.babasport.user.service.BuyerService;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.encode.EncodeMd5;
 import com.lionxxw.common.utils.StringUtils;
@@ -31,8 +32,8 @@ public class FrontLoginController extends BaseController{
     private EncodeMd5 encodeMd5;
     @Autowired
     private ImageCaptchaService imageCaptchaService;
-//    @Autowired
-//    private BuyerService buyerService;
+    @Autowired
+    private BuyerService buyerService;
 
     // 登录页面
     @RequestMapping(value = "login.shtml", method = RequestMethod.GET)
@@ -74,12 +75,7 @@ public class FrontLoginController extends BaseController{
                     if (StringUtils.isTrimEmpty(password)){
                         mv.addObject("error","请输入密码");
                     }else{
-                        BuyerDto params = new BuyerDto();
-                        params.setUsername(username);
-                        // TODO 测试
-                        BuyerDto buyer = new BuyerDto();
-                        buyer.setUsername("admin");
-                        buyer.setPassword("305bfce06b8affc456212690586e380b");
+                        BuyerDto buyer = buyerService.getById(username);
                         if (null != buyer){
                             if (encodeMd5.encode(password).equals(buyer.getPassword())){
                                 sessionProvider.setAttribute(request, DataStatus.SESSION_USER, buyer);

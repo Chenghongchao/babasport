@@ -1,6 +1,10 @@
 package com.lionxxw.babasport.user.dto;
 
+import com.lionxxw.common.constants.SexEnum;
+import com.lionxxw.common.utils.ObjectUtils;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,32 +16,48 @@ import java.util.Date;
  * @date 16/6/11 下午10:41
  * @version 1.0
  */
-@Data
 public class BuyerDto implements Serializable {
-	private String username;
+	@Getter
+	@Setter
+	private String userName;
+	@Getter
+	@Setter
 	private String password;
-	private Gender gender;
-	private String email;
-	private String realName;
-	private Date registerTime;
-	private String province;
-	private String city;
-	private String town;
-	private String addr;
-	private Integer isDel;
-	
-	public enum Gender {
-
-		MAN{
-			public String getName(){return "男";}
-		},
-		WOMAN{
-			public String getName(){return "女";}
-		},
-		SECRECY{
-			public String getName(){return "保密";}
-		};
-		
-		public abstract String getName();
+	@Getter
+	private Integer gender;
+	public void setGender(Integer gender) {
+		this.gender = gender;
+		if ( null != gender){
+			setGenderStr(SexEnum.getSexByIndex(gender));
+		}
 	}
+
+	@Getter
+	@Setter
+	private String genderStr;
+
+	@Getter
+	@Setter
+	private String email;
+	@Getter
+	@Setter
+	private String realName;
+	@Getter
+	@Setter
+	private Date registerTime;
+	@Getter
+	@Setter
+	private Integer province;
+	@Getter
+	@Setter
+	private Integer city;
+	@Getter
+	@Setter
+	private Integer town;
+	@Getter
+	@Setter
+	private String addr;
+	@Getter
+	@Setter
+	private Boolean isDel;
 }

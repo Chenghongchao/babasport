@@ -10,6 +10,7 @@
     <module>babasport-core-api</module>
     <module>babasport-core-provider</module>
     <module>babasport-common</module>
+    <module>mybatis-generator</module>
   </modules>
   <packaging>pom</packaging>
 

@@ -58,4 +58,10 @@ public class ExceptionUtils {
             throw new RuntimeException(clz.getSimpleName()+"中"+method+"方法主键id为空!");
         }
     }
+
+    public static void checkIdIsNull(String id, Class clz, String method){
+        if (ObjectUtils.isNull(id)){
+            throw new RuntimeException(clz.getSimpleName()+"中"+method+"方法主键为空!");
+        }
+    }
 }

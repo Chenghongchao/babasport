@@ -8,7 +8,7 @@ package com.lionxxw.common.constants;
  * @time 16/5/6 下午4:44
  */
 public enum SexEnum {
-    MAN(0, "男"),WOMAN(1, "女");
+    MAN(0, "男"),WOMAN(1, "女"),SECRECY(2,"保密");
     private int index;
     private String value;
     SexEnum(int index, String value){
