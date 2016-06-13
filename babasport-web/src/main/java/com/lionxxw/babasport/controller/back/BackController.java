@@ -1,13 +1,13 @@
 package com.lionxxw.babasport.controller.back;
 
-import com.lionxxw.babasport.core.dto.product.ColorDto;
-import com.lionxxw.babasport.core.dto.product.MaterialDto;
-import com.lionxxw.babasport.core.dto.product.ProductTypeDto;
-import com.lionxxw.babasport.core.dto.product.SizeDto;
-import com.lionxxw.babasport.core.service.ColorService;
-import com.lionxxw.babasport.core.service.MaterialService;
-import com.lionxxw.babasport.core.service.ProductTypeService;
-import com.lionxxw.babasport.core.service.SizeService;
+import com.lionxxw.babasport.product.dto.ColorDto;
+import com.lionxxw.babasport.product.dto.MaterialDto;
+import com.lionxxw.babasport.product.dto.ProductTypeDto;
+import com.lionxxw.babasport.product.dto.SizeDto;
+import com.lionxxw.babasport.product.service.ColorService;
+import com.lionxxw.babasport.product.service.MaterialService;
+import com.lionxxw.babasport.product.service.ProductTypeService;
+import com.lionxxw.babasport.product.service.SizeService;
 import com.lionxxw.common.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

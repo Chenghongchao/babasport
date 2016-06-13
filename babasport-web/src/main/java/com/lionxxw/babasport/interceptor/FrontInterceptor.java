@@ -1,6 +1,6 @@
 package com.lionxxw.babasport.interceptor;
 
-import com.lionxxw.babasport.core.dto.user.BuyerDto;
+import com.lionxxw.babasport.user.dto.BuyerDto;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.web.SessionProvider;
 import org.springframework.beans.factory.annotation.Autowired;

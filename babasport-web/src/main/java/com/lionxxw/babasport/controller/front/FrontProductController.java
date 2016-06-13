@@ -1,10 +1,10 @@
 package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
-import com.lionxxw.babasport.core.dto.product.*;
-import com.lionxxw.babasport.core.service.ProductImageService;
-import com.lionxxw.babasport.core.service.ProductService;
-import com.lionxxw.babasport.core.service.SkuService;
+import com.lionxxw.babasport.product.service.ProductImageService;
+import com.lionxxw.babasport.product.service.ProductService;
+import com.lionxxw.babasport.product.service.SkuService;
+import com.lionxxw.babasport.product.dto.*;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;

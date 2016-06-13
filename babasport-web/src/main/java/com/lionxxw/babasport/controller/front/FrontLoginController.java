@@ -1,7 +1,7 @@
 package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
-import com.lionxxw.babasport.core.dto.user.BuyerDto;
+import com.lionxxw.babasport.user.dto.BuyerDto;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.encode.EncodeMd5;
 import com.lionxxw.common.utils.StringUtils;
