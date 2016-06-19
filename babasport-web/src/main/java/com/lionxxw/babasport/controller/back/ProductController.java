@@ -70,8 +70,7 @@ public class ProductController extends BaseBackController{
 
 	// 商品新增
 	@RequestMapping(value = "/product/add.do")
-	public String add(ProductDto product, ProductImageDto image) throws Exception{
-		product.setImage(image);
+	public String add(ProductDto product) throws Exception{
 		productService.save(product);
 		return "redirect:/back/product/list.do";
 	}
@@ -159,9 +158,6 @@ public class ProductController extends BaseBackController{
 		ProductImageDto params = new ProductImageDto();
 		params.setProductId(product.getId());
 		List<ProductImageDto> productImageDtos = imageService.queryByParam(params);
-		if (null != productImageDtos && productImageDtos.size() > 0){
-			product.setImage(productImageDtos.get(0));
-		}
 		return productImageDtos;
 	}
 

@@ -4,6 +4,7 @@ import com.lionxxw.babasport.product.dto.ProductDto;
 import com.lionxxw.babasport.product.entity.Product;
 import com.lionxxw.babasport.product.entity.ProductExample;
 import com.lionxxw.babasport.product.entity.ProductWithBLOBs;
+import com.lionxxw.babasport.product.mapper.ProductExMapper;
 import com.lionxxw.babasport.product.mapper.ProductMapper;
 import com.lionxxw.common.base.MyBatisBaseDao;
 import com.lionxxw.common.model.PageQuery;
@@ -29,8 +30,15 @@ public class ProductDao extends MyBatisBaseDao<ProductWithBLOBs> {
     @Getter
     private ProductMapper mapper;
 
-    public List<Product> queryByParam(ProductDto obj, PageQuery query) throws Exception{
-        ProductExample example = new ProductExample();
+    @Autowired
+    private ProductExMapper exMapper;
+
+    public List<ProductDto> queryByParam(ProductDto obj, PageQuery query) throws Exception{
+        if (StringUtils.isTrimEmpty(obj.getOrderByClause())){
+            obj.setOrderByClause(" p.create_time desc");
+        }
+        return exMapper.selectByParams(obj, query);
+       /* ProductExample example = new ProductExample();
         ProductExample.Criteria criteria = example.createCriteria();
         assemblyParams(obj, criteria);
         if(null != query){
@@ -39,17 +47,18 @@ public class ProductDao extends MyBatisBaseDao<ProductWithBLOBs> {
             example.setOrderByClause("create_time desc");
         }
         List<Product> results = mapper.selectByExample(example);
-        return results;
+        return results;*/
     }
 
     public int countByParam(ProductDto obj) throws Exception{
-        ProductExample example = new ProductExample();
+        return exMapper.countByParams(obj);
+       /* ProductExample example = new ProductExample();
         ProductExample.Criteria criteria = example.createCriteria();
         assemblyParams(obj, criteria);
-        return mapper.countByExample(example);
+        return mapper.countByExample(example);*/
     }
 
-    private void assemblyParams(ProductDto params, ProductExample.Criteria criteria) {
+   /* private void assemblyParams(ProductDto params, ProductExample.Criteria criteria) {
         if (null != params) {
             if (ObjectUtils.notNull(params.getId())){
                 criteria.andIdEqualTo(params.getId());
@@ -73,5 +82,5 @@ public class ProductDao extends MyBatisBaseDao<ProductWithBLOBs> {
                 criteria.andIsShowEqualTo(params.getIsShow());
             }
         }
-    }
+    }*/
 }

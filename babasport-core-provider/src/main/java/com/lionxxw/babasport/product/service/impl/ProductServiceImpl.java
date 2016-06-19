@@ -49,9 +49,7 @@ public class ProductServiceImpl implements ProductService {
         ProductImage image = new ProductImage();
         obj.setId(product.getId());
         image.setProductId(product.getId());
-        if (null != obj.getImage()){
-            image.setUrl(obj.getImage().getUrl());
-        }
+        image.setUrl(obj.getImageUrl());
         imageDao.insertSelective(image);
 
         Sku sku = new Sku();
@@ -101,20 +99,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<ProductDto> queryByParam(ProductDto obj) throws Exception {
-        List<Product> products = productDao.queryByParam(obj, null);
+        return productDao.queryByParam(obj, null);
+        /*List<Product> products = productDao.queryByParam(obj, null);
         if (null != products && products.size() > 0){
             List<ProductDto> list = BeanUtils.createBeanListByTarget(products, ProductDto.class);
             return list;
         }
-        return null;
+        return null;*/
     }
 
     public PageResult<ProductDto> queryByPage(ProductDto obj, PageQuery query) throws Exception {
         int total = productDao.countByParam(obj);
         if (total > 0){
             query.setTotal(total);
-            List<Product> products = productDao.queryByParam(obj, query);
-            List<ProductDto> list = BeanUtils.createBeanListByTarget(products, ProductDto.class);
+            /*List<Product> products = productDao.queryByParam(obj, query);
+            List<ProductDto> list = BeanUtils.createBeanListByTarget(products, ProductDto.class);*/
+            List<ProductDto> list = productDao.queryByParam(obj, query);
             return new PageResult<ProductDto>(query, list);
         }
         return null;

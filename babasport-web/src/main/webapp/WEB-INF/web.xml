@@ -15,12 +15,12 @@
     </listener>
 
     <!-- Oscached Fitter配置 -->
-    <filter>
+    <!--<filter>
         <filter-name>CacheFilter</filter-name>
         <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
         <init-param>
             <param-name>time</param-name>
-            <param-value>7200</param-value><!--2小时 单位秒-->
+            <param-value>7200</param-value>&lt;!&ndash;2小时 单位秒&ndash;&gt;
         </init-param>
         <init-param>
             <param-name>scope</param-name>
@@ -29,8 +29,8 @@
     </filter>
     <filter-mapping>
             <filter-name>CacheFilter</filter-name>
-            <url-pattern>/product/display/*</url-pattern><!--缓存url-->
-    </filter-mapping>
+            <url-pattern>/product/display/*</url-pattern>&lt;!&ndash;缓存url&ndash;&gt;
+    </filter-mapping>-->
 
     <!--springmvc 配置前台-->
     <servlet>

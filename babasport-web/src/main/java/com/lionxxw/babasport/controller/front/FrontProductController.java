@@ -1,20 +1,18 @@
 package com.lionxxw.babasport.controller.front;
 
 import com.lionxxw.babasport.controller.BaseController;
-import com.lionxxw.babasport.product.service.ProductImageService;
-import com.lionxxw.babasport.product.service.ProductService;
-import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.babasport.product.dto.*;
+import com.lionxxw.babasport.product.entity.ProductType;
+import com.lionxxw.babasport.product.service.*;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
+import com.lionxxw.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * <p>Description: 前台商品页面控制层 </p>
@@ -33,15 +31,49 @@ public class FrontProductController extends BaseController{
     private ProductImageService imageService;
     @Autowired
     private SkuService skuService;
+    @Autowired
+    private BrandService brandService;
+    @Autowired
+    private ProductTypeService productTypeService;
+    @Autowired
+    private MaterialService materialService;
 
     //商品列表页面
     // 1.使用oscache页面缓存技术
     // 待实现优化技术.solr
     @RequestMapping(value = "display/list.shtml")
     public ModelAndView list(ProductDto params, PageQuery query) throws Exception{
+        query.setPageSize(12);
         ModelAndView mv = new ModelAndView();
         PageResult<ProductDto> pageResult = productService.queryByPage(params, query);
+        Map<String,String> filterMap = new LinkedHashMap<String, String>();
+        boolean filter = false; // 是否显示过滤条件(默认不显示)
+        if (null == params.getBrandId()){
+            List<BrandDto> brands = brandService.queryByParam(null);
+            mv.addObject("brands", brands);
+        }else{
+            filter = true;
+            filterMap.put("品牌", params.getBrandName());
+        }
+        if (null == params.getTypeId()){
+            List<ProductTypeDto> types = productTypeService.queryByParam(null);
+            mv.addObject("types", types);
+        }else{
+            filter = true;
+            filterMap.put("类型", params.getTypeName());
+        }
+        if (StringUtils.isTrimEmpty(params.getFeature())){
+            List<MaterialDto> materials = materialService.queryByParam(null);
+            mv.addObject("materials", materials);
+        }else{
+            filter = true;
+            filterMap.put("材质", params.getFeatureName());
+        }
+
         mv.addObject("products", pageResult);
+        mv.addObject("params", params);
+        mv.addObject("filter", filter);
+        mv.addObject("filterMap", filterMap);
         mv.setViewName("product/product");
         return mv;
     }
@@ -73,9 +105,6 @@ public class FrontProductController extends BaseController{
         ProductImageDto params = new ProductImageDto();
         params.setProductId(product.getId());
         List<ProductImageDto> productImageDtos = imageService.queryByParam(params);
-        if (null != productImageDtos && productImageDtos.size() > 0){
-            product.setImage(productImageDtos.get(0));
-        }
         return productImageDtos;
     }
 

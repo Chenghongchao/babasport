@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lionxxw.babasport.product.mapper.ProductExMapper" >
+  <resultMap id="BaseResultMap" type="com.lionxxw.babasport.product.dto.ProductDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="is_new" property="isNew" jdbcType="BIT" />
+    <result column="is_hot" property="isHot" jdbcType="BIT" />
+    <result column="is_commend" property="isCommend" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="check_user_id" property="checkUserId" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="BIT" />
+    <result column="is_del" property="isDel" jdbcType="BIT" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="feature" property="feature" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <!--联表查询字段-->
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    p.id, p.no, p.name, p.weight, p.is_new, p.is_hot, p.is_commend, p.create_time, p.create_user_id, p.check_time,
+    p.check_user_id, p.is_show, p.is_del, p.type_id, p.brand_id, p.keywords, p.sales, p.feature, p.color,
+    p.size, i.url as url
+  </sql>
+
+  <sql id="Where_Clause" >
+    <where >
+      i.is_def = 1
+      <if test="params.id != null">
+        AND p.id = #{params.id}
+      </if>
+      <if test="params.no != null and params.no != ''">
+        AND p.no = #{params.no}
+      </if>
+      <if test="params.name != null and params.name != ''">
+        AND p.name like #{params.name}
+      </if>
+      <if test="params.isNew != null">
+        AND p.is_new = #{params.isNew}
+      </if>
+      <if test="params.isHot != null">
+        AND p.is_hot = #{params.isHot}
+      </if>
+      <if test="params.isCommend != null">
+        AND p.is_commend = #{params.isCommend}
+      </if>
+      <if test="params.isShow != null">
+        AND p.is_show = #{params.isShow}
+      </if>
+      <if test="params.isDel != null">
+        AND p.is_del = #{params.isDel}
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="com.lionxxw.babasport.product.dto.ProductDto" >
+    select
+    <include refid="Base_Column_List" />
+    from bbs_product as p inner join bbs_img as i on p.id = i.product_id
+    <include refid="Where_Clause"/>
+    <if test="params.orderByClause != null" >
+      order by ${params.orderByClause}
+    </if>
+    <if test="query != null">
+      limit ${query.startNum},${query.pageSize}
+    </if>
+  </select>
+
+  <select id="countByParams" resultType="java.lang.Integer" parameterType="com.lionxxw.babasport.product.dto.ProductDto" >
+    select count(*)
+    from bbs_product as p inner join bbs_img as i on p.id = i.product_id
+    <include refid="Where_Clause"/>
+  </select>
+</mapper>

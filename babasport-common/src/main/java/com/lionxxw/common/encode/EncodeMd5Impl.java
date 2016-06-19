@@ -33,4 +33,9 @@ public class EncodeMd5Impl implements EncodeMd5{
 
         return new String(encodeHex);
     }
+
+    public static void main(String[] args) {
+        EncodeMd5 md5 = new EncodeMd5Impl();
+        System.out.println(md5.encode("111111"));
+    }
 }
