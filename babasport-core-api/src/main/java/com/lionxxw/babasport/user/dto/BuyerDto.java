@@ -47,13 +47,13 @@ public class BuyerDto implements Serializable {
 	private Date registerTime;
 	@Getter
 	@Setter
-	private Integer province;
+	private String province;
 	@Getter
 	@Setter
-	private Integer city;
+	private String city;
 	@Getter
 	@Setter
-	private Integer town;
+	private String town;
 	@Getter
 	@Setter
 	private String addr;

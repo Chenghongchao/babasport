@@ -81,74 +81,63 @@
 </div>
 
 <div class="w mt ofc">
-		<div class="l wl">
-		<h2 class="h2 h2_l"><em title="交易管理">交易管理</em><cite>&nbsp;</cite></h2>
-		<div class="box bg_gray">
-			<ul class="ul left_nav">
-			<li><a href="../buyer/orders.jsp" title="我的订单">我的订单</a></li>
-			<li><a href="../buyer/orders.jsp" title="退换货订单">退换货订单</a></li>
-			<li><a href="../buyer/orders.jsp" title="我的收藏">我的收藏</a></li>
-			</ul>
-		</div>
-		<h2 class="h2 h2_l mt"><em title="账户管理">账户管理</em><cite>&nbsp;</cite></h2>
-		<div class="box bg_gray">
-			<ul class="ul left_nav">
-			<li><a href="../buyer/profile.jsp" title="个人资料">个人资料</a></li>
-			<li><a href="../buyer/deliver_address.jsp" title="收货地址">收货地址</a></li>
-			<li><a href="../buyer/change_password.jsp" title="修改密码">修改密码</a></li>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="left_menu.jsp" %>
 	<div class="r wr profile">
 
 		<div class="confirm">
 			<div class="tl"></div><div class="tr"></div>
 			<div class="ofc">
 				<h2 class="h2 h2_r2"><em title="个人资料">个人资料</em></h2>
-				<form id="jvForm" action="profile.do" method="post">
+				<form id="jvForm" method="post">
 					<input type="hidden" name="returnUrl" value="${returnUrl}"/>
 					<input type="hidden" name="processUrl" value="${processUrl}"/>
 					<ul class="uls form">
 					<li id="errorName" class="errorTip" style="display:none">${error}</li>
 					<li>
-						<label for="username">用 户 名：</label>
-						<span class="word">fbb2016</span>
+						<label>用 户 名：</label>
+						<span class="word">${buyer.userName}</span>
 					</li>
 					<li>
-						<label for="username">邮　　箱：</label>
-						<span class="word">fbb2014@qq.com</span>
+						<label>邮　　箱：</label>
+						<span class="word">${buyer.email}</span>
 					</li>
 					<li>
 						<label for="realName">真实姓名：</label>
-						<span class="bg_text"><input type="text" id="realName" name="realName" maxLength="32" value="范冰冰"/></span>
-						<span class="pos"><span class="tip okTip">&nbsp;</span></span>
+						<span class="bg_text"><input type="text" id="realName" name="realName" maxLength="20" value="${buyer.realName}"/></span>
+						<%--<span class="pos"><span class="tip okTip">&nbsp;</span></span>--%>
 					</li>
 					<li>
-						<label for="gender">性　　别：</label>
-						<span class="word"><input type="radio" name="gender" checked="checked"/>保密<input type="radio" name="gender" />男<input type="radio" name="gender" />女</span>
+						<label>性　　别：</label>
+						<span class="word"><input type="radio" name="gender" <c:if test="${buyer.gender == 2}">checked="checked"</c:if> value="2"/>保密<input type="radio" name="gender" <c:if test="${buyer.gender == 0}">checked="checked"</c:if> value="0"/>男<input type="radio" name="gender" <c:if test="${buyer.gender == 1}">checked="checked"</c:if> value="1"/>女</span>
 					</li>
 					<li>
-						<label for="residence">居 住 地：</label>
+						<label>居 住 地：</label>
 						<span class="word">
 							<select name="province"  id="province" onchange="changeProvince(this.value)">
 								<option value="" selected>省/直辖市</option>
-								<option value=""></option>
+								<c:forEach items="${provinces}" var="province">
+									<option value="${province.code}">${province.name}</option>
+								</c:forEach>
 							</select>
-							<select name="" id="city">
+							<select name="city" id="city" onchange="changeCity(this.value)">
 								<option value="" selected>城市</option>
-								<option value=""></option>
+								<c:forEach items="${cities}" var="city">
+									<option value="${city.code}">${city.name}</option>
+								</c:forEach>
 							</select>
-							<select name="">
+							<select name="town" id="town">
 								<option value="" selected>县/区</option>
-								<option value=""></option>
+								<c:forEach items="${towns}" var="town">
+									<option value="${town.code}">${town.name}</option>
+								</c:forEach>
 							</select>
 						</span>
 					</li>
-					<li><label for="address">详细地址：</label>
-						<span class="bg_text"><input type="text" id="address" name="address" maxLength="32" value="北京海滨区XXXXXXX"/></span>
-						<span class="pos"><span class="tip errorTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>
+					<li><label for="addr">详细地址：</label>
+						<span class="bg_text"><input type="text" id="addr" name="addr" maxLength="32" value="${buyer.addr}"/></span>
+						<%--<span class="pos"><span class="tip errorTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>--%>
 					</li>
-					<li><label for="">&nbsp;</label><input type="submit" value="保存" class="hand btn66x23" /></li>
+					<li><label for="">&nbsp;</label><input type="button" id="save_btn" value="保存" class="hand btn66x23" /></li>
 					</ul>
 				</form>
 			</div>
@@ -210,5 +199,53 @@
 		</li>
 	</ul>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$("#save_btn").click(function(){
+			save();
+		});
+	});
+
+	function changeProvince(code){
+		var url = '/api/queryCity.do';
+		var params = {"code":code};
+		$.post(url, params,function(result){
+//			console.log(result);
+			var html = '<option value="" selected>城市</option>';
+			if (null != result && result.length > 0){
+				for (var i = 0; i < result.length; i++){
+//				console.log(result[i]);
+					html += '<option value="'+result[i].code+'">'+result[i].name+'</option>';
+				}
+			}
+			$("#city").html(html);
+			$("#town").html('<option value="" selected>县/区</option>');
+		},"json");
+	}
+
+	function changeCity(code){
+		var url = '/api/queryTown.do';
+		var params = {"code":code};
+		$.post(url, params,function(result){
+//			console.log(result);
+			var html = '<option value="" selected>县/区</option>';
+			if (null != result && result.length > 0){
+				for (var i = 0; i < result.length; i++){
+	//				console.log(result[i]);
+					html += '<option value="'+result[i].code+'">'+result[i].name+'</option>';
+				}
+			}
+			$("#town").html(html);
+		},"json");
+	}
+
+	function save(){
+		var data = $("#jvForm").serialize();
+		var url = "/buyer/profile_update.shtml";
+		$.post(url,data,function(result){
+			alert(result.message);
+		},"json");
+	}
+</script>
 </body>
 </html>

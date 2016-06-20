@@ -27,6 +27,7 @@ public class FrontInterceptor implements HandlerInterceptor {
     //返回路径
     public static final String RETURNURL = "returnUrl";
 
+    // 方法前
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
         if(null != buyer){
@@ -36,9 +37,9 @@ public class FrontInterceptor implements HandlerInterceptor {
         }
         String requestURI = request.getRequestURI();
 
-        if(requestURI.contains(INTERCETOR_URL)){
+        if(requestURI.startsWith(INTERCETOR_URL)){
             if(null == buyer){
-                response.sendRedirect("/login.shtml?" + RETURNURL + "=" + requestURI);
+                response.sendRedirect("/login.shtml?" + RETURNURL + "=" + request.getRequestURL());
                 return false;
             }
         }
@@ -46,10 +47,12 @@ public class FrontInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    // 方法后
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
 
     }
 
+    // 页面渲染后
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
     }

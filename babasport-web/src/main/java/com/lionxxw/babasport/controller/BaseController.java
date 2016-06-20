@@ -3,6 +3,8 @@ package com.lionxxw.babasport.controller;
 import com.lionxxw.babasport.service.GeneratePropertiesService;
 import com.lionxxw.babasport.trigger.ParameterTrigger;
 import com.lionxxw.common.utils.PropertiesUtils;
+import com.lionxxw.common.web.SessionProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Properties;
 
@@ -34,4 +36,7 @@ public class BaseController {
         Properties properties = PropertiesUtils.returnProperties(ParameterTrigger._PATH + "/" + name + GeneratePropertiesService.suffix);
         return properties;
     }
+
+    @Autowired
+    public SessionProvider sessionProvider;
 }

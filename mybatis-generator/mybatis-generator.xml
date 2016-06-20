@@ -36,6 +36,9 @@
 	<!--<table tableName="bbs_img" domainObjectName="ProductImage" />
     <table tableName="bbs_product" domainObjectName="Product" />
     <table tableName="bbs_type" domainObjectName="ProductType" />-->
+    <!--<table tableName="bbs_province" domainObjectName="Province" />-->
+    <!--<table tableName="bbs_city" domainObjectName="City" />-->
+    <!--<table tableName="bbs_town" domainObjectName="Town" />-->
     <table tableName="bbs_buyer" domainObjectName="Buyer" />
   </context>
 </generatorConfiguration>
