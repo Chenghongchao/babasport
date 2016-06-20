@@ -316,7 +316,7 @@ function login(){
 							<a href="/html/product/${product.id}.html" title="${product.name}" target="_blank" class="pic"><img src="${product.imageUrl}" alt="${product.name}" /></a>
 							<dl>
 								<!-- dt 10个文字+... -->
-								<dt><a href="/html/product/${product.id}.html" title="${product.name}" target="_blank">${product.name}</a></dt>
+								<dt><a href="/product/detail.shtml?id=${product.id}" title="${product.name}" target="_blank">${product.name}</a></dt>
 								<!-- dt 25个文字+... -->
 								<dd class="h40">${product.name}</dd>
 								<dd class="orange">￥128.00</dd>

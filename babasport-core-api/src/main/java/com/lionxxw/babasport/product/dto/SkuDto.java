@@ -51,4 +51,6 @@ public class SkuDto implements Serializable {
     private Integer skuType;
 
     private Integer sales;
+
+    private ProductDto product;
 }

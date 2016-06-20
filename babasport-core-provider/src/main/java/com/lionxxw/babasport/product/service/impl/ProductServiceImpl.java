@@ -93,9 +93,14 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDto getById(Integer id) throws Exception {
         ExceptionUtils.checkIdIsNull(id, Product.class, "getById");
-        ProductWithBLOBs product = productDao.selectByPrimaryKey(id);
-        ProductDto dto = BeanUtils.createBeanByTarget(product, ProductDto.class);
-        return dto;
+        ProductDto obj = new ProductDto();
+        obj.setId(id);
+        obj.setIsDel(false);
+        List<ProductDto> productDtos = queryByParam(obj);
+        if (null != productDtos && productDtos.size() > 0){
+            return productDtos.get(0);
+        }
+       return  null;
     }
 
     public List<ProductDto> queryByParam(ProductDto obj) throws Exception {

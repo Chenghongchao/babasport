@@ -3,6 +3,7 @@ package com.lionxxw.babasport.product.service.impl;
 import com.lionxxw.babasport.product.dao.SkuDao;
 import com.lionxxw.babasport.product.dto.SkuDto;
 import com.lionxxw.babasport.product.entity.Sku;
+import com.lionxxw.babasport.product.service.ProductService;
 import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.common.model.PageQuery;
 import com.lionxxw.common.model.PageResult;
@@ -25,6 +26,8 @@ public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private SkuDao skuDao;
+    @Autowired
+    private ProductService productService;
 
     public SkuDto save(SkuDto obj) throws Exception {
         ExceptionUtils.checkObjIsNull(obj);
@@ -54,6 +57,7 @@ public class SkuServiceImpl implements SkuService {
         ExceptionUtils.checkIdIsNull(id, Sku.class, "getById");
         Sku sku = skuDao.selectByPrimaryKey(id);
         SkuDto dto = BeanUtils.createBeanByTarget(sku, SkuDto.class);
+        dto.setProduct(productService.getById(sku.getProductId()));
         return dto;
     }
 

@@ -5,10 +5,29 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+
 /**
- * 购物车
- * @author lx
+ * <p>Description: 购物车 </p>
+ * 面向对象,设置购物车
+ * 1.购物车对象
+ * 2.用户可以不登陆
+ * 3.关闭浏览器,再打开的时候还是用之前添加的商品
  *
+ * 存放地点
+ * 1.cookie(方案选择)
+ * 	关闭浏览器依然存在
+ * 2.session
+ * 	关闭浏览器依然存在
+ * 	浪费性能
+ * 3.数据库
+ * 	浪费性能
+ *
+ * 	面向对象的定义:
+ * 		谁拥有数据,谁就拥有对该数据操作的权限
+ *
+ * @author wangxiang
+ * @date 16/6/20 下午4:51
+ * @version 1.0
  */
 public class BuyCart {
 
@@ -18,14 +37,12 @@ public class BuyCart {
 	//继续购物   最后一款
 	private Integer productId;
 	
-	
 	//添加方法
 	public void addItem(BuyItem item){
 		//判断是否重复
 		if(items.contains(item)){
 			for(BuyItem it : items){
 				if(it.equals(item)){
-					//  7     5  3    7
 					int result = it.getAmount() + item.getAmount();
 					if(it.getSku().getStockUpperLimit() >= result){
 						it.setAmount(result);
@@ -34,10 +51,10 @@ public class BuyCart {
 					}
 				}
 			}
-			
 		}else{
-			
-			items.add(item);
+			if (item.getAmount() > 0){
+				items.add(item);
+			}
 		}
 	}
 	//删除一个
@@ -98,6 +115,4 @@ public class BuyCart {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-
-	//小计
 }
