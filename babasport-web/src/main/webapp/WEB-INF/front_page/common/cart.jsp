@@ -62,31 +62,45 @@
 </dl>
 <script type="text/javascript">
   $(function(){
+    initCart();
+  });
+
+  function initCart(){
     var url = '/shopping/getCart.shtml';
     $.get(url,'',function(result){
-      console.log(result);
-      if (null == result || '' == result){
+      if (null == result || '' == result || null == result.items || 0 == result.items.length){
         $("#cart dd").html('<p class="alg_c">购物车中还没有商品，赶紧选购吧！</p>');
         $("#cart_num").html(0);
       }else{
         var html = '<h3 title="最新加入的商品">最新加入的商品</h3><ul class="uls">';
         var productAmount = 0;
         for (var i = 0; i < result.items.length; i++){
-          console.log(result.items);
           var name = result.items[i].sku.product.name;
           var img = result.items[i].sku.product.imageUrl;
           var price = result.items[i].sku.skuPrice;
           var amount = result.items[i].amount;
+          var skuId = result.items[i].sku.id;
           productAmount += amount;
           html += '<li><a href="#" title="'+name+'">';
-          html += ' <img src="'+img+'" alt="'+name+'" /></a>';
+          html += '<img src="'+img+'" alt="'+name+'" /></a>';
           html += '<p class="dt"><a href="#" title="'+name+'">'+name+'</a></p>';
-          html += '<p class="dd"><b><var>¥'+price+'</var><span>x'+amount+'</span></b><a href="javascript:void(0);" title="删除" class="del">删除</a></p></li>';
+          html += '<p class="dd"><b><var>¥'+price+'</var><span>x'+amount+'</span></b><a href="javascript:deleteItem('+skuId+');" title="删除" class="del">删除</a></p></li>';
         }
         html += '</ul>';
         $("#cart dd").html(html);
         $("#cart_num").html(productAmount);
       }
     },"json");
-  });
+  }
+
+  function deleteItem(skuId){
+    if (confirm("你确定删除吗?")){
+      var url = '/shopping/deleteItem.shtml';
+      var params = {"skuId":skuId};
+      $.get(url,params,function(result){
+        alert(result.message);
+        initCart();
+      },"json");
+    }
+  }
 </script>

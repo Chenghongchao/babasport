@@ -118,6 +118,23 @@ public class FrontCartController extends BaseController {
         ResponseUtils.renderJson(response, JsonUtils.toJson(buyCart));
     }
 
+    // ajax 删除某一项
+    @RequestMapping(value = "deleteItem.shtml")
+    public void deleteItem(HttpServletRequest request, Integer skuId, HttpServletResponse response)throws Exception{
+        BuyCart buyCart = getBuyCart(request);
+        if (null != buyCart){
+            SkuDto sku = new SkuDto();
+            sku.setId(skuId);
+            BuyItem buyItem = new BuyItem();
+            buyItem.setSku(sku);
+            buyCart.deleteItem(buyItem);
+            updateCookie(response, buyCart, COOKIE_TIME);
+        }
+        JSONObject json = new JSONObject();
+        json.put("message", "删除成功");
+        ResponseUtils.renderJson(response, json.toString());
+    }
+
     /**
      * <p>Description: 从cookie中获取购物车 </p>
      *
