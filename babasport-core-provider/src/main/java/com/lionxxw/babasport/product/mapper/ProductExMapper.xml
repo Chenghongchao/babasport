@@ -22,6 +22,9 @@
     <result column="feature" property="feature" jdbcType="VARCHAR" />
     <result column="color" property="color" jdbcType="VARCHAR" />
     <result column="size" property="size" jdbcType="VARCHAR" />
+    <!--longtext 类型字段-->
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="package_list" property="packageList" jdbcType="VARCHAR" />
     <!--联表查询字段-->
     <result column="url" property="url" jdbcType="VARCHAR" />
   </resultMap>
@@ -30,6 +33,9 @@
     p.id, p.no, p.name, p.weight, p.is_new, p.is_hot, p.is_commend, p.create_time, p.create_user_id, p.check_time,
     p.check_user_id, p.is_show, p.is_del, p.type_id, p.brand_id, p.keywords, p.sales, p.feature, p.color,
     p.size, i.url as url
+    <if test="params.id != null">
+     , p.description, p.package_list
+    </if>
   </sql>
 
   <sql id="Where_Clause" >

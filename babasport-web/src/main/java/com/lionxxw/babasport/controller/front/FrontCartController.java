@@ -8,6 +8,8 @@ import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.utils.JsonUtils;
 import com.lionxxw.common.utils.ObjectUtils;
+import com.lionxxw.common.utils.ResponseUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,6 +95,27 @@ public class FrontCartController extends BaseController {
         }
 
         return "redirect:/shopping/buyCart.shtml";
+    }
+
+    // 获取购物车信息
+    @RequestMapping(value = "getCart.shtml")
+    public void getCart(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        BuyCart buyCart = getBuyCart(request);
+        if (null == buyCart){
+            ResponseUtils.renderJson(response, "");
+            return;
+        }
+        // 装购物车装满
+        List<BuyItem> items = buyCart.getItems();
+        Properties colorP = colorProperties();
+        Properties sizeP = sizeProperties();
+        for (BuyItem item : items){
+            SkuDto s = skuService.getById(item.getSku().getId());
+            s.setColorName(colorP.getProperty(s.getColorId()+""));
+            s.setSizeName(sizeP.getProperty(s.getSizeId()+""));
+            item.setSku(s);
+        }
+        ResponseUtils.renderJson(response, JsonUtils.toJson(buyCart));
     }
 
     /**

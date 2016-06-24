@@ -1,5 +1,6 @@
 package com.lionxxw.babasport.cart.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @date 16/6/20 下午4:51
  * @version 1.0
  */
-public class BuyCart {
+public class BuyCart implements Serializable{
 
 	//购物项  集合
 	
