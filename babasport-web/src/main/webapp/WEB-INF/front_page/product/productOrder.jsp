@@ -104,7 +104,7 @@ $(function(){
 					<td>${item.sku.product.no}</td>
 					<td class="img48x20">
 						<span class="inb"><img src="${item.sku.product.imageUrl}"></span>
-						<a target="block" href="javascript:void(0);"> ${item.sku.product.name}--${item.sku.colorName}--${item.sku.sizeName}</a>
+						<a target="block" href="javascript:void(0);"> ${fn: substring(item.sku.product.name,0,30)}--${item.sku.colorName}--${item.sku.sizeName}</a>
 					</td>
 					<td>￥${item.sku.skuPrice}元</td>
 					<td>x${item.amount}</td>

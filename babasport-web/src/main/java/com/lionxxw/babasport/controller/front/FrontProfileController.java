@@ -12,6 +12,7 @@ import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.babasport.user.dto.BuyerDto;
 import com.lionxxw.babasport.user.service.BuyerService;
 import com.lionxxw.common.constants.DataStatus;
+import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.ResponseUtils;
 import com.lionxxw.common.utils.StringUtils;
 import com.lionxxw.common.web.SessionProvider;
@@ -105,7 +106,7 @@ public class FrontProfileController extends BaseCartController{
     public ModelAndView trueBuy(HttpServletRequest request, HttpServletResponse response) throws Exception{
         ModelAndView mv = new ModelAndView();
         BuyCart buyCart = getBuyCart(request);
-        if (buyCart == null){
+        if (buyCart == null || ObjectUtils.isEmpty(buyCart.getItems())){
             // 没有商品就跳转购物车页面,放用户自己点击去首页购买
             mv.setViewName("redirect:/shopping/buyCart.shtml");
             return mv;
