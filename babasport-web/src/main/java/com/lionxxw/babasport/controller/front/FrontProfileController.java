@@ -1,10 +1,14 @@
 package com.lionxxw.babasport.controller.front;
 
+import com.lionxxw.babasport.cart.dto.BuyCart;
+import com.lionxxw.babasport.cart.dto.BuyItem;
 import com.lionxxw.babasport.controller.BaseController;
 import com.lionxxw.babasport.country.dto.ProvinceDto;
 import com.lionxxw.babasport.country.service.CityService;
 import com.lionxxw.babasport.country.service.ProvinceService;
 import com.lionxxw.babasport.country.service.TownService;
+import com.lionxxw.babasport.product.dto.SkuDto;
+import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.babasport.user.dto.BuyerDto;
 import com.lionxxw.babasport.user.service.BuyerService;
 import com.lionxxw.common.constants.DataStatus;
@@ -21,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * <p>Description: 用户个人中心 </p>
@@ -31,7 +36,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "buyer")
-public class FrontProfileController extends BaseController{
+public class FrontProfileController extends BaseCartController{
 
     @Autowired
     private BuyerService buyerService;
@@ -41,6 +46,8 @@ public class FrontProfileController extends BaseController{
     private CityService cityService;
     @Autowired
     private TownService townService;
+    @Autowired
+    private SkuService skuService;
 
     //跳转个人中心
     @RequestMapping(value = "index.shtml")
@@ -81,5 +88,54 @@ public class FrontProfileController extends BaseController{
         JSONObject jo = new JSONObject();
         jo.put("message", "保存成功!");
         ResponseUtils.renderJson(response, jo.toString());
+    }
+
+    /**
+     * 购物车结算
+     * 1.登录判断
+     * 2.判断购物车是否有商品
+     * 3.判断购物车中的商品是否还有库存,如果没有库存,删除对应cookie值
+     * 4.刷新cookie,判断购物车是否有商品
+     * 5.加载收货地址
+     * 6.回显购物车商品
+     * @return ModelAndView
+     * @throws Exception
+     */
+    @RequestMapping(value = "trueBuy.shtml")
+    public ModelAndView trueBuy(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        ModelAndView mv = new ModelAndView();
+        BuyCart buyCart = getBuyCart(request);
+        if (buyCart == null){
+            // 没有商品就跳转购物车页面,放用户自己点击去首页购买
+            mv.setViewName("redirect:/shopping/buyCart.shtml");
+            return mv;
+        }
+        // 装购物车装满
+        List<BuyItem> items = buyCart.getItems();
+        Properties colorP = colorProperties();
+        Properties sizeP = sizeProperties();
+        boolean flag = false; // 是否跳转刷新页面,告诉用户某些商品没有库存了
+        for (BuyItem item : items){
+            SkuDto s = skuService.getById(item.getSku().getId());
+            // 判断购物车中的商品是否还有库存,如果没有库存,删除对应cookie值
+            if (s.getStockInventory() >= item.getAmount()){
+                s.setColorName(colorP.getProperty(s.getColorId()+""));
+                s.setSizeName(sizeP.getProperty(s.getSizeId()+""));
+                item.setSku(s);
+            }else{
+                // 删除库存不足的物品
+                buyCart.deleteItem(item);
+                flag = true;
+            }
+        }
+        if (flag){
+            updateCookie(response, buyCart, COOKIE_TIME);
+            mv.setViewName("redirect:/shopping/buyCart.shtml");
+            return mv;
+        }
+        mv.addObject("addr","上海市,闵行区,江文路688号"); // TODO 加载收货地址
+        mv.addObject("buyCart", buyCart);
+        mv.setViewName("/product/productOrder");
+        return mv;
     }
 }

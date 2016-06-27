@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +31,7 @@ import java.util.Properties;
  */
 @Controller
 @RequestMapping(value = "shopping")
-public class FrontCartController extends BaseController {
-
-    private static final int COOKIE_TIME = 60 * 60 * 24; // cookie的保存时间
+public class FrontCartController extends BaseCartController {
 
     @Autowired
     private SkuService skuService;
@@ -133,62 +132,5 @@ public class FrontCartController extends BaseController {
         JSONObject json = new JSONObject();
         json.put("message", "删除成功");
         ResponseUtils.renderJson(response, json.toString());
-    }
-
-    /**
-     * <p>Description: 从cookie中获取购物车 </p>
-     *
-     * @param request
-     * @return BuyCart
-     * @author wangxiang
-     * @date 16/6/20 下午9:03
-     * @version 1.0
-     */
-    private BuyCart getBuyCart(HttpServletRequest request) throws Exception {
-        // 购物车
-        BuyCart buyCart = null;
-        // 判断cookie是否有购物车,
-        Cookie[] cookies = request.getCookies();
-        if (ObjectUtils.notEmpty(cookies)){
-            for (Cookie cookie : cookies){
-                // 有则使用此购物车
-                if (DataStatus.BUYCART_COOKIE.equals(cookie.getName())){
-                    buyCart = JsonUtils.toObject(cookie.getValue(), BuyCart.class);
-                    break;
-                }
-            }
-        }
-        return buyCart;
-    }
-
-    /**
-     * <p>Description: 更新cookie中的值 </p>
-     * 
-     * @param response
-     * @param obj 对象
-     * @param expiry 默认:-1 关闭浏览器消失;消灭:0 立即消失;单位秒
-     * @return
-     * @author wangxiang	
-     * @date 16/6/20 下午9:44
-     * @version 1.0
-     */
-    private void updateCookie(HttpServletResponse response, Object obj, int expiry) throws Exception{
-        // 持久化 对象转json存放cookie中
-        Cookie cookie = new Cookie(DataStatus.BUYCART_COOKIE, JsonUtils.toJson(obj));
-        // 关闭浏览器,也要保存cookie
-        cookie.setMaxAge(expiry);// 默认:-1 关闭浏览器消失;消灭:0 立即消失;单位秒
-        // 路径 /shopping/buyCart.shtml 默认 /shopping
-        cookie.setPath("/");
-        // 发送
-        response.addCookie(cookie);
-    }
-
-    /**
-     * 清空cookie
-     * @param response
-     */
-    private void clearCookie(HttpServletResponse response) throws Exception{
-        // 持久化 对象转json存放cookie中
-        updateCookie(response, null, 0);
     }
 }
