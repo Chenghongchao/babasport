@@ -48,7 +48,7 @@ public class ParameterTrigger {
     /**
      * 初始化配置文件
      */
-    private void init() throws Exception{
+    private void init(){
         logger.info("常用参数配置生成器  ------> init    start....");
         generateColor();
         generateSize();
@@ -57,24 +57,44 @@ public class ParameterTrigger {
         logger.info("常用参数配置生成器  ------> init    end....");
     }
 
-    public void generateColor() throws Exception{
+    public void generateColor(){
         logger.info("常用参数配置生成器 generateColor start....");
-        generatePropertiesService.generateToResource(queryColor(), _PATH, _COLOR, "商品颜色配置");
+        try {
+            generatePropertiesService.generateToResource(queryColor(), _PATH, _COLOR, "商品颜色配置");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("常用参数配置生成器 generateColor 出现异常....");
+        }
         logger.info("常用参数配置生成器 generateColor end....");
     }
-    public void generateSize() throws Exception{
+    public void generateSize(){
         logger.info("常用参数配置生成器 generateSize start....");
-        generatePropertiesService.generateToResource(querySize(), _PATH, _SIZE, "商品尺码配置");
+        try {
+            generatePropertiesService.generateToResource(querySize(), _PATH, _SIZE, "商品尺码配置");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("常用参数配置生成器 generateSize 出现异常....");
+        }
         logger.info("常用参数配置生成器 generateSize end....");
     }
-    public void generateMaterial() throws Exception{
+    public void generateMaterial(){
         logger.info("常用参数配置生成器 generateMaterial start....");
-        generatePropertiesService.generateToResource(queryMaterial(), _PATH, _MATERIAL, "商品材质配置");
+        try {
+            generatePropertiesService.generateToResource(queryMaterial(), _PATH, _MATERIAL, "商品材质配置");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("常用参数配置生成器 generateMaterial 出现异常....");
+        }
         logger.info("常用参数配置生成器 generateMaterial end....");
     }
-    public void generateType() throws Exception{
+    public void generateType(){
         logger.info("常用参数配置生成器 generateType start....");
-        generatePropertiesService.generateToResource(queryType(), _PATH, _TYPE, "商品类型配置");
+        try {
+            generatePropertiesService.generateToResource(queryType(), _PATH, _TYPE, "商品类型配置");
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("常用参数配置生成器 generateType 出现异常....");
+        }
         logger.info("常用参数配置生成器 generateType end....");
     }
 
