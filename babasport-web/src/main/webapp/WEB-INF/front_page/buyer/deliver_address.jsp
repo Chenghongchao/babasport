@@ -48,12 +48,12 @@
 						</thead>
 						<tbody>
 						<c:forEach items="${addrs}" var="addr">
-							<tr class="here">
+							<tr <c:if test="${addr.isDefault}">class="here"</c:if>>
 								<td>${addr.consignee}</td>
-								<td>${addr.provinceId} ${addr.cityId} ${addr.townId}</td>
+								<td>${addr.provinceName} ${addr.cityName} ${addr.townName}</td>
 								<td>${addr.address}</td>
 								<td>${addr.mobile}</td>
-								<td><a href="javascript:void(0);" title="修改" onclick="modify('1')" class="blue">[修改]</a><a href="javascript:void(0);" title="删除" onclick="del(this)" class="blue">[删除]</a></td>
+								<td><a href="javascript:void(0);" title="修改" onclick="modify(${addr.id})" class="blue">[修改]</a><a href="javascript:void(0);" title="删除" onclick="del(this)" class="blue">[删除]</a></td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -63,42 +63,48 @@
 				<h3 class="h3_r">新增/修改收货地址<span>手机、固定电话选填一项，其余均为必填</span></h3>
 
 				<form id="jvForm" method="post">
+					<input type="hidden" name="id" id="addrId" />
 					<ul class="uls form">
 					<li id="errorName" class="errorTip" style="display:none">${error}</li>
 					<li>
-						<label for="username"><samp>*</samp>收货人姓名：</label>
-						<span class="bg_text"><input type="text" id="username" name="username" vld="{required:true}" maxLength="100" /></span>
-						<span class="pos"><span class="tip okTip">&nbsp;</span></span>
+						<label for="consignee"><samp>*</samp>收货人姓名：</label>
+						<span class="bg_text"><input type="text" id="consignee" name="consignee" vld="{required:true}" maxLength="100" /></span>
+						<%--<span class="pos"><span class="tip okTip">&nbsp;</span></span>--%>
 					</li>
 					<li>
-						<label for="residence"><samp>*</samp>地　　址：</label>
+						<label><samp>*</samp>地　　址：</label>
 						<span class="word">
-						<select name="">
+							<input type="hidden" name="provinceName" id="provinceName" />
+						<select name="province" id="province">
 							<option value="" selected>省/直辖市</option>
-							<option value=""></option>
-						</select><select name="">
+							<c:forEach items="${provinces}" var="province">
+								<option value="${province.code}">${province.name}</option>
+							</c:forEach>
+						</select>
+							<input type="hidden" name="cityName" id="cityName" />
+						<select name="city" id="city">
 							<option value="" selected>城市</option>
-							<option value=""></option>
-						</select><select name="">
+						</select>
+							<input type="hidden" name="townName" id="townName" />
+						<select name="town" id="town">
 							<option value="" selected>县/区</option>
-							<option value=""></option>
 						</select></span>
 					</li>
 					<li>
-						<label for="nick"><samp>*</samp>街道地址：</label>
-						<span class="bg_text"><input type="text" id="nick" name="nick" maxLength="32"/></span>
-						<span class="pos"><span class="tip errorTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>
+						<label for="address"><samp>*</samp>街道地址：</label>
+						<span class="bg_text"><input type="text" id="address" name="address" maxLength="32"/></span>
+						<%--<span class="pos"><span class="tip errorTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>--%>
 					</li>
 					<li>
-						<label for="telphone"><samp>*</samp>联系电话：</label>
-						<span class="bg_text"><input type="text" id="telphone" name="telphone" maxLength="32"/></span>
-						<span class="pos"><span class="tip warningTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>
+						<label for="mobile"><samp>*</samp>联系电话：</label>
+						<span class="bg_text"><input type="text" id="mobile" name="mobile" maxLength="32"/></span>
+						<%--<span class="pos"><span class="tip warningTip">用户名为4-20位字母、数字或中文组成，字母区分大小写。</span></span>--%>
 					</li>
 					<li>
-						<label for="statusAddr">&nbsp;</label>
-						<span><input type="checkbox" name="statusAddr" />设为默认收货地址</span>
+						<label for="is_default">&nbsp;</label>
+						<span><input id="is_default" type="checkbox" name="isDefault" value="1" />设为默认收货地址</span>
 					</li>
-					<li><label for="">&nbsp;</label><input type="submit" value="保存" class="hand btn66x23" /></li>
+					<li><label>&nbsp;</label><input type="button" id="save_btn" value="保存" class="hand btn66x23" /></li>
 					</ul>
 				</form>
 			</div>
@@ -108,5 +114,104 @@
 </div>
 
 <%@ include file="../common/footer.jsp" %>
+<script type="text/javascript">
+	$(function(){
+		$("#province").change(function(){
+			var code = $(this).val();
+			changeProvince(code);
+		});
+		$("#city").change(function(){
+			var code = $(this).val();
+			changeCity(code);
+		});
+		$("#save_btn").click(function(){
+			save();
+		});
+	});
+
+	function changeProvince(code, callback){
+		var url = '/api/queryCity.do';
+		var params = {"code":code};
+		$.post(url, params,function(result){
+//			console.log(result);
+			var html = '<option value="" selected>城市</option>';
+			if (null != result && result.length > 0){
+				for (var i = 0; i < result.length; i++){
+//				console.log(result[i]);
+					html += '<option value="'+result[i].code+'">'+result[i].name+'</option>';
+				}
+			}
+			$("#city").html(html);
+			$("#town").html('<option value="" selected>县/区</option>');
+			if (typeof callback === "function"){
+				callback();
+			}
+		},"json");
+	}
+
+	function changeCity(code, callback){
+		var url = '/api/queryTown.do';
+		var params = {"code":code};
+		$.post(url, params,function(result){
+//			console.log(result);
+			var html = '<option value="" selected>县/区</option>';
+			if (null != result && result.length > 0){
+				for (var i = 0; i < result.length; i++){
+					//				console.log(result[i]);
+					html += '<option value="'+result[i].code+'">'+result[i].name+'</option>';
+				}
+			}
+			$("#town").html(html);
+			if (typeof callback === "function"){
+				callback();
+			}
+		},"json");
+	}
+
+	function save(){
+		var provinceName = $("#province option:selected").html();
+		var cityName = $("#city option:selected").html();
+		var townName = $("#town option:selected").html();
+		$("#provinceName").val(provinceName);
+		$("#cityName").val(cityName);
+		$("#townName").val(townName);
+		var data = $("#jvForm").serialize();
+		var url = "/buyer/saveAddr.shtml";
+		$.post(url,data,function(result){
+			alert(result.message);
+			window.location.reload();
+		},"json");
+	}
+
+	function modify(id){
+		$("#jvForm")[0].reset();
+		var url = '/buyer/getAddr.shtml';
+		var params = {"id":id};
+		$.post(url, params,function(result){
+			console.log(result);
+			var addr = result;
+			$("#addrId").val(addr.id);
+			$("#consignee").val(addr.consignee);
+			$("#province").find('option[value="'+addr.province+'"]').attr("selected",true);
+			var fn = function(){
+				$("#city").find('option[value="'+addr.city+'"]').attr("selected",true);
+			};
+			changeProvince(addr.province, fn);
+			var fn2 = function(){
+				$("#town").find('option[value="'+addr.town+'"]').attr("selected",true);
+			};
+			changeCity(addr.city, fn2);
+
+			$("#address").val(addr.address);
+			$("#mobile").val(addr.mobile);
+			if (addr.isDefault){
+				$("#is_default").attr("checked",true);
+			}else{
+				$("#is_default").attr("checked",false);
+			}
+		},"json");
+	}
+
+</script>
 </body>
 </html>

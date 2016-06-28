@@ -14,6 +14,7 @@ import com.lionxxw.babasport.user.dto.DeliveryAddressDto;
 import com.lionxxw.babasport.user.service.BuyerService;
 import com.lionxxw.babasport.user.service.DeliveryAddressService;
 import com.lionxxw.common.constants.DataStatus;
+import com.lionxxw.common.utils.JsonUtils;
 import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.ResponseUtils;
 import com.lionxxw.common.utils.StringUtils;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -97,16 +99,45 @@ public class FrontProfileController extends BaseCartController{
 
     // 用户收货地址
     @RequestMapping(value = "deliver_address.shtml")
-    public ModelAndView deliver_address(HttpServletRequest request) throws Exception{
+    public ModelAndView deliverAddress(HttpServletRequest request) throws Exception{
         BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
         ModelAndView mv = new ModelAndView();
         DeliveryAddressDto param = new DeliveryAddressDto();
         param.setBuyer(buyer.getUserName());
         mv.addObject("addrs", deliveryAddressService.queryByParam(param));
+        mv.addObject("provinces", provinceService.queryByParam(null));
         mv.setViewName("buyer/deliver_address");
         return mv;
     }
 
+    // 保存用户收货地址
+    @RequestMapping(value = "saveAddr.shtml")
+    public void saveAddr(DeliveryAddressDto params, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
+        params.setBuyer(buyer.getUserName());
+        String msg = "保存成功!";
+        // 是否需要重置其他默认收货地
+        if (ObjectUtils.notNull(params.getIsDefault()) && params.getIsDefault()){
+            deliveryAddressService.resetDefault(buyer.getUserName());
+        }
+        if (ObjectUtils.isNull(params.getId())){
+            params.setAddTime(new Date());
+            deliveryAddressService.save(params);
+        }else{
+            msg = "编辑成功!";
+            deliveryAddressService.update(params);
+        }
+        JSONObject jo = new JSONObject();
+        jo.put("message", msg);
+        ResponseUtils.renderJson(response, jo.toString());
+    }
+
+    // 获取用户收货地详细信息
+    @RequestMapping(value = "getAddr.shtml")
+    public void saveAddr(Integer id, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        DeliveryAddressDto addr = deliveryAddressService.getById(id);
+        ResponseUtils.renderJson(response, JsonUtils.toJson(addr));
+    }
     /**
      * 购物车结算
      * 1.登录判断

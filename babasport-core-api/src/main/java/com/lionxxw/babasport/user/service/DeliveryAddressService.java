@@ -11,4 +11,11 @@ import com.lionxxw.common.base.BaseService;
  * @time 16/6/28 上午10:42
  */
 public interface DeliveryAddressService extends BaseService<DeliveryAddressDto> {
+
+    /**
+     * 重置用户下的收货地址为非默认的
+     * @param buyer
+     * @throws Exception
+     */
+    void resetDefault(String buyer) throws Exception;
 }

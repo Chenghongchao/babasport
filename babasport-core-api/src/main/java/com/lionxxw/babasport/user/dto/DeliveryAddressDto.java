@@ -18,15 +18,27 @@ public class DeliveryAddressDto implements Serializable{
 
     @Getter
     @Setter
-    private Integer provinceId;
+    private String province;
 
     @Getter
     @Setter
-    private Integer cityId;
+    private String city;
 
     @Getter
     @Setter
-    private Integer townId;
+    private String town;
+
+    @Getter
+    @Setter
+    private String provinceName;
+
+    @Getter
+    @Setter
+    private String cityName;
+
+    @Getter
+    @Setter
+    private String townName;
 
     @Getter
     @Setter

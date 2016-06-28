@@ -57,4 +57,18 @@ public class DeliveryAddressDao extends MyBatisBaseDao<DeliveryAddress> {
             }
         }
     }
+
+    /**
+     * 重置用户下的收货地址为非默认的
+     * @param buyer
+     * @throws Exception
+     */
+    public void resetDefault(String buyer) throws Exception{
+        DeliveryAddress record = new DeliveryAddress();
+        record.setIsDefault(false);
+        DeliveryAddressExample example = new DeliveryAddressExample();
+        DeliveryAddressExample.Criteria criteria = example.createCriteria();
+        criteria.andBuyerEqualTo(buyer);
+        mapper.updateByExampleSelective(record, example);
+    }
 }

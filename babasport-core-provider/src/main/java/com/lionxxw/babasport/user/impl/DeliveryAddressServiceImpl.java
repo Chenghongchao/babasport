@@ -73,4 +73,8 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService{
         }
         return null;
     }
+
+    public void resetDefault(String buyer) throws Exception {
+        deliveryAddressDao.resetDefault(buyer);
+    }
 }
