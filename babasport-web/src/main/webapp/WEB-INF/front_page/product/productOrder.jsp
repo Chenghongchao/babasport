@@ -43,7 +43,7 @@ $(function(){
 			<c:forEach items="${addrs}" var="addr" varStatus="status">
 				<c:if test="${status.index == 0}">
 					<dl class="distr">
-						<dd>${addr.consignee}   ${addr.mobile} <span style="margin-left: 30px">${addr.provinceId}${addr.cityId}${addr.townId} ${addr.address}</span></dd>
+						<dd>${addr.consignee}   ${addr.mobile} <span style="margin-left: 30px">${addr.provinceName}${addr.cityName}${addr.townName} ${addr.address}</span></dd>
 					</dl>
 				</c:if>
 			</c:forEach>
