@@ -43,87 +43,11 @@ $(function(){
 	        <div class="h-se-btn"><a href="#">搜索</a></div>
 	    </div>
 	</div>
-	<dl id="cart" class="cart r">
-		<dt><a href="#" title="结算">结算</a>购物车:<b id="">5</b>件</dt>
-		<dd class="hidden">
-			<p class="alg_c hidden">购物车中还没有商品，赶紧选购吧！</p>
-			<h3 title="最新加入的商品">最新加入的商品</h3>
-			<ul class="uls">
-				<li>
-					<a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">
-					<img src="/res/img/pic/p50x50.jpg" alt="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元" /></a>
-					<p class="dt"><a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元</a></p>
-					<p class="dd">
-						<b><var>¥128</var><span>x1</span></b>
-						<a href="javascript:void(0);" title="删除" class="del">删除</a>
-					</p>
-				</li>
-				<li>
-					<a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">
-					<img src="/res/img/pic/p50x50.jpg" alt="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元" /></a>
-					<p class="dt"><a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元</a></p>
-					<p class="dd">
-						<b><var>¥128</var><span>x1</span></b>
-						<a href="javascript:void(0);" title="删除" class="del">删除</a>
-					</p>
-				</li>
-				<li>
-					<a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">
-					<img src="/res/img/pic/p50x50.jpg" alt="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元" /></a>
-					<p class="dt"><a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元</a></p>
-					<p class="dd">
-						<b><var>¥128</var><span>x1</span></b>
-						<a href="javascript:void(0);" title="删除" class="del">删除</a>
-					</p>
-				</li>
-				<li>
-					<a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">
-					<img src="/res/img/pic/p50x50.jpg" alt="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元" /></a>
-					<p class="dt"><a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元</a></p>
-					<p class="dd">
-						<b><var>¥128</var><span>x1</span></b>
-						<a href="javascript:void(0);" title="删除" class="del">删除</a>
-					</p>
-				</li>
-				<li>
-					<a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">
-					<img src="/res/img/pic/p50x50.jpg" alt="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元" /></a>
-					<p class="dt"><a href="#" title="依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元">依琦莲2014瑜伽服套装新 瑜珈健身服三件套 广场舞蹈服装 女瑜伽服送胸垫 长袖紫色 M全场支持货到付款 全网最低价 千人超高好评瑜伽服赶紧抢！全五分好评截图联系客服还返现五元</a></p>
-					<p class="dd">
-						<b><var>¥128</var><span>x1</span></b>
-						<a href="javascript:void(0);" title="删除" class="del">删除</a>
-					</p>
-				</li>
-			</ul>
-			<div>
-				<p>共<b>5</b>件商品&nbsp;&nbsp;&nbsp;&nbsp;共计<b class="f20">¥640.00</b></p>
-				<a href="#" title="去购物车结算" class="inb btn120x30c">去购物车结算</a>
-			</div>
-		</dd>
-	</dl>
+	<%@ include file="../common/cart.jsp" %>
 </div>
 
 <div class="w mt ofc">
-	<div class="l wl">
-		
-		<h2 class="h2 h2_l"><em title="交易管理">交易管理</em><cite>&nbsp;</cite></h2>
-		<div class="box bg_gray">
-			<ul class="ul left_nav">
-			<li><a href="../buyer/orders.jsp" title="我的订单">我的订单</a></li>
-			<li><a href="../buyer/orders.jsp" title="退换货订单">退换货订单</a></li>
-			<li><a href="../buyer/orders.jsp" title="我的收藏">我的收藏</a></li>
-			</ul>
-		</div>
-
-		<h2 class="h2 h2_l mt"><em title="账户管理">账户管理</em><cite>&nbsp;</cite></h2>
-		<div class="box bg_gray">
-			<ul class="ul left_nav">
-			<li><a href="../buyer/profile.jsp" title="个人资料">个人资料</a></li>
-			<li><a href="../buyer/deliver_address.jsp" title="收货地址">收货地址</a></li>
-			<li><a href="../buyer/change_password.jsp" title="修改密码">修改密码</a></li>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="left_menu.jsp" %>
 	<div class="r wr profile">
 
 		<div class="confirm">
@@ -163,60 +87,6 @@ $(function(){
 	</div>
 </div>
 
-<div class="mode">
-	<div class="tl"></div><div class="tr"></div>
-	<ul class="uls">
-		<li class="first">
-			<span class="guide"></span>
-			<dl>
-			<dt title="购物指南">购物指南</dt>
-			<dd><a href="#" title="购物流程">购物流程</a></dd>
-			<dd><a href="#" title="购物流程">购物流程</a></dd>
-			<dd><a href="#" target="_blank" title="联系客服">联系客服</a></dd>
-			<dd><a href="#" target="_blank" title="联系客服">联系客服</a></dd>
-			</dl>
-		</li>
-		<li>
-			<span class="way"></span>
-			<dl>
-			<dt title="支付方式">支付方式</dt>
-			<dd><a href="#" title="货到付款">货到付款</a></dd>
-			<dd><a href="#" title="在线支付">在线支付</a></dd>
-			<dd><a href="#" title="分期付款">分期付款</a></dd>
-			<dd><a href="#" title="分期付款">分期付款</a></dd>
-			</dl>
-		</li>
-		<li>
-			<span class="help"></span>
-			<dl>
-			<dt title="配送方式">配送方式</dt>
-			<dd><a href="#" title="上门自提">上门自提</a></dd>
-			<dd><a href="#" title="上门自提">上门自提</a></dd>
-			<dd><a href="#" title="上门自提">上门自提</a></dd>
-			<dd><a href="#" title="上门自提">上门自提</a></dd>
-			</dl>
-		</li>
-		<li>
-			<span class="service"></span>
-			<dl>
-			<dt title="售后服务">售后服务</dt>
-			<dd><a href="#" target="_blank" title="售后策略">售后策略</a></dd>
-			<dd><a href="#" target="_blank" title="售后策略">售后策略</a></dd>
-			<dd><a href="#" target="_blank" title="售后策略">售后策略</a></dd>
-			<dd><a href="#" target="_blank" title="售后策略">售后策略</a></dd>
-			</dl>
-		</li>
-		<li>
-			<span class="problem"></span>
-			<dl>
-			<dt title="特色服务">特色服务</dt>
-			<dd><a href="#" target="_blank" title="夺宝岛">夺宝岛</a></dd>
-			<dd><a href="#" target="_blank" title="夺宝岛">夺宝岛</a></dd>
-			<dd><a href="#" target="_blank" title="夺宝岛">夺宝岛</a></dd>
-			<dd><a href="#" target="_blank" title="夺宝岛">夺宝岛</a></dd>
-			</dl>
-		</li>
-	</ul>
-</div>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

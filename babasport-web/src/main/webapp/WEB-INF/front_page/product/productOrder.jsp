@@ -34,9 +34,20 @@ $(function(){
 <div class="w ofc case">
 	<h2 class="h2 h2_r mt"><em title="收货人信息">收货人信息      [<a href="#"><font style="color:blue;">修改</font></a>]</em><cite></cite></h2>
 	<div class="box bg_white">
-		<dl class="distr">
-			<dd>范冰冰   13888888888 <span style="margin-left: 30px">北京海淀区西三旗 XXXXXXXXXXXXXXXXXXXXXXXXXXX</span></dd>
-		</dl>
+		<c:if test="${fn:length(addrs) <= 0}">
+			<dl class="distr">
+				暂未设置收货地址,请在个人中心处设置
+			</dl>
+		</c:if>
+		<c:if test="${fn:length(addrs) > 0}">
+			<c:forEach items="${addrs}" var="addr" varStatus="status">
+				<c:if test="${status.index == 0}">
+					<dl class="distr">
+						<dd>${addr.consignee}   ${addr.mobile} <span style="margin-left: 30px">${addr.provinceId}${addr.cityId}${addr.townId} ${addr.address}</span></dd>
+					</dl>
+				</c:if>
+			</c:forEach>
+		</c:if>
 	</div>
 	
 	<div class="box bg_white pb">

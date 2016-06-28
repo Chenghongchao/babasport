@@ -39,6 +39,7 @@
     <!--<table tableName="bbs_province" domainObjectName="Province" />-->
     <!--<table tableName="bbs_city" domainObjectName="City" />-->
     <!--<table tableName="bbs_town" domainObjectName="Town" />-->
-    <table tableName="bbs_buyer" domainObjectName="Buyer" />
+    <!--<table tableName="bbs_buyer" domainObjectName="Buyer" />-->
+    <table tableName="bbs_delivery_address" domainObjectName="DeliveryAddress" />
   </context>
 </generatorConfiguration>

@@ -10,7 +10,9 @@ import com.lionxxw.babasport.country.service.TownService;
 import com.lionxxw.babasport.product.dto.SkuDto;
 import com.lionxxw.babasport.product.service.SkuService;
 import com.lionxxw.babasport.user.dto.BuyerDto;
+import com.lionxxw.babasport.user.dto.DeliveryAddressDto;
 import com.lionxxw.babasport.user.service.BuyerService;
+import com.lionxxw.babasport.user.service.DeliveryAddressService;
 import com.lionxxw.common.constants.DataStatus;
 import com.lionxxw.common.utils.ObjectUtils;
 import com.lionxxw.common.utils.ResponseUtils;
@@ -49,6 +51,8 @@ public class FrontProfileController extends BaseCartController{
     private TownService townService;
     @Autowired
     private SkuService skuService;
+    @Autowired
+    private DeliveryAddressService deliveryAddressService;
 
     //跳转个人中心
     @RequestMapping(value = "index.shtml")
@@ -68,7 +72,7 @@ public class FrontProfileController extends BaseCartController{
         mv.addObject("provinces", provinceService.queryByParam(null));
         if (StringUtils.notTrimEmpty(buyer.getProvince())){
             mv.addObject("cities", cityService.queryByProvince(buyer.getProvince()));
-            mv.addObject("town", townService.queryByCity(buyer.getCity()));
+            mv.addObject("towns", townService.queryByCity(buyer.getCity()));
         }
         mv.setViewName("buyer/profile");
         return mv;
@@ -89,6 +93,18 @@ public class FrontProfileController extends BaseCartController{
         JSONObject jo = new JSONObject();
         jo.put("message", "保存成功!");
         ResponseUtils.renderJson(response, jo.toString());
+    }
+
+    // 用户收货地址
+    @RequestMapping(value = "deliver_address.shtml")
+    public ModelAndView deliver_address(HttpServletRequest request) throws Exception{
+        BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
+        ModelAndView mv = new ModelAndView();
+        DeliveryAddressDto param = new DeliveryAddressDto();
+        param.setBuyer(buyer.getUserName());
+        mv.addObject("addrs", deliveryAddressService.queryByParam(param));
+        mv.setViewName("buyer/deliver_address");
+        return mv;
     }
 
     /**
@@ -134,7 +150,11 @@ public class FrontProfileController extends BaseCartController{
             mv.setViewName("redirect:/shopping/buyCart.shtml");
             return mv;
         }
-        mv.addObject("addr","上海市,闵行区,江文路688号"); // TODO 加载收货地址
+        BuyerDto buyer = (BuyerDto) sessionProvider.getAttribute(request, DataStatus.SESSION_USER);
+        DeliveryAddressDto param = new DeliveryAddressDto();
+        param.setBuyer(buyer.getUserName());
+        List<DeliveryAddressDto> deliveryAddressDtos = deliveryAddressService.queryByParam(param);
+        mv.addObject("addrs", deliveryAddressDtos); // 添加用户收货地址
         mv.addObject("buyCart", buyCart);
         mv.setViewName("/product/productOrder");
         return mv;
